@@ -90,6 +90,7 @@
         <a href="#leadership" class="nav-link">Leadership</a>
         <a href="#welfare-wing" class="nav-link">Welfare Wing</a>
         <a href="#activities" class="nav-link">Activities</a>
+        <a href="#resources" class="nav-link">Resources</a>
         <a href="#gallery" class="nav-link">Gallery</a>
         <a href="#contact" class="nav-link">Contact</a>
       </nav>
@@ -808,6 +809,36 @@
       </div>
     </section>
 
+    <!-- Resources Section (Study Vault) -->
+    <section id="resources" class="reveal">
+      <div class="section-container">
+        <span class="section-tag">Study Vault</span>
+        <h2 class="section-title">SQA & Testing Resource Library</h2>
+        <p class="section-desc">Curated learning guides, cheatsheets for automation testing, QA templates, and interview prep sheets for Software Engineering students.</p>
+
+        <!-- Search & Category controls -->
+        <div class="members-filter-controls">
+          <div class="search-input-wrapper">
+            <i class="fa-solid fa-magnifying-glass search-icon"></i>
+            <input type="text" id="resource-search" class="search-input" placeholder="Search resources by title or description...">
+          </div>
+          <div class="filters-wrapper">
+            <select id="filter-resource-cat" class="filter-select">
+              <option value="all">All Categories</option>
+              <option value="cheatsheets">Cheatsheets</option>
+              <option value="templates">QA Templates</option>
+              <option value="interview">Interview Prep</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Resources Grid -->
+        <div class="dynamic-members-grid" id="resources-grid-target">
+          <!-- Dynamically populated by app.js -->
+        </div>
+      </div>
+    </section>
+
     <!-- Gallery Section -->
     <section id="gallery" class="reveal">
       <div class="section-container">
@@ -985,6 +1016,32 @@
     </div>
   </div>
 
+  <!-- Resource Viewer Modal -->
+  <div class="modal-overlay" id="resource-modal">
+    <div class="modal-card" style="max-width: 750px; width: 95%;">
+      <button class="modal-close" id="resource-modal-close-btn" aria-label="Close Modal"><i class="fa-solid fa-xmark"></i></button>
+      <div class="modal-header" style="align-items: flex-start; text-align: left; margin-bottom: 20px;">
+        <div class="contact-icon" style="margin-bottom: 12px; width: 48px; height: 48px; font-size: 1.25rem; background-color: var(--border-subtle); color: var(--primary); display: flex; align-items: center; justify-content: center; border-radius: var(--radius-md);"><i class="" id="resource-modal-icon"></i></div>
+        <h3 id="resource-modal-title" style="font-size: 1.5rem; font-family: var(--font-title); font-weight: 700; color: var(--text-primary); margin-top: 4px;">Resource Title</h3>
+        <div class="modal-pos" id="resource-modal-category" style="margin-top: 4px; text-transform: uppercase; font-size: 0.8rem; font-weight: 700; color: var(--primary); letter-spacing: 1px;">Cheatsheet</div>
+      </div>
+      
+      <!-- Content Area -->
+      <div id="resource-modal-content" style="max-height: 45vh; overflow-y: auto; background-color: var(--bg-primary); border: 1px solid var(--border-glass); border-radius: var(--radius-lg); padding: 20px; font-size: 0.9rem; line-height: 1.6; margin-bottom: 24px; color: var(--text-secondary); text-align: left;">
+        <!-- Code block or text layout goes here -->
+      </div>
+      
+      <div class="modal-actions" style="justify-content: flex-end; display: flex; gap: 12px;">
+        <button class="btn btn-secondary" id="resource-modal-copy-btn" style="padding: 10px 20px; font-size: 0.9rem;">
+          <i class="fa-regular fa-copy"></i> Copy Content
+        </button>
+        <button class="btn btn-primary" id="resource-modal-close-action-btn" style="padding: 10px 20px; font-size: 0.9rem;">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+
   <!-- Lightbox (For Gallery Images) -->
   <div class="lightbox" id="gallery-lightbox">
     <div class="lightbox-content">
@@ -1002,6 +1059,7 @@
   <!-- Load Scripts -->
   <script src="js/members.js"></script>
   <script src="js/gallery.js"></script>
+  <script src="js/resources.js"></script>
   <script src="js/app.js"></script>
 </body>
 

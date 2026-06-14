@@ -414,7 +414,184 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // 10. SCROLL LINK HIGHLIGHTING
+  // 11. DYNAMIC SQA & TESTING RESOURCES
+  const resourcesGridTarget = document.getElementById("resources-grid-target");
+  const resourceSearchInput = document.getElementById("resource-search");
+  const filterResourceCatSelect = document.getElementById("filter-resource-cat");
+
+  // Resource Viewer Modal references
+  const resourceModal = document.getElementById("resource-modal");
+  const resourceModalCloseBtn = document.getElementById("resource-modal-close-btn");
+  const resourceModalCloseActionBtn = document.getElementById("resource-modal-close-action-btn");
+  const resourceModalCopyBtn = document.getElementById("resource-modal-copy-btn");
+  
+  const resourceModalIcon = document.getElementById("resource-modal-icon");
+  const resourceModalTitle = document.getElementById("resource-modal-title");
+  const resourceModalCategory = document.getElementById("resource-modal-category");
+  const resourceModalContent = document.getElementById("resource-modal-content");
+
+  let activeResourceData = ""; // Plain text for clipboard copies
+
+  const renderResources = (filteredResources) => {
+    if (!resourcesGridTarget) return;
+    resourcesGridTarget.innerHTML = "";
+
+    if (filteredResources.length === 0) {
+      resourcesGridTarget.innerHTML = `<div class="no-results">No resources found matching the criteria.</div>`;
+      return;
+    }
+
+    filteredResources.forEach(res => {
+      const card = document.createElement("div");
+      card.className = "board-card glow-card reveal visible"; // Force visible
+      card.innerHTML = `
+        <div class="contact-icon" style="margin-bottom: 16px; width: 56px; height: 56px; border-radius: var(--radius-md); font-size: 1.5rem; background-color: var(--border-subtle); color: var(--primary); display: flex; align-items: center; justify-content: center;"><i class="${res.icon}"></i></div>
+        <div class="board-info" style="flex-grow: 1; display: flex; flex-direction: column; width: 100%;">
+          <h4 style="margin-bottom: 8px;">${res.title}</h4>
+          <div class="board-pos" style="font-size: 0.8rem; margin: 0 0 8px; text-transform: uppercase;">${res.category}</div>
+          <p style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5; flex-grow: 1; text-align: center;">${res.desc}</p>
+        </div>
+        <button class="btn btn-secondary btn-view-resource" style="padding: 8px 20px; font-size: 0.85rem; margin-top: 16px; width: 100%;">
+          Open Vault
+        </button>
+      `;
+
+      const viewBtn = card.querySelector(".btn-view-resource");
+      viewBtn.addEventListener("click", () => {
+        openResourceModal(res);
+      });
+
+      resourcesGridTarget.appendChild(card);
+    });
+
+    // Reinitialize mouse glow coordinates
+    initCardGlowEvents();
+  };
+
+  const openResourceModal = (res) => {
+    if (!resourceModal) return;
+
+    resourceModalIcon.className = res.icon;
+    resourceModalTitle.textContent = res.title;
+    resourceModalCategory.textContent = res.category;
+
+    // Render content depending on format type
+    let htmlContent = "";
+    let plainText = "";
+
+    if (res.content.type === "code") {
+      htmlContent = `<pre style="font-family: monospace; white-space: pre-wrap; font-size: 0.85rem; color: var(--primary); overflow-x: auto; background: rgba(var(--primary-rgb), 0.05); padding: 16px; border-radius: var(--radius-md); border: 1px solid var(--border-light);">${escapeHtml(res.content.data)}</pre>`;
+      plainText = res.content.data;
+    } else if (res.content.type === "table") {
+      let tableHtml = `<table style="width: 100%; border-collapse: collapse; font-size: 0.85rem;"><thead><tr style="border-bottom: 2px solid var(--border-glass);">`;
+      
+      res.content.data.headers.forEach(h => {
+        tableHtml += `<th style="padding: 8px; text-align: left; font-weight: 700;">${h}</th>`;
+      });
+      tableHtml += `</tr></thead><tbody>`;
+
+      res.content.data.rows.forEach(row => {
+        tableHtml += `<tr style="border-bottom: 1px solid var(--border-light);">`;
+        row.forEach(cell => {
+          tableHtml += `<td style="padding: 8px; vertical-align: top; white-space: pre-line;">${cell}</td>`;
+        });
+        tableHtml += `</tr>`;
+      });
+      tableHtml += `</tbody></table>`;
+      htmlContent = tableHtml;
+
+      // Generate markdown representation for copy
+      plainText = "| " + res.content.data.headers.join(" | ") + " |\n";
+      plainText += "| " + res.content.data.headers.map(() => "---").join(" | ") + " |\n";
+      res.content.data.rows.forEach(row => {
+        plainText += "| " + row.map(cell => cell.replace(/\n/g, " ")).join(" | ") + " |\n";
+      });
+    } else {
+      // Standard parsed text layout
+      let parsedText = res.content.data
+        .replace(/### (.*)/g, '<h4 style="font-size: 1.1rem; color: var(--primary); margin: 16px 0 8px;">$1</h4>')
+        .replace(/\*\*(.*)\*\*/g, '<strong>$1</strong>')
+        .replace(/\* (.*)/g, '<li style="margin-left: 16px; list-style-type: disc; margin-bottom: 6px;">$1</li>');
+      
+      htmlContent = `<div>${parsedText}</div>`;
+      plainText = res.content.data;
+    }
+
+    resourceModalContent.innerHTML = htmlContent;
+    activeResourceData = plainText;
+
+    // Reset copy button status
+    resourceModalCopyBtn.innerHTML = `<i class="fa-regular fa-copy"></i> Copy Content`;
+
+    resourceModal.classList.add("active");
+    document.body.style.overflow = "hidden";
+  };
+
+  const closeResourceModal = () => {
+    if (resourceModal) {
+      resourceModal.classList.remove("active");
+      document.body.style.overflow = "";
+    }
+  };
+
+  const escapeHtml = (text) => {
+    return text
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+  };
+
+  if (resourceModalCloseBtn) resourceModalCloseBtn.addEventListener("click", closeResourceModal);
+  if (resourceModalCloseActionBtn) resourceModalCloseActionBtn.addEventListener("click", closeResourceModal);
+  
+  if (resourceModal) {
+    resourceModal.addEventListener("click", (e) => {
+      if (e.target === resourceModal) {
+        closeResourceModal();
+      }
+    });
+  }
+
+  if (resourceModalCopyBtn) {
+    resourceModalCopyBtn.addEventListener("click", () => {
+      navigator.clipboard.writeText(activeResourceData).then(() => {
+        resourceModalCopyBtn.innerHTML = `<i class="fa-solid fa-check" style="color: var(--accent);"></i> Copied!`;
+        setTimeout(() => {
+          resourceModalCopyBtn.innerHTML = `<i class="fa-regular fa-copy"></i> Copy Content`;
+        }, 2000);
+      }).catch(err => {
+        console.error("Failed to copy text: ", err);
+      });
+    });
+  }
+
+  // Filter & Search SQA Resources
+  const performResourceFiltering = () => {
+    if (!window.SQAT_RESOURCES) return;
+
+    const searchVal = resourceSearchInput ? resourceSearchInput.value.toLowerCase().trim() : "";
+    const selectedCat = filterResourceCatSelect ? filterResourceCatSelect.value : "all";
+
+    const filtered = window.SQAT_RESOURCES.filter(res => {
+      const matchSearch = res.title.toLowerCase().includes(searchVal) || res.desc.toLowerCase().includes(searchVal);
+      const matchCat = selectedCat === "all" || res.category === selectedCat;
+      return matchSearch && matchCat;
+    });
+
+    renderResources(filtered);
+  };
+
+  if (resourceSearchInput) resourceSearchInput.addEventListener("input", performResourceFiltering);
+  if (filterResourceCatSelect) filterResourceCatSelect.addEventListener("change", performResourceFiltering);
+
+  // Initial render of SQA resources
+  if (window.SQAT_RESOURCES) {
+    renderResources(window.SQAT_RESOURCES);
+  }
+
+  // 10. SCROLL LINK HIGHLIGHTING & NAVIGATION OBSERVER
   const sections = document.querySelectorAll("section[id]");
   
   const scrollActiveLinkObserver = new IntersectionObserver((entries) => {
