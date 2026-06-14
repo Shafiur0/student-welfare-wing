@@ -193,6 +193,25 @@
   .footer-container {
     grid-template-columns: 1fr;
     gap: 32px;
+    text-align: center;
+  }
+
+  .footer-brand {
+    align-items: center;
+    text-align: center;
+  }
+
+  .footer-brand .logo-block {
+    justify-content: center;
+  }
+
+  .footer-links-list {
+    align-items: center;
+  }
+
+  .footer-links-list a {
+    justify-content: center;
+    width: 100%;
   }
 
   .footer-bottom {
@@ -213,6 +232,50 @@
   }
 }
 
+/* Breakpoint for Mobile Layouts specifically (max-width: 576px) */
+@media (max-width: 576px) {
+  .board-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .members-filter-controls {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+    padding: 16px;
+  }
+
+  .filters-wrapper {
+    flex-direction: column;
+    width: 100%;
+    gap: 12px;
+  }
+
+  .filter-select {
+    width: 100%;
+  }
+
+  .gallery-filter-tabs {
+    justify-content: flex-start;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    padding-bottom: 8px;
+    margin-bottom: 24px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    gap: 8px;
+  }
+
+  .gallery-filter-tabs::-webkit-scrollbar {
+    display: none;
+  }
+
+  .gallery-tab {
+    flex-shrink: 0;
+  }
+}
+
 /* Extra small devices check */
 @media (max-width: 480px) {
   .logo-title {
@@ -229,3 +292,4 @@
     font-size: 1.85rem;
   }
 }
+
