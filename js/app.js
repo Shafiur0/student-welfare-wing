@@ -126,7 +126,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   }, {
-    threshold: 0.1,
+    threshold: 0.01,
     rootMargin: "0px 0px -50px 0px"
   });
 
@@ -607,8 +607,8 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   }, {
-    threshold: 0.3,
-    rootMargin: "-10% 0px -60% 0px"
+    threshold: 0,
+    rootMargin: "-20% 0px -60% 0px"
   });
 
   sections.forEach(s => scrollActiveLinkObserver.observe(s));
