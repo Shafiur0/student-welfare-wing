@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- SEO Meta Tags -->
+  <title>Student Welfare Wing | SQAT Club, Daffodil International University</title>
+  <meta name="description"
+    content="Official website of the Student Welfare Wing of Software Quality Assurance & Testing Club (SQAT), Daffodil International University. Supporting and guiding students in their academic and personal development.">
+  <meta name="keywords"
+    content="SQAT Club, Student Welfare, Daffodil International University, Software Quality Assurance, DIU SWE, DIU CSE, Student Welfare Wing">
+  <meta name="author" content="Shafiur Rahman Shafim">
+
+  <!-- OpenGraph Meta Tags -->
+  <meta property="og:title" content="Student Welfare Wing | SQAT Club, DIU">
+  <meta property="og:description"
+    content="Official website of the Student Welfare Wing of SQAT Club, Daffodil International University. Discover our team, programs, and welfare initiatives.">
+  <meta property="og:type" content="website">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+
+  <!-- FontAwesome CDN for Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Preconnect for Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+</head>
+
+<body>
+
+  <!-- Loading Screen -->
+  <div id="loading-screen">
+    <div class="loader-logo">SQAT WELFARE</div>
+    <div class="loader-bar"></div>
+  </div>
+
+  <!-- Background Canvas Decoration -->
+  <div class="bg-decorations">
+    <div class="floating-blob blob-1"></div>
+    <div class="floating-blob blob-2"></div>
+    <div class="floating-blob blob-3"></div>
+  </div>
+  <div class="bg-grid"></div>
+
+  <!-- Scroll Progress Bar -->
+  <div class="scroll-progress" id="scroll-progress-bar"></div>
+
+  <!-- Navigation Header -->
+  <header>
+    <div class="nav-container">
+      <a href="#" class="logo-block">
+        <div class="logo-placeholder">Q</div>
+        <div class="logo-text">
+          <span class="logo-title">SQAT Club</span>
+          <span class="logo-subtitle">Student Welfare Wing</span>
+        </div>
+      </a>
+
+      <nav class="nav-menu" id="nav-menu">
+        <a href="#home" class="nav-link active">Home</a>
+        <a href="#leadership" class="nav-link">Leadership</a>
+        <a href="#welfare-wing" class="nav-link">Welfare Wing</a>
+        <a href="#activities" class="nav-link">Activities</a>
+        <a href="#gallery" class="nav-link">Gallery</a>
+        <a href="#contact" class="nav-link">Contact</a>
+      </nav>
+
+      <div class="nav-actions">
+        <button class="theme-toggle" id="theme-toggle-btn" aria-label="Toggle Theme">
+          <i class="fa-solid fa-moon moon-icon"></i>
+          <i class="fa-solid fa-sun sun-icon"></i>
+        </button>
+        <button class="menu-toggle" id="menu-toggle-btn" aria-label="Open Menu">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Body Content -->
+  <main>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+      <div class="section-container">
+        <div class="hero-logos reveal">
+          <!-- DIU SVG Logo Placeholder -->
+          <svg width="50" height="50" viewBox="0 0 100 100" class="hero-logo" aria-label="DIU Logo">
+            <polygon points="50,10 90,80 10,80" fill="none" stroke="currentColor" stroke-width="8"
+              stroke-linejoin="round" />
+            <circle cx="50" cy="53" r="16" fill="currentColor" />
+          </svg>
+          <!-- SQAT SVG Logo Placeholder -->
+          <svg width="50" height="50" viewBox="0 0 100 100" class="hero-logo" aria-label="SQAT Logo">
+            <rect x="15" y="15" width="70" height="70" rx="15" fill="none" stroke="var(--primary)" stroke-width="8" />
+            <polyline points="35,50 45,60 65,40" fill="none" stroke="var(--primary)" stroke-width="10"
+              stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </div>
+        <h1 class="hero-title reveal"><span class="gradient-text">Empowering Students</span><br>Shaping Quality Leaders
+        </h1>
+        <p class="hero-tagline reveal">Welcome to the Student Welfare Wing of Daffodil International University's
+          Software Quality Assurance & Testing Club. We stand for support, inclusion, and academic excellence.</p>
+        <div class="hero-actions reveal">
+          <a href="#welfare-wing" class="btn btn-primary">Meet Our Team <i class="fa-solid fa-arrow-right"></i></a>
+          <a href="#activities" class="btn btn-secondary">Explore Activities</a>
+        </div>
+
+        <!-- Hero Stats Cards -->
+        <div class="stats-grid reveal">
+          <div class="stat-card glow-card">
+            <div class="stat-num" data-target="50">0</div>
+            <div class="stat-label">Active Members</div>
+          </div>
+          <div class="stat-card glow-card">
+            <div class="stat-num" data-target="12">0</div>
+            <div class="stat-label">Programs Organized</div>
+          </div>
+          <div class="stat-card glow-card">
+            <div class="stat-num" data-target="30">0</div>
+            <div class="stat-label">Active Volunteers</div>
+          </div>
+          <div class="stat-card glow-card">
+            <div class="stat-num" data-target="150">0</div>
+            <div class="stat-label">Welfare Initiatives</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Leadership Messages Section -->
+    <section id="leadership" class="reveal">
+      <div class="section-container">
+        <span class="section-tag">Leadership Message</span>
+        <h2 class="section-title">Messages from Wing Patrons</h2>
+        <p class="section-desc">Guiding the Student Welfare Wing towards excellence, equity, and empathetic student
+          support.</p>
+
+        <div class="leadership-spotlight">
+          <!-- Convener -->
+          <div class="spotlight-card glow-card">
+            <div class="spotlight-header">
+              <div class="spotlight-img-wrapper">
+                <img src="assets/members/suhag_ali.jpg" alt="Mr. Md. Suhag Ali" class="spotlight-img">
+              </div>
+              <div class="spotlight-identity">
+                <h4>Mr. Md. Suhag Ali</h4>
+                <div class="spotlight-position">Convener</div>
+                <div class="spotlight-desc">Senior Lecturer, Department of Software Engineering, Daffodil International
+                  University</div>
+              </div>
+            </div>
+            <div class="spotlight-message">
+              "At SQAT Club, we prioritize the holisitic development and well-being of our students. The Student Welfare
+              Wing is a cornerstone in ensuring every student has access to guidance, support, and resources to thrive
+              academically and socially in our university ecosystem."
+            </div>
+          </div>
+
+          <!-- Co-Convener -->
+          <div class="spotlight-card glow-card">
+            <div class="spotlight-header">
+              <div class="spotlight-img-wrapper">
+                <img src="assets/members/fariha_fairooz.jpg" alt="Ms. Quazi Fariha Fairooz" class="spotlight-img">
+              </div>
+              <div class="spotlight-identity">
+                <h4>Ms. Quazi Fariha Fairooz</h4>
+                <div class="spotlight-position">Co-Convener</div>
+                <div class="spotlight-desc">Lecturer, Department of Software Engineering, Daffodil International
+                  University</div>
+              </div>
+            </div>
+            <div class="spotlight-message">
+              "We strive to foster a safe, inclusive, and collaborative environment. This wing acts as a bridge,
+              ensuring that student concerns are voiced, addressed promptly, and handled with utmost care and
+              transparency."
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Executive Leadership Section -->
+    <section class="reveal">
+      <div class="section-container">
+        <span class="section-tag">Executive Board</span>
+        <h2 class="section-title">Executive Leadership</h2>
+        <p class="section-desc">The driving force of the SQAT Club, overseeing central administrative decisions and wing
+          support.</p>
+
+        <div class="board-grid">
+          <!-- President -->
+          <div class="board-card glow-card">
+            <div class="board-img-wrapper">
+              <img src="assets/members/biva.jpg" alt="Biva Mohosina" class="board-img">
+            </div>
+            <div class="board-info">
+              <h4>Biva Mohosina</h4>
+              <div class="board-pos">President</div>
+              <div class="board-detail">Department of SWE</div>
+            </div>
+            <div class="social-links">
+              <a href="https://www.facebook.com/biva.mohosina/" class="social-btn" aria-label="Facebook" target="_blank"
+                rel="noopener"><i class="fa-brands fa-facebook-f"></i></a>
+              <a href="#" class="social-btn" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+            </div>
+          </div>
+
+          <!-- VP 1 -->
+          <div class="board-card glow-card">
+            <div class="board-img-wrapper">
+              <img src="assets/members/tanvir.jpg" alt="Muhammad Tanvir Ahmed" class="board-img">
+            </div>
+            <div class="board-info">
+              <h4>Muhammad Tanvir Ahmed</h4>
+              <div class="board-pos">Vice President</div>
+              <div class="board-detail">Department of SWE</div>
+            </div>
+            <div class="social-links">
+              <a href="#" class="social-btn" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+              <a href="#" class="social-btn" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+            </div>
+          </div>
+
+          <!-- VP 2 -->
+          <div class="board-card glow-card">
+            <div class="board-img-wrapper">
+              <img src="assets/members/hasib.jpg" alt="S. M. Hasib Hasnain" class="board-img">
+            </div>
+            <div class="board-info">
+              <h4>S. M. Hasib Hasnain</h4>
+              <div class="board-pos">Vice President</div>
+              <div class="board-detail">Department of SWE</div>
+            </div>
+            <div class="social-links">
+              <a href="#" class="social-btn" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+              <a href="#" class="social-btn" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+            </div>
+          </div>
+
+          <!-- GS -->
+          <div class="board-card glow-card">
+            <div class="board-img-wrapper">
+              <img src="assets/members/seam.jpg" alt="Seam Ahmed" class="board-img">
+            </div>
+            <div class="board-info">
+              <h4>Seam Ahmed</h4>
+              <div class="board-pos">General Secretary</div>
+              <div class="board-detail">Department of SWE</div>
+            </div>
+            <div class="social-links">
+              <a href="https://www.facebook.com/seam.ahmed.928298" class="social-btn" aria-label="Facebook"
+                target="_blank" rel="noopener"><i class="fa-brands fa-facebook-f"></i></a>
+              <a href="#" class="social-btn" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+            </div>
+          </div>
+
+          <!-- JS 1 -->
+          <div class="board-card glow-card">
+            <div class="board-img-wrapper">
+              <img src="assets/members/riaz.jpg" alt="Imrul Kayes Riaz" class="board-img">
+            </div>
+            <div class="board-info">
+              <h4>Imrul Kayes Riaz</h4>
+              <div class="board-pos">Joint Secretary</div>
+              <div class="board-detail">Department of SWE</div>
+            </div>
+            <div class="social-links">
+              <a href="#" class="social-btn" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+              <a href="#" class="social-btn" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+            </div>
+          </div>
+
+          <!-- JS 2 -->
+          <div class="board-card glow-card">
+            <div class="board-img-wrapper">
+              <img src="assets/members/abir.jpg" alt="B. M. Abir Hassan" class="board-img">
+            </div>
+            <div class="board-info">
+              <h4>B. M. Abir Hassan</h4>
+              <div class="board-pos">Joint Secretary</div>
+              <div class="board-detail">Department of SWE</div>
+            </div>
+            <div class="social-links">
+              <a href="https://www.facebook.com/bmabir02z" class="social-btn" aria-label="Facebook" target="_blank"
+                rel="noopener"><i class="fa-brands fa-facebook-f"></i></a>
+              <a href="#" class="social-btn" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Secretarial Team Section -->
+    <section class="reveal">
+      <div class="section-container">
+        <span class="section-tag">SQAT Secretariats</span>
+        <h2 class="section-title">Secretarial Officers</h2>
+        <p class="section-desc">Leading operational roles and coordinating projects across diverse wings of the SQAT
+          Club.</p>
+
+        <div class="board-grid">
+          <!-- Student Welfare -->
+          <div class="board-card glow-card">
+            <div class="board-img-wrapper">
+              <img src="assets/members/liza.jpg" alt="Liza Akter" class="board-img">
+            </div>
+            <div class="board-info">
+              <h4>Liza Akter</h4>
+              <div class="board-pos">Student Welfare Secretary</div>
+              <div class="board-detail">Department of SWE</div>
+            </div>
+            <div class="social-links">
+              <a href="https://www.facebook.com/Lizaaaaaa85" class="social-btn" aria-label="Facebook" target="_blank"
+                rel="noopener"><i class="fa-brands fa-facebook-f"></i></a>
+              <a href="#" class="social-btn" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+            </div>
+          </div>
+
+          <!-- Women Welfare -->
+          <div class="board-card glow-card">
+            <div class="board-img-wrapper">
+              <img src="assets/members/nisha.jpg" alt="Tasfia Jahan Nisha" class="board-img">
+            </div>
+            <div class="board-info">
+              <h4>Tasfia Jahan Nisha</h4>
+              <div class="board-pos">Women Welfare Secretary</div>
+              <div class="board-detail">Department of SWE</div>
+            </div>
+            <div class="social-links">
+              <a href="#" class="social-btn" aria-label="Contact"><i class="fa-solid fa-envelope"></i></a>
+              <a href="#" class="social-btn" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+            </div>
+          </div>
+
+          <!-- Office & Org -->
+          <div class="board-card glow-card">
+            <div class="board-img-wrapper">
+              <img src="assets/members/trisha.jpg" alt="Rukaiya Akter Trisha" class="board-img">
+            </div>
+            <div class="board-info">
+              <h4>Rukaiya Akter Trisha</h4>
+              <div class="board-pos">Office & Organization Secretary</div>
+              <div class="board-detail">Department of SWE</div>
+            </div>
+            <div class="social-links">
+              <a href="#" class="social-btn" aria-label="Contact"><i class="fa-solid fa-envelope"></i></a>
+              <a href="#" class="social-btn" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+            </div>
+          </div>
+
+          <!-- Media & Press -->
+          <div class="board-card glow-card">
+            <div class="board-img-wrapper">
+              <img src="assets/members/nazir.jpg" alt="Emran Nazir" class="board-img">
+            </div>
+            <div class="board-info">
+              <h4>Emran Nazir</h4>
+              <div class="board-pos">Media & Press Secretary</div>
+              <div class="board-detail">Department of SWE</div>
+            </div>
+            <div class="social-links">
+              <a href="#" class="social-btn" aria-label="Contact"><i class="fa-solid fa-envelope"></i></a>
+              <a href="#" class="social-btn" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+            </div>
+          </div>
+
+          <!-- HR -->
+          <div class="board-card glow-card">
+            <div class="board-img-wrapper">
+              <img src="assets/members/rizvi.jpg" alt="Rizvi Sarker" class="board-img">
+            </div>
+            <div class="board-info">
+              <h4>Rizvi Sarker</h4>
+              <div class="board-pos">HR Secretary</div>
+              <div class="board-detail">Department of SWE</div>
+            </div>
+            <div class="social-links">
+              <a href="#" class="social-btn" aria-label="Contact"><i class="fa-solid fa-envelope"></i></a>
+              <a href="#" class="social-btn" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+            </div>
+          </div>
+
+          <!-- Sports -->
+          <div class="board-card glow-card">
+            <div class="board-img-wrapper">
+              <img src="assets/members/tahmid.jpg" alt="Arshed Tahmid" class="board-img">
+            </div>
+            <div class="board-info">
+              <h4>Arshed Tahmid</h4>
+              <div class="board-pos">Sports Secretary</div>
+              <div class="board-detail">Department of SWE</div>
+            </div>
+            <div class="social-links">
+              <a href="#" class="social-btn" aria-label="Contact"><i class="fa-solid fa-envelope"></i></a>
+              <a href="#" class="social-btn" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+            </div>
+          </div>
+
+          <!-- Cultural -->
+          <div class="board-card glow-card">
+            <div class="board-img-wrapper">
+              <img src="assets/members/toshi.jpg" alt="Tasmin Jahan Toshi" class="board-img">
+            </div>
+            <div class="board-info">
+              <h4>Tasmin Jahan Toshi</h4>
+              <div class="board-pos">Cultural Secretary</div>
+              <div class="board-detail">Department of SWE</div>
+            </div>
+            <div class="social-links">
+              <a href="#" class="social-btn" aria-label="Contact"><i class="fa-solid fa-envelope"></i></a>
+              <a href="#" class="social-btn" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+            </div>
+          </div>
+
+          <!-- Program Organising -->
+          <div class="board-card glow-card">
+            <div class="board-img-wrapper">
+              <img src="assets/members/saif.jpg" alt="Saif Al Sad" class="board-img">
+            </div>
+            <div class="board-info">
+              <h4>Saif Al Sad</h4>
+              <div class="board-pos">Program Organising Secretary</div>
+              <div class="board-detail">Department of SWE</div>
+            </div>
+            <div class="social-links">
+              <a href="#" class="social-btn" aria-label="Contact"><i class="fa-solid fa-envelope"></i></a>
+              <a href="#" class="social-btn" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+            </div>
+          </div>
+
+          <!-- Creative -->
+          <div class="board-card glow-card">
+            <div class="board-img-wrapper">
+              <img src="assets/members/sourav.jpg" alt="Sourav Dipto Apu" class="board-img">
+            </div>
+            <div class="board-info">
+              <h4>Sourav Dipto Apu</h4>
+              <div class="board-pos">Creative Secretary</div>
+              <div class="board-detail">Department of SWE</div>
+            </div>
+            <div class="social-links">
+              <a href="#" class="social-btn" aria-label="Contact"><i class="fa-solid fa-envelope"></i></a>
+              <a href="#" class="social-btn" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+            </div>
+          </div>
+
+          <!-- Industrial -->
+          <div class="board-card glow-card">
+            <div class="board-img-wrapper">
+              <img src="assets/members/nadim.jpg" alt="Nadim Rahman" class="board-img">
+            </div>
+            <div class="board-info">
+              <h4>Nadim Rahman</h4>
+              <div class="board-pos">Industrial Secretary</div>
+              <div class="board-detail">Department of SWE</div>
+            </div>
+            <div class="social-links">
+              <a href="#" class="social-btn" aria-label="Contact"><i class="fa-solid fa-envelope"></i></a>
+              <a href="#" class="social-btn" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+            </div>
+          </div>
+
+          <!-- Treasurer -->
+          <div class="board-card glow-card">
+            <div class="board-img-wrapper">
+              <img src="assets/members/shraboni.jpg" alt="Sumaiya Akter Shraboni" class="board-img">
+            </div>
+            <div class="board-info">
+              <h4>Sumaiya Akter Shraboni</h4>
+              <div class="board-pos">Treasurer</div>
+              <div class="board-detail">Department of SWE</div>
+            </div>
+            <div class="social-links">
+              <a href="#" class="social-btn" aria-label="Contact"><i class="fa-solid fa-envelope"></i></a>
+              <a href="#" class="social-btn" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Student Welfare Wing Highlight Section -->
+    <section id="welfare-wing" class="student-welfare-wing-section reveal">
+      <div class="section-container">
+        <span class="section-tag" style="background-color: rgba(255,255,255,0.15)">Special Highlight</span>
+        <h2 class="section-title">Student Welfare Wing</h2>
+        <p class="section-desc">A highly focused department of the SQAT Club, dedicated entirely to supporting student
+          well-being and resource coordination.</p>
+
+        <!-- Wing Leadership -->
+        <h3 class="section-tag" style="display: table; margin: 32px auto 24px;">Wing Leadership</h3>
+
+        <div class="wing-leadership-grid">
+          <!-- Secretary -->
+          <div class="secretary-container">
+            <div class="secretary-card animated-border-card">
+              <div class="board-img-wrapper">
+                <img src="assets/members/liza.jpg" alt="Liza Akter" class="board-img">
+              </div>
+              <div class="board-info">
+                <h4>Liza Akter</h4>
+                <div class="board-pos" style="font-size: 1rem;">Secretary</div>
+                <div class="board-detail">Department of SWE</div>
+                <div class="social-links">
+                  <a href="https://www.facebook.com/Lizaaaaaa85" class="social-btn" target="_blank" rel="noopener"><i
+                      class="fa-brands fa-facebook-f"></i></a>
+                  <a href="#" class="social-btn"><i class="fa-brands fa-linkedin-in"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Deputy Secretary 1 -->
+          <div class="board-card animated-border-card">
+            <div class="board-img-wrapper">
+              <img src="assets/members/shafim.jpg" alt="Shafiur Rahman Shafim" class="board-img">
+            </div>
+            <div class="board-info">
+              <h4>Shafiur Rahman Shafim</h4>
+              <div class="board-pos">Deputy Secretary</div>
+              <div class="board-detail">Department of SWE</div>
+            </div>
+            <div class="social-links">
+              <a href="https://www.facebook.com/shafiurrahaman.shafim" class="social-btn" target="_blank"
+                rel="noopener"><i class="fa-brands fa-facebook-f"></i></a>
+              <a href="https://www.linkedin.com/in/shafiur-rahman-shafim/" class="social-btn" target="_blank"
+                rel="noopener"><i class="fa-brands fa-linkedin-in"></i></a>
+            </div>
+          </div>
+
+          <!-- Deputy Secretary 2 -->
+          <div class="board-card animated-border-card">
+            <div class="board-img-wrapper">
+              <img src="assets/members/nur.jpg" alt="Nur Mohammad" class="board-img">
+            </div>
+            <div class="board-info">
+              <h4>Nur Mohammad</h4>
+              <div class="board-pos">Deputy Secretary</div>
+              <div class="board-detail">Department of SWE</div>
+            </div>
+            <div class="social-links">
+              <a href="#" class="social-btn"><i class="fa-brands fa-facebook-f"></i></a>
+              <a href="#" class="social-btn"><i class="fa-brands fa-linkedin-in"></i></a>
+            </div>
+          </div>
+
+          <!-- Deputy Secretary 3 -->
+          <div class="board-card animated-border-card">
+            <div class="board-img-wrapper">
+              <img src="assets/members/rayhan.jpg" alt="Rayhan Chowdhury" class="board-img">
+            </div>
+            <div class="board-info">
+              <h4>Rayhan Chowdhury</h4>
+              <div class="board-pos">Deputy Secretary</div>
+              <div class="board-detail">Department of SWE</div>
+            </div>
+            <div class="social-links">
+              <a href="#" class="social-btn"><i class="fa-brands fa-facebook-f"></i></a>
+              <a href="#" class="social-btn"><i class="fa-brands fa-linkedin-in"></i></a>
+            </div>
+          </div>
+
+          <!-- Deputy Secretary 4 -->
+          <div class="board-card animated-border-card">
+            <div class="board-img-wrapper">
+              <img src="assets/members/sadequl.jpg" alt="Md. Sadequl Islam" class="board-img">
+            </div>
+            <div class="board-info">
+              <h4>Md. Sadequl Islam</h4>
+              <div class="board-pos">Deputy Secretary</div>
+              <div class="board-detail">Department of SWE</div>
+            </div>
+            <div class="social-links">
+              <a href="#" class="social-btn"><i class="fa-brands fa-facebook-f"></i></a>
+              <a href="#" class="social-btn"><i class="fa-brands fa-linkedin-in"></i></a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Dynamic Wing Members Directory -->
+        <h3 class="section-tag" style="display: table; margin: 0 auto 24px;">Wing Members Directory</h3>
+
+        <!-- Search & Dynamic Filtering controls -->
+        <div class="members-filter-controls">
+          <div class="search-input-wrapper">
+            <i class="fa-solid fa-magnifying-glass search-icon"></i>
+            <input type="text" id="member-search" class="search-input" placeholder="Search members by name...">
+          </div>
+          <div class="filters-wrapper">
+            <select id="filter-dept" class="filter-select">
+              <option value="all">All Departments</option>
+              <option value="Software Engineering">Software Engineering</option>
+              <option value="Computer Science & Engineering">CSE</option>
+              <option value="Information Technology">Information Technology</option>
+            </select>
+            <select id="filter-session" class="filter-select">
+              <option value="all">All Sessions</option>
+              <option value="Spring 2023">Spring 2023</option>
+              <option value="Summer 2023">Summer 2023</option>
+              <option value="Fall 2023">Fall 2023</option>
+              <option value="Spring 2024">Spring 2024</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Render Target for Dynamic Cards -->
+        <div class="dynamic-members-grid" id="members-grid-target">
+          <!-- Populated by JS -->
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Activities Section -->
+    <section id="activities" class="reveal">
+      <div class="section-container">
+        <span class="section-tag">Activities</span>
+        <h2 class="section-title">Support and Campaigns</h2>
+        <p class="section-desc">We coordinate blood donations, organize support circles, and assist with academic
+          growth.</p>
+
+        <div class="activities-grid">
+          <!-- Activity 1 -->
+          <div class="activity-card glow-card">
+            <div class="activity-img-wrapper">
+              <img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&q=80&w=600"
+                alt="Welfare Distribution" class="activity-img">
+            </div>
+            <div class="activity-content">
+              <div class="activity-date">Ongoing</div>
+              <h4 class="activity-title">Welfare Programs</h4>
+              <p class="activity-desc">Providing financial guidance, basic educational supplies, and support for
+                students experiencing crisis during semesters.</p>
+            </div>
+          </div>
+
+          <!-- Activity 2 -->
+          <div class="activity-card glow-card">
+            <div class="activity-img-wrapper">
+              <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&q=80&w=600"
+                alt="Student Support" class="activity-img">
+            </div>
+            <div class="activity-content">
+              <div class="activity-date">Weekly</div>
+              <h4 class="activity-title">Student Support Activities</h4>
+              <p class="activity-desc">Mentorship circles matching senior students in SQA with juniors, assisting in
+                career guidelines and exam prep.</p>
+            </div>
+          </div>
+
+          <!-- Activity 3 -->
+          <div class="activity-card glow-card">
+            <div class="activity-img-wrapper">
+              <img src="https://images.unsplash.com/photo-1615461066841-6116e61058f4?auto=format&fit=crop&q=80&w=600"
+                alt="Blood Donation" class="activity-img">
+            </div>
+            <div class="activity-content">
+              <div class="activity-date">24/7 Hotline</div>
+              <h4 class="activity-title">Blood Donation Campaigns</h4>
+              <p class="activity-desc">Maintaining a central blood donor database of SQAT club volunteers to assist
+                emergency requests from students and DIU families.</p>
+            </div>
+          </div>
+
+          <!-- Activity 4 -->
+          <div class="activity-card glow-card">
+            <div class="activity-img-wrapper">
+              <img src="https://images.unsplash.com/photo-1515187029135-18ee286d815b?auto=format&fit=crop&q=80&w=600"
+                alt="Volunteer Program" class="activity-img">
+            </div>
+            <div class="activity-content">
+              <div class="activity-date">Annual</div>
+              <h4 class="activity-title">Volunteer Programs</h4>
+              <p class="activity-desc">Bootcamps designed to teach volunteer communication, leadership qualities,
+                teamwork, and program organization skills.</p>
+            </div>
+          </div>
+
+          <!-- Activity 5 -->
+          <div class="activity-card glow-card">
+            <div class="activity-img-wrapper">
+              <img src="https://images.unsplash.com/photo-1593113598332-cd288d649433?auto=format&fit=crop&q=80&w=600"
+                alt="Community Service" class="activity-img">
+            </div>
+            <div class="activity-content">
+              <div class="activity-date">Events</div>
+              <h4 class="activity-title">Community Service</h4>
+              <p class="activity-desc">Extending care outside the DIU walls via clean campus initiatives, orphanage
+                visits, and basic tech literacy drives.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="reveal">
+      <div class="section-container">
+        <span class="section-tag">Media Gallery</span>
+        <h2 class="section-title">Moments of Impact</h2>
+        <p class="section-desc">Glimpses of activities organized by SQAT Club's Student Welfare Wing.</p>
+
+        <!-- Category Filter Tabs -->
+        <div class="gallery-filter-tabs">
+          <button class="gallery-tab active" data-filter="all">All Photos</button>
+          <button class="gallery-tab" data-filter="welfare">Welfare</button>
+          <button class="gallery-tab" data-filter="support">Support</button>
+          <button class="gallery-tab" data-filter="blood">Blood Donation</button>
+          <button class="gallery-tab" data-filter="volunteering">Volunteering</button>
+          <button class="gallery-tab" data-filter="community">Community</button>
+        </div>
+
+        <!-- Gallery Target Grid -->
+        <div class="gallery-masonry" id="gallery-grid-target">
+          <!-- Populated dynamically by gallery.js and app.js -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="reveal">
+      <div class="section-container">
+        <span class="section-tag">Get In Touch</span>
+        <h2 class="section-title">We are Here to Listen</h2>
+        <p class="section-desc">Reach out if you need assistance, would like to volunteer, or want to contribute to our
+          wing initiatives.</p>
+
+        <div class="contact-grid">
+          <!-- Contact Info Cards -->
+          <div class="contact-info-block">
+            <div class="contact-card glow-card contact-item">
+              <div class="contact-icon"><i class="fa-solid fa-envelope"></i></div>
+              <div class="contact-details">
+                <h5>Email Us</h5>
+                <p><a href="mailto:info@daffodilvarsity.edu.bd">info@daffodilvarsity.edu.bd</a></p>
+                <p><a href="mailto:sqat.welfare@diu.edu.bd">sqat.welfare@diu.edu.bd</a></p>
+              </div>
+            </div>
+
+            <div class="contact-card glow-card contact-item">
+              <div class="contact-icon"><i class="fa-brands fa-facebook"></i></div>
+              <div class="contact-details">
+                <h5>Official Facebook Page</h5>
+                <p><a href="https://www.facebook.com/profile.php?id=61561800885287" target="_blank"
+                    rel="noopener">facebook.com/SQATClubDIU</a></p>
+              </div>
+            </div>
+
+            <div class="contact-card glow-card contact-item">
+              <div class="contact-icon"><i class="fa-solid fa-location-dot"></i></div>
+              <div class="contact-details">
+                <h5>University Location</h5>
+                <p>Software Quality Assurance & Testing Club (SQAT),</p>
+                <p>SWE Department, Daffodil Smart City,</p>
+                <p>Birulia, Savar, Dhaka, Bangladesh</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Embed Google Maps with Premium Styling -->
+          <div class="map-container">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3648.3756285496464!2d90.32014167512015!3d23.876274478586047!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755c23dd1255555%3A0x1d75d33e9d892d52!2sDaffodil%20International%20University!5e0!3m2!1sen!2sbd!4v1718300000000!5m2!1sen!2sbd"
+              class="map-iframe" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+              title="Daffodil International University Location Map">
+            </iframe>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-brand">
+        <a href="#" class="logo-block" style="margin-bottom: 8px;">
+          <div class="logo-placeholder">Q</div>
+          <div class="logo-text">
+            <span class="logo-title">SQAT Club</span>
+            <span class="logo-subtitle">Student Welfare Wing</span>
+          </div>
+        </a>
+        <p class="footer-desc">Empowering students through academic support, inclusion campaigns, blood donation drives,
+          and active leadership development at Daffodil International University.</p>
+      </div>
+
+      <div class="footer-links-col">
+        <h4>Quick Links</h4>
+        <div class="footer-links-list">
+          <a href="#home">Home</a>
+          <a href="#leadership">Patron Messages</a>
+          <a href="#welfare-wing">Welfare Wing</a>
+          <a href="#activities">Activities</a>
+          <a href="#gallery">Gallery</a>
+          <a href="#contact">Contact</a>
+        </div>
+      </div>
+
+      <div class="footer-links-col">
+        <h4>Social Connections</h4>
+        <div class="footer-links-list">
+          <a href="https://daffodilvarsity.edu.bd" target="_blank" rel="noopener"><i
+              class="fa-solid fa-graduation-cap" style="width:20px;"></i> DIU Website</a>
+          <a href="https://www.facebook.com/daffodilvarsity.edu.bd/" target="_blank" rel="noopener"><i
+              class="fa-brands fa-facebook-f" style="width:20px;"></i> DIU Facebook</a>
+          <a href="https://www.linkedin.com/school/daffodil-international-university/" target="_blank" rel="noopener"><i
+              class="fa-brands fa-linkedin-in" style="width:20px;"></i> DIU LinkedIn</a>
+          <a href="mailto:info@daffodilvarsity.edu.bd"><i class="fa-solid fa-envelope" style="width:20px;"></i> Support
+            Email</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="footer-copyright-info">
+        <p>&copy; 2026 SQAT Club, Daffodil International University. All Rights Reserved.</p>
+        <p>Affiliated with Software Engineering Department, DIU</p>
+      </div>
+
+      <!-- Standard Simple Modern Developer Credit -->
+      <div class="footer-developer-credit">
+        <span>Designed & Developed by</span>
+        <a href="https://shafiur-rahaman-shafim.vercel.app/" target="_blank" rel="noopener" class="dev-name">Shafiur
+          Rahman Shafim</a>
+        <div class="dev-credit-socials">
+          <a href="https://shafiur-rahaman-shafim.vercel.app/" target="_blank" rel="noopener" title="Portfolio"><i
+              class="fa-solid fa-globe"></i></a>
+          <a href="https://github.com/Shafiur0" target="_blank" rel="noopener" title="GitHub"><i
+              class="fa-brands fa-github"></i></a>
+          <a href="https://www.linkedin.com/in/shafiur-rahman-shafim/" target="_blank" rel="noopener"
+            title="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+          <a href="https://www.facebook.com/shafiurrahaman.shafim" target="_blank" rel="noopener" title="Facebook"><i
+              class="fa-brands fa-facebook-f"></i></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- View Profile Modal (For Wing Members) -->
+  <div class="modal-overlay" id="profile-modal">
+    <div class="modal-card">
+      <button class="modal-close" id="modal-close-btn" aria-label="Close Modal"><i
+          class="fa-solid fa-xmark"></i></button>
+      <div class="modal-header">
+        <div class="modal-img-wrapper">
+          <img src="" alt="" id="modal-user-img" class="modal-img">
+        </div>
+        <h3 id="modal-user-name">Member Name</h3>
+        <div class="modal-pos" id="modal-user-pos">Welfare Volunteer</div>
+      </div>
+      <div class="modal-body-list">
+        <div class="modal-info-item">
+          <span class="modal-info-label">Department</span>
+          <span class="modal-info-val" id="modal-user-dept">Software Engineering</span>
+        </div>
+        <div class="modal-info-item">
+          <span class="modal-info-label">Session</span>
+          <span class="modal-info-val" id="modal-user-session">Spring 2023</span>
+        </div>
+        <div class="modal-info-item">
+          <span class="modal-info-label">Organization</span>
+          <span class="modal-info-val">SQAT Club, DIU</span>
+        </div>
+      </div>
+      <div class="modal-actions" id="modal-socials-wrapper">
+        <!-- Social buttons dynamically inserted -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Lightbox (For Gallery Images) -->
+  <div class="lightbox" id="gallery-lightbox">
+    <div class="lightbox-content">
+      <button class="lightbox-close" id="lightbox-close-btn"><i class="fa-solid fa-xmark"></i></button>
+      <img src="" alt="Enlarged View" class="lightbox-img" id="lightbox-target-img">
+      <div class="lightbox-caption" id="lightbox-target-caption">Caption text goes here</div>
+    </div>
+  </div>
+
+  <!-- Back to Top Button -->
+  <button id="back-to-top" aria-label="Back to top">
+    <i class="fa-solid fa-arrow-up"></i>
+  </button>
+
+  <!-- Load Scripts -->
+  <script src="js/members.js"></script>
+  <script src="js/gallery.js"></script>
+  <script src="js/app.js"></script>
+</body>
+
+</html>

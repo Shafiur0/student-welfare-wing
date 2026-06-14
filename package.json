@@ -1,0 +1,15 @@
+{
+  "name": "student-welfare-wing",
+  "version": "1.0.0",
+  "description": "Premium Student Welfare Wing website for SQAT Club, Daffodil International University",
+  "scripts": {
+    "dev": "npx -y http-server -p 3000 -c-1"
+  },
+  "keywords": [
+    "sqat",
+    "diu",
+    "welfare-wing"
+  ],
+  "author": "Shafiur Rahman Shafim",
+  "license": "ISC"
+}
