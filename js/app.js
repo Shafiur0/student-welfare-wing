@@ -612,4 +612,177 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   sections.forEach(s => scrollActiveLinkObserver.observe(s));
+
+  // 12. CLIENT-SIDE FAQ CHATBOT ASSISTANT LOGIC
+  const chatbotLauncher = document.getElementById("chatbot-launcher");
+  const chatbotWindow = document.getElementById("chatbot-window");
+  const chatCloseBtn = document.getElementById("chat-close-btn");
+  const chatMessages = document.getElementById("chat-messages");
+  const chatSuggestions = document.getElementById("chat-suggestions");
+  const chatInput = document.getElementById("chat-input");
+  const chatSendBtn = document.getElementById("chat-send-btn");
+  const chatbotBadge = document.querySelector(".chatbot-badge");
+
+  if (chatbotLauncher && chatbotWindow) {
+    const CHAT_KNOWLEDGE = [
+      {
+        id: "waiver",
+        suggestion: "Waiver Requirements",
+        keywords: ["waiver", "scholarship", "financial", "discount", "fees", "gpa", "cgpa"],
+        response: "To apply for waiver support:<br>• Maintain a minimum <strong>CGPA of 3.00</strong>.<br>• Submit the online Waiver Form through your student portal.<br>• For validation or queries, visit the Welfare Desk or message <strong>Liza Akter</strong> (Student Welfare Secretary)."
+      },
+      {
+        id: "secretary",
+        suggestion: "Contact Secretaries",
+        keywords: ["secretary", "liza", "contact", "facebook", "linkedin", "officers", "board"],
+        response: "Here are details for our key secretaries:<br>• <strong>Student Welfare:</strong> Liza Akter (<a href='https://www.facebook.com/Lizaaaaaa85' target='_blank' rel='noopener'>Facebook Profile</a>)<br>• <strong>Women Welfare:</strong> Tasfia Jahan Nisha<br>• <strong>Office & Org:</strong> Rukaiya Akter Trisha<br>Click 'View Profile' under their cards in the Secretarial section for details."
+      },
+      {
+        id: "join",
+        suggestion: "Join SQAT Club",
+        keywords: ["join", "membership", "apply", "recruit", "registration", "member", "sqat"],
+        response: "SQAT Club membership recruitment opens at the start of each semester! Keep an eye on campus announcements or fill out the pre-registration inquiry on our <a href='#contact'>Contact Form</a>."
+      },
+      {
+        id: "resources",
+        suggestion: "Study Vault Resources",
+        keywords: ["study", "vault", "resources", "cheatsheet", "template", "test cases", "interview"],
+        response: "Explore our curated <strong>Study Vault</strong> under the <a href='#resources'>Resources section</a> of this page. It lists testing cheatsheets (Selenium, Postman, JMeter), QA documentation templates, and interview prep guides."
+      },
+      {
+        id: "location",
+        suggestion: "Office Location",
+        keywords: ["location", "office", "room", "floor", "where", "campus", "address"],
+        response: "The SQAT Club Office and Welfare Wing desk is located at:<br>• <strong>DIU Main Campus, Dhaka</strong><br>• <strong>Academic Building 4, Floor 4, Room 402</strong><br>Office hours: 9:00 AM - 5:00 PM (Sunday to Thursday)."
+      }
+    ];
+
+    let welcomeSent = false;
+
+    const addMessage = (sender, text) => {
+      const bubble = document.createElement("div");
+      bubble.className = `message-bubble ${sender}`;
+      bubble.innerHTML = text;
+      chatMessages.appendChild(bubble);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+      return bubble;
+    };
+
+    const showTypingIndicator = () => {
+      const bubble = document.createElement("div");
+      bubble.className = "message-bubble typing";
+      bubble.innerHTML = `
+        <span class="typing-dot"></span>
+        <span class="typing-dot"></span>
+        <span class="typing-dot"></span>
+      `;
+      chatMessages.appendChild(bubble);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+      return bubble;
+    };
+
+    const hideTypingIndicator = (indicator) => {
+      if (indicator && indicator.parentNode) {
+        indicator.parentNode.removeChild(indicator);
+      }
+    };
+
+    const renderSuggestions = () => {
+      if (!chatSuggestions) return;
+      chatSuggestions.innerHTML = "";
+      CHAT_KNOWLEDGE.forEach(item => {
+        const chip = document.createElement("button");
+        chip.className = "chat-chip";
+        chip.textContent = item.suggestion;
+        chip.addEventListener("click", () => {
+          // Send user request visual bubble
+          addMessage("user", item.suggestion);
+          
+          // Reply with bot response
+          triggerBotResponse(item.response);
+        });
+        chatSuggestions.appendChild(chip);
+      });
+    };
+
+    const triggerBotResponse = (responseText) => {
+      const indicator = showTypingIndicator();
+      setTimeout(() => {
+        hideTypingIndicator(indicator);
+        addMessage("bot", responseText);
+      }, 1000 + Math.random() * 500);
+    };
+
+    const processUserInput = () => {
+      const rawText = chatInput.value.trim();
+      if (!rawText) return;
+
+      chatInput.value = "";
+      addMessage("user", rawText);
+
+      const text = rawText.toLowerCase();
+      let matchedIntent = null;
+
+      // Simple keyword matching
+      for (const item of CHAT_KNOWLEDGE) {
+        if (item.keywords.some(keyword => text.includes(keyword))) {
+          matchedIntent = item;
+          break;
+        }
+      }
+
+      if (matchedIntent) {
+        triggerBotResponse(matchedIntent.response);
+      } else {
+        const fallbackText = "I am not sure I understand that. Please try choosing one of the popular topics below, or rephrase your question about waivers, secretaries, joining, or resources.";
+        triggerBotResponse(fallbackText);
+      }
+    };
+
+    // Toggle Chat Window
+    chatbotLauncher.addEventListener("click", () => {
+      chatbotWindow.classList.toggle("active");
+      if (chatbotWindow.classList.contains("active")) {
+        // Clear badge on open
+        if (chatbotBadge) {
+          chatbotBadge.style.display = "none";
+        }
+        
+        // Focus input
+        setTimeout(() => chatInput.focus(), 150);
+
+        // Welcome message
+        if (!welcomeSent) {
+          welcomeSent = true;
+          const welcomeIndicator = showTypingIndicator();
+          setTimeout(() => {
+            hideTypingIndicator(welcomeIndicator);
+            addMessage("bot", "Hello! 👋 I am your SQAT Student Welfare Assistant. How can I help you today?");
+            renderSuggestions();
+          }, 600);
+        }
+      }
+    });
+
+    // Close Chat Window
+    if (chatCloseBtn) {
+      chatCloseBtn.addEventListener("click", () => {
+        chatbotWindow.classList.remove("active");
+      });
+    }
+
+    // Input handlers
+    if (chatSendBtn) {
+      chatSendBtn.addEventListener("click", processUserInput);
+    }
+
+    if (chatInput) {
+      chatInput.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+          processUserInput();
+        }
+      });
+    }
+  }
 });
+

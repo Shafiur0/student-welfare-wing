@@ -293,3 +293,20 @@
   }
 }
 
+/* Chatbot mobile responsive adjustments */
+@media (max-width: 576px) {
+  #chatbot-window {
+    bottom: 145px;
+    right: 16px;
+    left: 16px;
+    width: auto;
+    max-width: none;
+    height: 410px;
+  }
+  #chatbot-launcher {
+    bottom: 85px;
+    right: 16px;
+  }
+}
+
+

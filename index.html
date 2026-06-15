@@ -1051,10 +1051,54 @@
     </div>
   </div>
 
+  <!-- Client-Side FAQ Chatbot Assistant -->
+  <div class="chatbot-wrapper">
+    <!-- Chat Launcher Button -->
+    <button id="chatbot-launcher" aria-label="Open support chat">
+      <i class="fa-solid fa-comments"></i>
+      <span class="chatbot-badge">1</span>
+    </button>
+
+    <!-- Chat Window Panel -->
+    <div id="chatbot-window">
+      <div class="chat-header">
+        <div class="chat-bot-info">
+          <div class="chat-bot-avatar">
+            <i class="fa-solid fa-robot"></i>
+            <span class="online-indicator"></span>
+          </div>
+          <div class="chat-bot-text">
+            <h4>SQAT Assistant</h4>
+            <span>Welfare Advisor</span>
+          </div>
+        </div>
+        <button id="chat-close-btn" aria-label="Close chat">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div id="chat-messages" class="chat-messages">
+        <!-- Messages dynamically generated via JS -->
+      </div>
+
+      <div id="chat-suggestions" class="chat-suggestions">
+        <!-- Quick replies chips dynamically injected -->
+      </div>
+
+      <div class="chat-footer">
+        <input type="text" id="chat-input" placeholder="Ask a question..." autocomplete="off">
+        <button id="chat-send-btn" aria-label="Send message">
+          <i class="fa-solid fa-paper-plane"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
   <!-- Back to Top Button -->
   <button id="back-to-top" aria-label="Back to top">
     <i class="fa-solid fa-arrow-up"></i>
   </button>
+
 
   <!-- Load Scripts -->
   <script src="js/members.js"></script>
