@@ -338,5 +338,19 @@
   }
 }
 
+/* Feedback Form mobile responsiveness */
+@media (max-width: 480px) {
+  .contact-form-block {
+    padding: 20px 16px;
+  }
+  .progress-step .step-label {
+    display: none;
+  }
+  .progress-line {
+    transform: translateY(-15px);
+  }
+}
+
+
 
 

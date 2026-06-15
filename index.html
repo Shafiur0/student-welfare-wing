@@ -824,8 +824,7 @@
       <div class="section-container">
         <span class="section-tag">Get In Touch</span>
         <h2 class="section-title">We are Here to Listen</h2>
-        <p class="section-desc">Reach out if you need assistance, would like to volunteer, or want to contribute to our
-          wing initiatives.</p>
+        <p class="section-desc">Reach out if you need assistance, would like to volunteer, or want to submit feedback or complaints to the wing coordinators.</p>
 
         <div class="contact-grid">
           <!-- Contact Info Cards -->
@@ -859,14 +858,122 @@
             </div>
           </div>
 
-          <!-- Embed Google Maps with Premium Styling -->
-          <div class="map-container">
-            <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3648.3756285496464!2d90.32014167512015!3d23.876274478586047!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755c23dd1255555%3A0x1d75d33e9d892d52!2sDaffodil%20International%20University!5e0!3m2!1sen!2sbd!4v1718300000000!5m2!1sen!2sbd"
-              class="map-iframe" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
-              title="Daffodil International University Location Map">
-            </iframe>
+          <!-- Multi-Step Glassmorphic Welfare Form Portal -->
+          <div class="contact-form-block glow-card">
+            <div class="form-progress-bar">
+              <div class="progress-step active" data-step="1">
+                <span class="step-num">1</span>
+                <span class="step-label">Identity</span>
+              </div>
+              <div class="progress-line" data-step="1"></div>
+              <div class="progress-step" data-step="2">
+                <span class="step-num">2</span>
+                <span class="step-label">Details</span>
+              </div>
+              <div class="progress-line" data-step="2"></div>
+              <div class="progress-step" data-step="3">
+                <span class="step-num">3</span>
+                <span class="step-label">Submit</span>
+              </div>
+            </div>
+
+            <form id="welfare-form" class="multi-step-form" novalidate>
+              <!-- Step 1: Student Identity -->
+              <div class="form-step-content active" data-step="1">
+                <h4 class="form-step-title">Student Identity</h4>
+                <div class="form-group">
+                  <label for="student-name">Full Name *</label>
+                  <input type="text" id="student-name" required placeholder="Enter your full name">
+                  <div class="form-error-msg" id="err-student-name">Please enter your name.</div>
+                </div>
+                <div class="form-group">
+                  <label for="student-id">Student ID *</label>
+                  <input type="text" id="student-id" required placeholder="e.g. 231-35-123">
+                  <div class="form-error-msg" id="err-student-id">Please enter your student ID.</div>
+                </div>
+                <div class="form-group">
+                  <label for="student-email">DIU Email *</label>
+                  <input type="email" id="student-email" required placeholder="username@diu.edu.bd">
+                  <div class="form-error-msg" id="err-student-email">Please enter a valid DIU email address.</div>
+                </div>
+              </div>
+
+              <!-- Step 2: Concern Details -->
+              <div class="form-step-content" data-step="2">
+                <h4 class="form-step-title">Request Information</h4>
+                <div class="form-group">
+                  <label for="form-category">Category *</label>
+                  <select id="form-category" required>
+                    <option value="" disabled selected>Select Category</option>
+                    <option value="GPA Waiver Support">GPA Waiver Support</option>
+                    <option value="Financial Aid Request">Financial Aid / Welfare Request</option>
+                    <option value="General Complaint">General Complaint</option>
+                    <option value="Club Query">Club Recruitment Query</option>
+                  </select>
+                  <div class="form-error-msg" id="err-form-category">Please select a category.</div>
+                </div>
+                <div class="form-group">
+                  <label for="form-subject">Subject *</label>
+                  <input type="text" id="form-subject" required placeholder="Summarize your concern">
+                  <div class="form-error-msg" id="err-form-subject">Please enter a subject.</div>
+                </div>
+                <div class="form-group">
+                  <label for="form-message">Detailed Description *</label>
+                  <textarea id="form-message" required placeholder="Explain your request or complaint in detail..."></textarea>
+                  <div class="form-error-msg" id="err-form-message">Please explain your request.</div>
+                </div>
+              </div>
+
+              <!-- Step 3: Attachments & Submit -->
+              <div class="form-step-content" data-step="3">
+                <h4 class="form-step-title">Supporting Documents</h4>
+                <div class="form-group">
+                  <label for="form-attachment">Upload Support File (Optional)</label>
+                  <div class="file-upload-wrapper">
+                    <i class="fa-solid fa-cloud-arrow-up file-icon"></i>
+                    <span class="file-text">Click to pick grade sheets or verification files</span>
+                    <input type="file" id="form-attachment">
+                  </div>
+                  <div id="file-name-display" class="file-name-display"></div>
+                </div>
+                <div class="form-group checkbox-group" style="flex-direction: row; gap: 10px; align-items: flex-start; margin-top: 10px;">
+                  <input type="checkbox" id="form-agree" required style="width: 18px; height: 18px; margin-top: 2px; cursor: pointer;">
+                  <label for="form-agree" style="font-size: 0.85rem; color: var(--text-secondary); cursor: pointer; line-height: 1.4;">I confirm that all details provided are accurate and true. *</label>
+                </div>
+                <div class="form-error-msg" id="err-form-agree" style="margin-top: 4px;">You must agree to the statement to submit.</div>
+              </div>
+
+              <!-- Form Navigation Buttons -->
+              <div class="form-navigation" style="display: flex; gap: 12px; margin-top: 24px;">
+                <button type="button" id="btn-prev-step" class="btn btn-secondary" style="display: none; padding: 10px 24px; font-size: 0.9rem;">Back</button>
+                <button type="button" id="btn-next-step" class="btn btn-primary" style="padding: 10px 24px; font-size: 0.9rem; flex-grow: 1;">Next</button>
+                <button type="submit" id="btn-submit-form" class="btn btn-accent" style="display: none; padding: 10px 24px; font-size: 0.9rem; flex-grow: 1;">Submit Request</button>
+              </div>
+            </form>
+
+            <!-- Success Overlay View -->
+            <div id="form-success-overlay" class="form-success-overlay">
+              <canvas id="confetti-canvas"></canvas>
+              <div class="success-content">
+                <svg class="checkmark-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                  <circle class="checkmark-circle" cx="26" cy="26" r="25" fill="none"/>
+                  <path class="checkmark-check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+                </svg>
+                <h4>Request Filed!</h4>
+                <p style="font-size: 0.88rem; line-height: 1.5; color: var(--text-secondary); margin-bottom: 20px;">Your submission has been received successfully. The Student Welfare Wing coordinators will review the details and respond via your DIU Email.</p>
+                <button class="btn btn-primary" id="btn-reset-form" style="padding: 10px 24px; font-size: 0.9rem;">Send Another Message</button>
+              </div>
+            </div>
           </div>
+        </div>
+
+        <!-- Full Width Location Map -->
+        <div class="map-container" style="margin-top: 40px; width: 100%; border-radius: var(--radius-xl); overflow: hidden; border: 1px solid var(--border-glass); height: 350px;">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3648.3756285496464!2d90.32014167512015!3d23.876274478586047!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755c23dd1255555%3A0x1d75d33e9d892d52!2sDaffodil%20International%20University!5e0!3m2!1sen!2sbd!4v1718300000000!5m2!1sen!2sbd"
+            class="map-iframe" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+            title="Daffodil International University Location Map" style="border: none; width: 100%; height: 100%;">
+          </iframe>
         </div>
       </div>
     </section>

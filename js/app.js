@@ -917,6 +917,313 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   }
+
+  // 14. MULTI-STEP FEEDBACK FORM & CONFETTI LOGIC
+  const welfareForm = document.getElementById("welfare-form");
+  const formSteps = document.querySelectorAll(".form-step-content");
+  const progressSteps = document.querySelectorAll(".progress-step");
+  const progressLines = document.querySelectorAll(".progress-line");
+  const btnPrevStep = document.getElementById("btn-prev-step");
+  const btnNextStep = document.getElementById("btn-next-step");
+  const btnSubmitForm = document.getElementById("btn-submit-form");
+  const formSuccessOverlay = document.getElementById("form-success-overlay");
+  const btnResetForm = document.getElementById("btn-reset-form");
+  const fileInput = document.getElementById("form-attachment");
+  const fileNameDisplay = document.getElementById("file-name-display");
+
+  // Inputs
+  const inputName = document.getElementById("student-name");
+  const inputId = document.getElementById("student-id");
+  const inputEmail = document.getElementById("student-email");
+  const selectCategory = document.getElementById("form-category");
+  const inputSubject = document.getElementById("form-subject");
+  const inputMessage = document.getElementById("form-message");
+  const checkboxAgree = document.getElementById("form-agree");
+
+  if (welfareForm) {
+    let currentStep = 1;
+
+    const showStep = (step) => {
+      formSteps.forEach(el => {
+        el.classList.remove("active");
+        if (parseInt(el.getAttribute("data-step"), 10) === step) {
+          el.classList.add("active");
+        }
+      });
+
+      // Update progress stepper active state
+      progressSteps.forEach(el => {
+        const stepNum = parseInt(el.getAttribute("data-step"), 10);
+        if (stepNum < step) {
+          el.classList.add("completed");
+          el.classList.remove("active");
+        } else if (stepNum === step) {
+          el.classList.add("active");
+          el.classList.remove("completed");
+        } else {
+          el.classList.remove("active", "completed");
+        }
+      });
+
+      progressLines.forEach(el => {
+        const stepNum = parseInt(el.getAttribute("data-step"), 10);
+        if (stepNum < step) {
+          el.classList.add("completed");
+        } else {
+          el.classList.remove("completed");
+        }
+      });
+
+      // Show/Hide navigation buttons
+      if (step === 1) {
+        btnPrevStep.style.display = "none";
+        btnNextStep.style.display = "block";
+        btnSubmitForm.style.display = "none";
+        btnNextStep.style.width = "100%";
+      } else if (step === 2) {
+        btnPrevStep.style.display = "block";
+        btnNextStep.style.display = "block";
+        btnSubmitForm.style.display = "none";
+        btnNextStep.style.width = "auto";
+        btnNextStep.style.flexGrow = "1";
+      } else if (step === 3) {
+        btnPrevStep.style.display = "block";
+        btnNextStep.style.display = "none";
+        btnSubmitForm.style.display = "block";
+      }
+    };
+
+    const showError = (inputEl, errorId) => {
+      const group = inputEl.closest(".form-group");
+      if (group) {
+        group.classList.add("has-error");
+      }
+      const errEl = document.getElementById(errorId);
+      if (errEl) {
+        errEl.style.display = "block";
+      }
+    };
+
+    const clearError = (inputEl, errorId) => {
+      const group = inputEl.closest(".form-group");
+      if (group) {
+        group.classList.remove("has-error");
+      }
+      const errEl = document.getElementById(errorId);
+      if (errEl) {
+        errEl.style.display = "none";
+      }
+    };
+
+    const validateStep = (step) => {
+      let isValid = true;
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+      if (step === 1) {
+        // Name check
+        if (!inputName.value.trim()) {
+          showError(inputName, "err-student-name");
+          isValid = false;
+        } else {
+          clearError(inputName, "err-student-name");
+        }
+
+        // ID check
+        if (!inputId.value.trim()) {
+          showError(inputId, "err-student-id");
+          isValid = false;
+        } else {
+          clearError(inputId, "err-student-id");
+        }
+
+        // Email check
+        if (!inputEmail.value.trim() || !emailRegex.test(inputEmail.value.trim())) {
+          showError(inputEmail, "err-student-email");
+          isValid = false;
+        } else {
+          clearError(inputEmail, "err-student-email");
+        }
+      } else if (step === 2) {
+        // Category check
+        if (!selectCategory.value) {
+          showError(selectCategory, "err-form-category");
+          isValid = false;
+        } else {
+          clearError(selectCategory, "err-form-category");
+        }
+
+        // Subject check
+        if (!inputSubject.value.trim()) {
+          showError(inputSubject, "err-form-subject");
+          isValid = false;
+        } else {
+          clearError(inputSubject, "err-form-subject");
+        }
+
+        // Message check
+        if (!inputMessage.value.trim()) {
+          showError(inputMessage, "err-form-message");
+          isValid = false;
+        } else {
+          clearError(inputMessage, "err-form-message");
+        }
+      } else if (step === 3) {
+        // Agreement check
+        if (!checkboxAgree.checked) {
+          const errEl = document.getElementById("err-form-agree");
+          if (errEl) errEl.style.display = "block";
+          isValid = false;
+        } else {
+          const errEl = document.getElementById("err-form-agree");
+          if (errEl) errEl.style.display = "none";
+        }
+      }
+
+      return isValid;
+    };
+
+    // Live validation input event listeners to clear errors once user starts typing
+    inputName.addEventListener("input", () => clearError(inputName, "err-student-name"));
+    inputId.addEventListener("input", () => clearError(inputId, "err-student-id"));
+    inputEmail.addEventListener("input", () => clearError(inputEmail, "err-student-email"));
+    selectCategory.addEventListener("change", () => clearError(selectCategory, "err-form-category"));
+    inputSubject.addEventListener("input", () => clearError(inputSubject, "err-form-subject"));
+    inputMessage.addEventListener("input", () => clearError(inputMessage, "err-form-message"));
+    checkboxAgree.addEventListener("change", () => {
+      const errEl = document.getElementById("err-form-agree");
+      if (checkboxAgree.checked && errEl) {
+        errEl.style.display = "none";
+      }
+    });
+
+    // Navigation buttons clicks
+    btnNextStep.addEventListener("click", () => {
+      if (validateStep(currentStep)) {
+        currentStep++;
+        showStep(currentStep);
+      }
+    });
+
+    btnPrevStep.addEventListener("click", () => {
+      currentStep--;
+      showStep(currentStep);
+    });
+
+    // File name display tracker
+    if (fileInput) {
+      fileInput.addEventListener("change", (e) => {
+        if (e.target.files && e.target.files[0]) {
+          const filename = e.target.files[0].name;
+          fileNameDisplay.innerHTML = `<i class="fa-solid fa-circle-check"></i> Selected file: <strong>${filename}</strong>`;
+        } else {
+          fileNameDisplay.innerHTML = "";
+        }
+      });
+    }
+
+    // Canvas Confetti Engine
+    let cancelConfetti = null;
+    const triggerConfetti = () => {
+      const canvas = document.getElementById("confetti-canvas");
+      if (!canvas) return;
+      const ctx = canvas.getContext("2d");
+      
+      canvas.width = canvas.parentElement.clientWidth;
+      canvas.height = canvas.parentElement.clientHeight;
+      
+      const colors = ["#0F5FFF", "#2ECC71", "#FFD700", "#FF4D4D", "#9B59B6", "#1ABC9C"];
+      const particles = [];
+      const particleCount = 75;
+
+      for (let i = 0; i < particleCount; i++) {
+        particles.push({
+          x: canvas.width / 2,
+          y: canvas.height / 2 - 20,
+          r: Math.random() * 5 + 3,
+          color: colors[Math.floor(Math.random() * colors.length)],
+          vx: (Math.random() - 0.5) * 10,
+          vy: (Math.random() - 0.75) * 12 - 3,
+          gravity: 0.25,
+          fade: Math.random() * 0.012 + 0.005,
+          alpha: 1
+        });
+      }
+
+      let animationId;
+      const animate = () => {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        let alive = false;
+        
+        particles.forEach(p => {
+          p.x += p.vx;
+          p.y += p.vy;
+          p.vy += p.gravity;
+          p.alpha -= p.fade;
+          
+          if (p.alpha > 0) {
+            alive = true;
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+            ctx.fillStyle = p.color;
+            ctx.globalAlpha = p.alpha;
+            ctx.fill();
+          }
+        });
+
+        ctx.globalAlpha = 1.0;
+        if (alive) {
+          animationId = requestAnimationFrame(animate);
+        }
+      };
+
+      animate();
+      cancelConfetti = () => cancelAnimationFrame(animationId);
+    };
+
+    // Form Submit
+    welfareForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      
+      if (validateStep(3)) {
+        if (formSuccessOverlay) {
+          formSuccessOverlay.classList.add("active");
+          triggerConfetti();
+        }
+      }
+    });
+
+    // Reset Form
+    if (btnResetForm) {
+      btnResetForm.addEventListener("click", () => {
+        if (cancelConfetti) cancelConfetti();
+        
+        // Reset inputs
+        welfareForm.reset();
+        fileNameDisplay.innerHTML = "";
+        currentStep = 1;
+        showStep(currentStep);
+
+        // Hide errors
+        clearError(inputName, "err-student-name");
+        clearError(inputId, "err-student-id");
+        clearError(inputEmail, "err-student-email");
+        clearError(selectCategory, "err-form-category");
+        clearError(inputSubject, "err-form-subject");
+        clearError(inputMessage, "err-form-message");
+        const errAgree = document.getElementById("err-form-agree");
+        if (errAgree) errAgree.style.display = "none";
+
+        // Remove overlay
+        if (formSuccessOverlay) {
+          formSuccessOverlay.classList.remove("active");
+        }
+      });
+    }
+
+    // Initialize Step 1
+    showStep(currentStep);
+  }
 });
+
 
 
