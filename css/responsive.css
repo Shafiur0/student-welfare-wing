@@ -309,4 +309,34 @@
   }
 }
 
+/* Event Timeline mobile responsiveness */
+@media (max-width: 768px) {
+  .timeline-container {
+    padding: 20px 0;
+  }
+  .timeline-svg {
+    left: 16px;
+    transform: none;
+  }
+  .timeline-item {
+    width: 100% !important;
+  }
+  .timeline-item.left, .timeline-item.right {
+    left: 0 !important;
+    padding-left: 36px !important;
+    padding-right: 0 !important;
+  }
+  .timeline-item.left .timeline-node, .timeline-item.right .timeline-node {
+    left: 11px !important;
+    right: auto !important;
+  }
+  .timeline-card {
+    padding: 16px;
+  }
+  .timeline-card-img-wrapper {
+    height: 120px;
+  }
+}
+
+
 

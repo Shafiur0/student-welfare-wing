@@ -732,78 +732,34 @@
       <div class="section-container">
         <span class="section-tag">Activities</span>
         <h2 class="section-title">Support and Campaigns</h2>
-        <p class="section-desc">We coordinate blood donations, organize support circles, and assist with academic
-          growth.</p>
+        <p class="section-desc">We coordinate blood donations, organize support circles, and assist with academic growth.</p>
 
-        <div class="activities-grid">
-          <!-- Activity 1 -->
-          <div class="activity-card glow-card">
-            <div class="activity-img-wrapper">
-              <img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&q=80&w=600"
-                alt="Welfare Distribution" class="activity-img">
-            </div>
-            <div class="activity-content">
-              <div class="activity-date">Ongoing</div>
-              <h4 class="activity-title">Welfare Programs</h4>
-              <p class="activity-desc">Providing financial guidance, basic educational supplies, and support for
-                students experiencing crisis during semesters.</p>
-            </div>
+        <!-- Timeline Toggle Switch -->
+        <div class="timeline-toggle-wrapper">
+          <div class="timeline-toggle-bg">
+            <button class="timeline-toggle-btn active" data-type="past">Past Achievements</button>
+            <button class="timeline-toggle-btn" data-type="upcoming">Upcoming Initiatives</button>
           </div>
+        </div>
 
-          <!-- Activity 2 -->
-          <div class="activity-card glow-card">
-            <div class="activity-img-wrapper">
-              <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&q=80&w=600"
-                alt="Student Support" class="activity-img">
-            </div>
-            <div class="activity-content">
-              <div class="activity-date">Weekly</div>
-              <h4 class="activity-title">Student Support Activities</h4>
-              <p class="activity-desc">Mentorship circles matching senior students in SQA with juniors, assisting in
-                career guidelines and exam prep.</p>
-            </div>
-          </div>
+        <!-- Timeline Container -->
+        <div class="timeline-container">
+          <!-- Scroll SVG line drawing -->
+          <svg class="timeline-svg" width="6" height="100%" viewBox="0 0 6 100" preserveAspectRatio="none" fill="none">
+            <line x1="3" y1="0" x2="3" y2="100" stroke="rgba(255, 255, 255, 0.08)" stroke-width="2" stroke-linecap="round"></line>
+            <path id="timeline-scroll-path" d="M 3 0 L 3 100" stroke="url(#timeline-grad)" stroke-width="3" stroke-linecap="round" stroke-dasharray="100" stroke-dashoffset="100"></path>
+            
+            <defs>
+              <linearGradient id="timeline-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="var(--primary)"></stop>
+                <stop offset="100%" stop-color="var(--accent)"></stop>
+              </linearGradient>
+            </defs>
+          </svg>
 
-          <!-- Activity 3 -->
-          <div class="activity-card glow-card">
-            <div class="activity-img-wrapper">
-              <img src="https://images.unsplash.com/photo-1615461066841-6116e61058f4?auto=format&fit=crop&q=80&w=600"
-                alt="Blood Donation" class="activity-img">
-            </div>
-            <div class="activity-content">
-              <div class="activity-date">24/7 Hotline</div>
-              <h4 class="activity-title">Blood Donation Campaigns</h4>
-              <p class="activity-desc">Maintaining a central blood donor database of SQAT club volunteers to assist
-                emergency requests from students and DIU families.</p>
-            </div>
-          </div>
-
-          <!-- Activity 4 -->
-          <div class="activity-card glow-card">
-            <div class="activity-img-wrapper">
-              <img src="https://images.unsplash.com/photo-1515187029135-18ee286d815b?auto=format&fit=crop&q=80&w=600"
-                alt="Volunteer Program" class="activity-img">
-            </div>
-            <div class="activity-content">
-              <div class="activity-date">Annual</div>
-              <h4 class="activity-title">Volunteer Programs</h4>
-              <p class="activity-desc">Bootcamps designed to teach volunteer communication, leadership qualities,
-                teamwork, and program organization skills.</p>
-            </div>
-          </div>
-
-          <!-- Activity 5 -->
-          <div class="activity-card glow-card">
-            <div class="activity-img-wrapper">
-              <img src="https://images.unsplash.com/photo-1593113598332-cd288d649433?auto=format&fit=crop&q=80&w=600"
-                alt="Community Service" class="activity-img">
-            </div>
-            <div class="activity-content">
-              <div class="activity-date">Events</div>
-              <h4 class="activity-title">Community Service</h4>
-              <p class="activity-desc">Extending care outside the DIU walls via clean campus initiatives, orphanage
-                visits, and basic tech literacy drives.</p>
-            </div>
+          <!-- Target container for dynamic rendered timeline items -->
+          <div id="timeline-target">
+            <!-- Populated dynamically by JS -->
           </div>
         </div>
       </div>
@@ -1100,10 +1056,43 @@
   </button>
 
 
+  <!-- Event Detail Modal Overlay -->
+  <div class="modal-overlay" id="event-modal">
+    <div class="modal-card" style="max-width: 500px; width: 92%; padding: 24px;">
+      <button class="modal-close" id="event-modal-close-btn" aria-label="Close details"><i class="fa-solid fa-xmark"></i></button>
+      
+      <div class="modal-header" style="align-items: flex-start; text-align: left; margin-bottom: 16px;">
+        <div class="event-modal-img-wrapper" style="width: 100%; height: 180px; border-radius: var(--radius-lg); overflow: hidden; border: 1px solid var(--border-glass); margin-bottom: 16px; box-shadow: var(--shadow-sm);">
+          <img src="" alt="Event Image" id="event-modal-img" style="width: 100%; height: 100%; object-fit: cover;">
+        </div>
+        <div class="modal-pos" id="event-modal-date" style="text-transform: uppercase; font-size: 0.8rem; font-weight: 700; color: var(--primary); letter-spacing: 0.5px;">Date</div>
+        <h3 id="event-modal-title" style="font-size: 1.35rem; font-family: var(--font-title); font-weight: 700; color: var(--text-primary); margin-top: 4px;">Event Title</h3>
+      </div>
+      
+      <div class="modal-body-list" style="background-color: var(--bg-primary); padding: 14px; border-radius: var(--radius-md); border: 1px solid var(--border-light); margin-bottom: 20px; font-size: 0.88rem; display: flex; flex-direction: column; gap: 8px;">
+        <div style="display: flex; gap: 8px; color: var(--text-secondary);">
+          <i class="fa-solid fa-location-dot" style="color: var(--primary); margin-top: 3px;"></i>
+          <span><strong>Location:</strong> <span id="event-modal-loc">Main Campus</span></span>
+        </div>
+      </div>
+
+      <div id="event-modal-desc" style="font-size: 0.88rem; line-height: 1.55; color: var(--text-secondary); max-height: 250px; overflow-y: auto; text-align: left; margin-bottom: 24px; padding-right: 4px;">
+        Detailed information will load here.
+      </div>
+      
+      <div class="modal-actions" style="justify-content: flex-end; display: flex;">
+        <button class="btn btn-primary" id="event-modal-close-action-btn" style="padding: 10px 24px; font-size: 0.9rem;">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+
   <!-- Load Scripts -->
   <script src="js/members.js"></script>
   <script src="js/gallery.js"></script>
   <script src="js/resources.js"></script>
+  <script src="js/activities.js"></script>
   <script src="js/app.js"></script>
 </body>
 

@@ -784,5 +784,139 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     }
   }
+
+  // 13. DYNAMIC EVENT TIMELINE & SCROLL-DRAWING LOGIC
+  const timelineTarget = document.getElementById("timeline-target");
+  const timelineToggleBtns = document.querySelectorAll(".timeline-toggle-btn");
+  const timelineScrollPath = document.getElementById("timeline-scroll-path");
+  const timelineContainer = document.querySelector(".timeline-container");
+
+  // Event modal references
+  const eventModal = document.getElementById("event-modal");
+  const eventModalCloseBtn = document.getElementById("event-modal-close-btn");
+  const eventModalCloseActionBtn = document.getElementById("event-modal-close-action-btn");
+  const eventModalImg = document.getElementById("event-modal-img");
+  const eventModalDate = document.getElementById("event-modal-date");
+  const eventModalTitle = document.getElementById("event-modal-title");
+  const eventModalLoc = document.getElementById("event-modal-loc");
+  const eventModalDesc = document.getElementById("event-modal-desc");
+
+  if (timelineTarget) {
+    const openEventModal = (act) => {
+      if (!eventModal) return;
+      eventModalImg.src = act.img;
+      eventModalImg.alt = act.title;
+      eventModalDate.textContent = act.date;
+      eventModalTitle.textContent = act.title;
+      eventModalLoc.textContent = act.location;
+      eventModalDesc.textContent = act.details;
+
+      eventModal.classList.add("active");
+      document.body.style.overflow = "hidden";
+    };
+
+    const closeEventModal = () => {
+      if (eventModal) {
+        eventModal.classList.remove("active");
+        document.body.style.overflow = "";
+      }
+    };
+
+    if (eventModalCloseBtn) eventModalCloseBtn.addEventListener("click", closeEventModal);
+    if (eventModalCloseActionBtn) eventModalCloseActionBtn.addEventListener("click", closeEventModal);
+    if (eventModal) {
+      eventModal.addEventListener("click", (e) => {
+        if (e.target === eventModal) closeEventModal();
+      });
+    }
+
+    const updateTimelineScrollDraw = () => {
+      if (!timelineScrollPath || !timelineContainer) return;
+      const rect = timelineContainer.getBoundingClientRect();
+      const viewportHeight = window.innerHeight;
+      
+      const triggerTop = viewportHeight * 0.75;
+      const totalDist = rect.height;
+      const currentDist = triggerTop - rect.top;
+      
+      let progress = currentDist / totalDist;
+      progress = Math.max(0, Math.min(1, progress));
+      
+      const offset = 100 - (progress * 100);
+      timelineScrollPath.style.strokeDashoffset = offset;
+    };
+
+    const renderTimeline = (type) => {
+      timelineTarget.innerHTML = "";
+      timelineTarget.className = "timeline-item-wrapper";
+
+      if (!window.SQAT_ACTIVITIES) return;
+
+      const filtered = window.SQAT_ACTIVITIES.filter(act => act.type === type);
+
+      filtered.forEach((act, index) => {
+        const item = document.createElement("div");
+        const isLeft = index % 2 === 0;
+        item.className = `timeline-item ${isLeft ? 'left' : 'right'} reveal`;
+        
+        item.innerHTML = `
+          <div class="timeline-node" data-id="${act.id}"></div>
+          <div class="timeline-card glow-card" data-id="${act.id}">
+            <div class="timeline-card-img-wrapper">
+              <img src="${act.img}" alt="${act.title}" class="timeline-card-img" loading="lazy">
+            </div>
+            <div class="timeline-card-date">${act.date}</div>
+            <h4 class="timeline-card-title">${act.title}</h4>
+            <p class="timeline-card-desc">${act.desc}</p>
+            <div class="timeline-card-more">
+              <i class="fa-solid fa-circle-info"></i> Read Details
+            </div>
+          </div>
+        `;
+
+        const card = item.querySelector(".timeline-card");
+        const node = item.querySelector(".timeline-node");
+        
+        card.addEventListener("click", () => openEventModal(act));
+        node.addEventListener("click", () => openEventModal(act));
+
+        timelineTarget.appendChild(item);
+
+        // Observe for scroll reveal animation
+        if (typeof revealObserver !== "undefined") {
+          revealObserver.observe(item);
+        }
+      });
+
+      // Update scroll draw path immediately
+      updateTimelineScrollDraw();
+    };
+
+    // Toggle handler
+    timelineToggleBtns.forEach(btn => {
+      btn.addEventListener("click", () => {
+        timelineToggleBtns.forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        const type = btn.getAttribute("data-type");
+        renderTimeline(type);
+      });
+    });
+
+    // Window scroll event listener for SVG drawing path
+    window.addEventListener("scroll", () => {
+      window.requestAnimationFrame(updateTimelineScrollDraw);
+    });
+
+    // Initial render
+    renderTimeline("past");
+    
+    // Close modal on Escape
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
+        closeEventModal();
+      }
+    });
+  }
 });
+
 
