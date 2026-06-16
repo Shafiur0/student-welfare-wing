@@ -37,6 +37,11 @@
   .map-container {
     min-height: 300px;
   }
+
+  .achievements-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
 }
 
 /* Breakpoint for Mobile Menu (max-width: 768px) */
@@ -229,6 +234,14 @@
 
   .modal-card {
     padding: 24px 16px;
+  }
+
+  .achievements-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  .achievements-subtitle {
+    font-size: 1.25rem;
   }
 }
 

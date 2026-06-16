@@ -1929,6 +1929,63 @@ document.addEventListener("DOMContentLoaded", () => {
     if (btnRestartQuiz) btnRestartQuiz.addEventListener("click", startQuiz);
     if (btnNextQuestion) btnNextQuestion.addEventListener("click", nextQuestion);
   }
+
+  // 16. DYNAMIC ACHIEVEMENTS RENDERING & LIGHTBOX INTEGRATION
+  const achievementsClubTarget = document.getElementById("achievements-club-target");
+  const achievementsWingTarget = document.getElementById("achievements-wing-target");
+
+  const renderAchievements = () => {
+    if (!window.SQAT_ACHIEVEMENTS) return;
+
+    const clubAchievements = window.SQAT_ACHIEVEMENTS.filter(ach => ach.type === "club");
+    const wingAchievements = window.SQAT_ACHIEVEMENTS.filter(ach => ach.type === "wing");
+
+    const renderGrid = (items, targetEl) => {
+      if (!targetEl) return;
+      targetEl.innerHTML = "";
+
+      items.forEach(ach => {
+        const card = document.createElement("div");
+        card.className = "achievement-card glow-card reveal visible";
+        card.innerHTML = `
+          <div class="achievement-image-wrapper">
+            <img src="${ach.image}" alt="${ach.name}" class="achievement-img" loading="lazy">
+            <div class="achievement-badge" title="${ach.tag}">
+              <i class="${ach.icon}"></i>
+            </div>
+          </div>
+          <span class="achievement-tag">${ach.tag}</span>
+          <h4 class="achievement-name">${ach.name}</h4>
+          <div class="achievement-role">${ach.role}</div>
+          <div class="achievement-title-award">${ach.title}</div>
+          <p class="achievement-desc">${ach.desc}</p>
+        `;
+
+        // Click handler to open the global image lightbox
+        const img = card.querySelector(".achievement-img");
+        if (img) {
+          img.addEventListener("click", () => {
+            if (typeof openImageLightbox === "function") {
+              openImageLightbox(ach.image, ach.name, `${ach.name} - ${ach.title} (${ach.desc})`);
+            }
+          });
+        }
+
+        targetEl.appendChild(card);
+      });
+    };
+
+    renderGrid(clubAchievements, achievementsClubTarget);
+    renderGrid(wingAchievements, achievementsWingTarget);
+    
+    // Reinitialize coordinate tracking for cards
+    if (typeof initCardGlowEvents === "function") {
+      initCardGlowEvents();
+    }
+  };
+
+  // Trigger achievements rendering
+  renderAchievements();
 });
 
 
