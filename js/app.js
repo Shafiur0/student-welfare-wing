@@ -1180,15 +1180,56 @@ document.addEventListener("DOMContentLoaded", () => {
       cancelConfetti = () => cancelAnimationFrame(animationId);
     };
 
-    // Form Submit
+    // Form Submit (AJAX Formspree Submission)
     welfareForm.addEventListener("submit", (e) => {
       e.preventDefault();
       
       if (validateStep(3)) {
-        if (formSuccessOverlay) {
-          formSuccessOverlay.classList.add("active");
-          triggerConfetti();
+        // Change submit button to show loading spinner state
+        const submitBtnText = btnSubmitForm.innerHTML;
+        btnSubmitForm.innerHTML = `<i class="fa-solid fa-circle-notch fa-spin"></i> Submitting...`;
+        btnSubmitForm.disabled = true;
+
+        // Build FormData
+        const formData = new FormData();
+        formData.append("Name", inputName.value.trim());
+        formData.append("StudentID", inputId.value.trim());
+        formData.append("Email", inputEmail.value.trim());
+        formData.append("Category", selectCategory.value);
+        formData.append("Subject", inputSubject.value.trim());
+        formData.append("Message", inputMessage.value.trim());
+
+        if (fileInput.files && fileInput.files[0]) {
+          formData.append("Attachment", fileInput.files[0]);
         }
+
+        const endpoint = welfareForm.getAttribute("action") || "https://formspree.io/f/mqaejbyz";
+        
+        fetch(endpoint, {
+          method: "POST",
+          body: formData,
+          headers: {
+            'Accept': 'application/json'
+          }
+        })
+        .then(response => {
+          btnSubmitForm.innerHTML = submitBtnText;
+          btnSubmitForm.disabled = false;
+          
+          if (response.ok) {
+            if (formSuccessOverlay) {
+              formSuccessOverlay.classList.add("active");
+              triggerConfetti();
+            }
+          } else {
+            alert("Oops! There was a problem submitting your form. Please verify your Formspree settings or try again.");
+          }
+        })
+        .catch(error => {
+          btnSubmitForm.innerHTML = submitBtnText;
+          btnSubmitForm.disabled = false;
+          alert("Network error occurred. Please check your internet connection and try again.");
+        });
       }
     });
 
