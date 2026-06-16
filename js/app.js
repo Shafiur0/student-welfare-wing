@@ -1203,7 +1203,7 @@ document.addEventListener("DOMContentLoaded", () => {
           formData.append("Attachment", fileInput.files[0]);
         }
 
-        const endpoint = welfareForm.getAttribute("action") || "https://formspree.io/f/mqaejbyz";
+        const endpoint = welfareForm.getAttribute("action") || "https://formspree.io/f/xykaoqvy";
         
         fetch(endpoint, {
           method: "POST",
