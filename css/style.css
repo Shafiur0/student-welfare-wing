@@ -3248,8 +3248,9 @@ footer {
 }
 
 .achievements-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 30px;
   max-width: var(--container-width, 1140px);
   margin: 0 auto;
@@ -3272,6 +3273,8 @@ footer {
   -webkit-backdrop-filter: blur(12px);
   overflow: hidden;
   height: 100%;
+  width: 100%;
+  max-width: 360px;
 }
 
 .achievement-card:hover {
