@@ -1264,7 +1264,212 @@ document.addEventListener("DOMContentLoaded", () => {
     // Initialize Step 1
     showStep(currentStep);
   }
+
+  // 14. ALUMNI SUCCESS STORIES & 3D TESTIMONIALS CAROUSEL
+  const testiTrack = document.getElementById("testimonial-track-target");
+  const testiIndicators = document.getElementById("testimonial-indicators-target");
+  const testiPrevBtn = document.getElementById("testimonial-prev-btn");
+  const testiNextBtn = document.getElementById("testimonial-next-btn");
+  const testimonialsWrapper = document.querySelector(".testimonials-carousel-wrapper");
+
+  if (testiTrack && window.SQAT_TESTIMONIALS && window.SQAT_TESTIMONIALS.length > 0) {
+    const testimonials = window.SQAT_TESTIMONIALS;
+    let currentIndex = 0;
+    let autoplayTimer = null;
+    const autoplayDelay = 5000;
+
+    // A. Render Cards & Dots
+    testiTrack.innerHTML = "";
+    if (testiIndicators) testiIndicators.innerHTML = "";
+
+    testimonials.forEach((testi, index) => {
+      // Create Card
+      const card = document.createElement("div");
+      card.className = `testimonial-card-3d`;
+      card.setAttribute("data-index", index);
+      card.innerHTML = `
+        <span class="testimonial-tag">${testi.tag}</span>
+        <div class="testimonial-quote-icon">“</div>
+        <p class="testimonial-quote">"${testi.quote}"</p>
+        <div class="testimonial-author-block">
+          <div class="testimonial-profile">
+            <div class="testimonial-avatar-wrapper">
+              <img src="${testi.avatar}" alt="${testi.name}" class="testimonial-avatar" loading="lazy">
+            </div>
+            <div class="testimonial-meta">
+              <h4>${testi.name}</h4>
+              <p>${testi.role}</p>
+            </div>
+          </div>
+          <div class="company-chip" style="background-color: ${testi.companyBg || 'var(--primary)'}">
+            <i class="fa-solid fa-briefcase" style="font-size: 0.7rem;"></i>
+            <span>${testi.company}</span>
+          </div>
+        </div>
+      `;
+      testiTrack.appendChild(card);
+
+      // Create Dot
+      if (testiIndicators) {
+        const dot = document.createElement("span");
+        dot.className = "carousel-indicator-dot";
+        dot.setAttribute("data-index", index);
+        testiIndicators.appendChild(dot);
+      }
+    });
+
+    const cards = testiTrack.querySelectorAll(".testimonial-card-3d");
+    const dots = testiIndicators ? testiIndicators.querySelectorAll(".carousel-indicator-dot") : [];
+
+    // B. Update Layout State
+    const updateCarousel = () => {
+      cards.forEach((card, index) => {
+        card.classList.remove("active", "prev", "next");
+        
+        let diff = index - currentIndex;
+        // Circular math
+        if (diff < -Math.floor(testimonials.length / 2)) diff += testimonials.length;
+        if (diff > Math.floor(testimonials.length / 2)) diff -= testimonials.length;
+
+        if (diff === 0) {
+          card.classList.add("active");
+        } else if (diff === -1) {
+          card.classList.add("prev");
+        } else if (diff === 1) {
+          card.classList.add("next");
+        }
+      });
+
+      // Update dots
+      dots.forEach((dot, index) => {
+        if (index === currentIndex) {
+          dot.classList.add("active");
+        } else {
+          dot.classList.remove("active");
+        }
+      });
+      
+      // Initialize mouse glow coordinates tracker for cards
+      const glowCards = testiTrack.querySelectorAll(".testimonial-card-3d");
+      glowCards.forEach(card => {
+        card.addEventListener("mousemove", (e) => {
+          const rect = card.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          card.style.setProperty("--mouse-x", `${x}px`);
+          card.style.setProperty("--mouse-y", `${y}px`);
+        });
+      });
+    };
+
+    // C. Controls & Actions
+    const goToSlide = (index) => {
+      currentIndex = (index + testimonials.length) % testimonials.length;
+      updateCarousel();
+      resetAutoplay();
+    };
+
+    const nextSlide = () => {
+      goToSlide(currentIndex + 1);
+    };
+
+    const prevSlide = () => {
+      goToSlide(currentIndex - 1);
+    };
+
+    // D. Bind Event Listeners
+    if (testiPrevBtn) testiPrevBtn.addEventListener("click", prevSlide);
+    if (testiNextBtn) testiNextBtn.addEventListener("click", nextSlide);
+
+    dots.forEach(dot => {
+      dot.addEventListener("click", () => {
+        const targetIndex = parseInt(dot.getAttribute("data-index"), 10);
+        goToSlide(targetIndex);
+      });
+    });
+
+    cards.forEach(card => {
+      card.addEventListener("click", () => {
+        if (card.classList.contains("prev")) {
+          prevSlide();
+        } else if (card.classList.contains("next")) {
+          nextSlide();
+        }
+      });
+    });
+
+    // E. Autoplay Mechanics
+    const startAutoplay = () => {
+      if (!autoplayTimer) {
+        autoplayTimer = setInterval(nextSlide, autoplayDelay);
+      }
+    };
+
+    const stopAutoplay = () => {
+      if (autoplayTimer) {
+        clearInterval(autoplayTimer);
+        autoplayTimer = null;
+      }
+    };
+
+    const resetAutoplay = () => {
+      stopAutoplay();
+      startAutoplay();
+    };
+
+    if (testimonialsWrapper) {
+      testimonialsWrapper.addEventListener("mouseenter", stopAutoplay);
+      testimonialsWrapper.addEventListener("mouseleave", startAutoplay);
+    }
+
+    // F. Touch & Drag Swipe Gesture Handling
+    let startX = 0;
+    let isDragging = false;
+
+    const handleDragStart = (xPos) => {
+      startX = xPos;
+      isDragging = true;
+    };
+
+    const handleDragEnd = (endX) => {
+      if (!isDragging) return;
+      const deltaX = endX - startX;
+      if (deltaX > 60) {
+        prevSlide();
+      } else if (deltaX < -60) {
+        nextSlide();
+      }
+      isDragging = false;
+    };
+
+    // Touch events
+    testiTrack.addEventListener("touchstart", (e) => {
+      handleDragStart(e.touches[0].clientX);
+    }, { passive: true });
+
+    testiTrack.addEventListener("touchend", (e) => {
+      handleDragEnd(e.changedTouches[0].clientX);
+    }, { passive: true });
+
+    // Mouse drag events
+    testiTrack.addEventListener("mousedown", (e) => {
+      handleDragStart(e.clientX);
+    });
+
+    testiTrack.addEventListener("mouseup", (e) => {
+      handleDragEnd(e.clientX);
+    });
+
+    testiTrack.addEventListener("mouseleave", () => {
+      isDragging = false;
+    });
+
+    // Initial render call
+    updateCarousel();
+    startAutoplay();
+  }
 });
+
 
 
 

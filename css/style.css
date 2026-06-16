@@ -2409,5 +2409,286 @@ footer {
   }
 }
 
+/* --- ALUMNI TESTIMONIALS 3D CAROUSEL --- */
+.testimonials-section {
+  position: relative;
+  background: var(--special-section-bg);
+  overflow: hidden;
+  padding: 100px 0;
+}
+
+.testimonials-carousel-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 50px auto 20px;
+  width: 100%;
+  max-width: 1100px;
+  height: 420px;
+  perspective: 1200px;
+}
+
+.carousel-track-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.carousel-track {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform-style: preserve-3d;
+}
+
+/* 3D Testimonial Card Styling */
+.testimonial-card-3d {
+  position: absolute;
+  width: 540px;
+  max-width: 90%;
+  height: 320px;
+  padding: 36px;
+  background: var(--bg-glass);
+  border: 1px solid var(--border-glass);
+  border-radius: var(--radius-xl);
+  backdrop-filter: blur(20px) saturate(140%);
+  -webkit-backdrop-filter: blur(20px) saturate(140%);
+  box-shadow: var(--shadow-xl);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transform-style: preserve-3d;
+  transition: transform var(--transition-slow), opacity var(--transition-slow), border-color var(--transition-normal), box-shadow var(--transition-slow);
+  cursor: pointer;
+  user-select: none;
+  opacity: 0;
+  transform: translateX(0) scale(0.6) rotateY(0deg);
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Center Active Card */
+.testimonial-card-3d.active {
+  opacity: 1;
+  transform: translateX(0) scale(1) rotateY(0deg);
+  z-index: 10;
+  pointer-events: auto;
+  cursor: default;
+}
+
+/* Left Neighbor Card */
+.testimonial-card-3d.prev {
+  opacity: 0.55;
+  transform: translateX(-42%) scale(0.82) rotateY(15deg);
+  z-index: 5;
+  pointer-events: auto;
+}
+
+/* Right Neighbor Card */
+.testimonial-card-3d.next {
+  opacity: 0.55;
+  transform: translateX(42%) scale(0.82) rotateY(-15deg);
+  z-index: 5;
+  pointer-events: auto;
+}
+
+.testimonial-card-3d:hover {
+  border-color: rgba(var(--primary-rgb), 0.35);
+  box-shadow: 0 30px 45px -15px rgba(15, 95, 255, 0.15);
+}
+
+.testimonial-card-3d.active:hover {
+  transform: translateX(0) scale(1.02) rotateY(0deg);
+}
+
+.testimonial-card-3d.prev:hover {
+  transform: translateX(-42%) scale(0.85) rotateY(10deg);
+  opacity: 0.8;
+}
+
+.testimonial-card-3d.next:hover {
+  transform: translateX(42%) scale(0.85) rotateY(-10deg);
+  opacity: 0.8;
+}
+
+/* Quote Graphic Overlay */
+.testimonial-quote-icon {
+  position: absolute;
+  top: 24px;
+  right: 28px;
+  font-size: 4.5rem;
+  color: var(--primary);
+  opacity: 0.06;
+  pointer-events: none;
+  font-family: serif;
+}
+
+/* Card Header Tag */
+.testimonial-tag {
+  align-self: flex-start;
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.75px;
+  background: rgba(var(--primary-rgb), 0.08);
+  color: var(--primary);
+  border: 1px solid rgba(var(--primary-rgb), 0.12);
+  margin-bottom: 16px;
+  box-shadow: var(--shadow-sm);
+}
+
+/* Blockquote Paragraph */
+.testimonial-quote {
+  font-size: 0.98rem;
+  line-height: 1.65;
+  color: var(--text-secondary);
+  font-style: italic;
+  font-weight: 400;
+  margin-bottom: 24px;
+  position: relative;
+  z-index: 2;
+  flex-grow: 1;
+}
+
+/* Card Footer Author Segment */
+.testimonial-author-block {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid var(--border-subtle);
+  padding-top: 18px;
+  margin-top: auto;
+}
+
+.testimonial-profile {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.testimonial-avatar-wrapper {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  border: 2px solid var(--border-glass);
+  box-shadow: var(--shadow-md);
+  background: var(--bg-primary);
+}
+
+.testimonial-avatar {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.testimonial-meta h4 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 2px;
+  font-family: var(--font-title);
+  letter-spacing: -0.2px;
+}
+
+.testimonial-meta p {
+  font-size: 0.76rem;
+  color: var(--text-light);
+}
+
+/* Brand Company Chip */
+.company-chip {
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #fff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Carousel Control Arrows */
+.carousel-control {
+  background: var(--bg-glass);
+  border: 1px solid var(--border-glass);
+  color: var(--text-primary);
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1.1rem;
+  transition: all var(--transition-normal);
+  z-index: 20;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: var(--shadow-md);
+  position: absolute;
+}
+
+.carousel-control.prev-btn {
+  left: 20px;
+}
+
+.carousel-control.next-btn {
+  right: 20px;
+}
+
+.carousel-control:hover {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: #fff;
+  transform: scale(1.1);
+  box-shadow: 0 8px 20px rgba(var(--primary-rgb), 0.35);
+}
+
+.carousel-control:active {
+  transform: scale(0.95);
+}
+
+/* Indicators Grid */
+.carousel-indicators {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 30px;
+  position: relative;
+  z-index: 15;
+}
+
+.carousel-indicator-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: var(--radius-full);
+  background: var(--text-light);
+  opacity: 0.3;
+  cursor: pointer;
+  transition: all var(--transition-normal);
+}
+
+.carousel-indicator-dot.active {
+  width: 28px;
+  border-radius: 5px;
+  background: var(--primary);
+  opacity: 1;
+  box-shadow: 0 0 10px rgba(var(--primary-rgb), 0.45);
+}
+
+
 
 
