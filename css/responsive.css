@@ -443,6 +443,92 @@
   }
 }
 
+/* SQA Quiz Responsiveness */
+@media (max-width: 768px) {
+  .quiz-section {
+    padding: 70px 0;
+  }
+  .quiz-container {
+    padding: 24px;
+    width: 92%;
+  }
+  .quiz-options-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .option-btn {
+    padding: 14px 18px;
+  }
+  .quiz-welcome-content h3 {
+    font-size: 1.35rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .quiz-container {
+    padding: 20px 16px;
+  }
+  .quiz-welcome-content h3 {
+    font-size: 1.2rem;
+  }
+  .quiz-welcome-content p {
+    font-size: 0.88rem;
+    margin-bottom: 20px;
+  }
+  .quiz-rules-list {
+    padding: 16px;
+    margin-bottom: 24px;
+    gap: 10px;
+  }
+  .quiz-rules-list li {
+    font-size: 0.82rem;
+  }
+  .quiz-rules-list li i {
+    font-size: 0.9rem;
+  }
+  .quiz-question-container h3 {
+    font-size: 1.15rem;
+    line-height: 1.45;
+  }
+  .option-btn {
+    font-size: 0.86rem;
+    padding: 12px 16px;
+  }
+  .quiz-feedback-box {
+    padding: 16px;
+  }
+  .quiz-feedback-header {
+    font-size: 0.88rem;
+  }
+  .quiz-feedback-desc {
+    font-size: 0.82rem;
+  }
+  .quiz-score-circle {
+    width: 120px;
+    height: 120px;
+  }
+  .score-percentage {
+    font-size: 1.9rem;
+  }
+  .quiz-review-section {
+    padding: 16px;
+  }
+  .quiz-review-section h4 {
+    font-size: 0.95rem;
+  }
+  .review-q-header {
+    font-size: 0.82rem;
+  }
+  .review-q-explanation {
+    font-size: 0.76rem;
+    padding-left: 18px;
+  }
+  .quiz-result-actions .btn {
+    width: 100%;
+  }
+}
+
+
 
 
 

@@ -92,6 +92,7 @@
         <a href="#activities" class="nav-link">Activities</a>
         <a href="#testimonials" class="nav-link">Testimonials</a>
         <a href="#resources" class="nav-link">Resources</a>
+        <a href="#quiz" class="nav-link">QA Game</a>
         <a href="#gallery" class="nav-link">Gallery</a>
         <a href="#contact" class="nav-link">Contact</a>
       </nav>
@@ -828,6 +829,111 @@
       </div>
     </section>
 
+    <!-- SQA Quiz Section -->
+    <section id="quiz" class="reveal quiz-section">
+      <div class="section-container">
+        <span class="section-tag">QA Challenge</span>
+        <h2 class="section-title">SQA Interactive Skill Quiz</h2>
+        <p class="section-desc">Test your knowledge of Manual QA, test automation syntax, bug lifecycles, and testing frameworks to prepare for club roles and internships.</p>
+
+        <div class="quiz-container glow-card" id="quiz-main-card">
+          <!-- State 1: Welcome/Start View -->
+          <div class="quiz-view" id="quiz-start-view">
+            <div class="quiz-welcome-content">
+              <div class="quiz-welcome-icon"><i class="fa-solid fa-gamepad"></i></div>
+              <h3>Are you ready to test your SQA skills?</h3>
+              <p>Showcase your expertise and earn a virtual <strong>Certified SQA Candidate</strong> badge by scoring 80% or higher!</p>
+              
+              <ul class="quiz-rules-list">
+                <li><i class="fa-solid fa-circle-check"></i> <strong>10 Questions:</strong> Covering lifecycle, manual testing, Selenium, and JUnit.</li>
+                <li><i class="fa-solid fa-clock"></i> <strong>15-Second Limit:</strong> Each question must be answered before the clock ticks down.</li>
+                <li><i class="fa-solid fa-volume-high"></i> <strong>Synth Sound Effects:</strong> Native sound bells, buzzers, and ticking warnings.</li>
+                <li><i class="fa-solid fa-award"></i> <strong>Pass Criteria:</strong> Achieve 80%+ correct answers to unlock the confetti victory.</li>
+              </ul>
+              
+              <button class="btn btn-primary btn-start-quiz" id="btn-start-quiz">
+                Start SQA Challenge <i class="fa-solid fa-play" style="margin-left: 8px;"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- State 2: Quiz Play View -->
+          <div class="quiz-view" id="quiz-play-view" style="display: none;">
+            <!-- Header: Question tracker & Countdown Timer -->
+            <div class="quiz-play-header">
+              <div class="quiz-q-tracker">
+                Question <span id="quiz-current-q-num">1</span> of <span id="quiz-total-q-num">10</span>
+              </div>
+              <div class="quiz-timer-block" id="quiz-timer-wrapper">
+                <i class="fa-regular fa-clock timer-icon"></i>
+                <span id="quiz-timer-text">15s</span>
+              </div>
+            </div>
+
+            <!-- Progress Bar -->
+            <div class="quiz-progress-bar-wrapper">
+              <div class="quiz-progress-fill" id="quiz-progress-indicator" style="width: 10%;"></div>
+            </div>
+
+            <!-- Question Display -->
+            <div class="quiz-question-container">
+              <h3 id="quiz-question-text">Question text loads here...</h3>
+            </div>
+
+            <!-- Options Grid -->
+            <div class="quiz-options-grid" id="quiz-options-wrapper">
+              <!-- Dynamically populated option buttons -->
+            </div>
+
+            <!-- Bottom: Feedback Box & Next Button -->
+            <div class="quiz-play-footer">
+              <div class="quiz-feedback-box" id="quiz-feedback-container" style="display: none;">
+                <div class="quiz-feedback-header">
+                  <span class="feedback-icon" id="quiz-feedback-icon-target"></span>
+                  <strong id="quiz-feedback-status">Correct!</strong>
+                </div>
+                <p class="quiz-feedback-desc" id="quiz-feedback-desc-target">Explanation details load here...</p>
+              </div>
+
+              <button class="btn btn-accent btn-next-question" id="btn-next-question" style="display: none;">
+                Next Question <i class="fa-solid fa-chevron-right" style="margin-left: 8px;"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- State 3: Results Scorecard View -->
+          <div class="quiz-view" id="quiz-result-view" style="display: none;">
+            <div class="quiz-result-header">
+              <div class="result-badge-icon" id="quiz-result-badge-icon"><i class="fa-solid fa-award"></i></div>
+              <h3 id="quiz-result-heading">Challenge Completed!</h3>
+              
+              <!-- Score Circular Segment -->
+              <div class="quiz-score-circle">
+                <span class="score-percentage" id="quiz-score-percent">0%</span>
+                <span class="score-ratio" id="quiz-score-ratio">0 / 0</span>
+              </div>
+              
+              <p class="quiz-result-tagline" id="quiz-result-message">Result message goes here.</p>
+            </div>
+
+            <!-- Review Section -->
+            <div class="quiz-review-section">
+              <h4>Review Questions</h4>
+              <div class="quiz-review-list" id="quiz-review-list-target">
+                <!-- Dynamically populated review items -->
+              </div>
+            </div>
+
+            <div class="quiz-result-actions">
+              <button class="btn btn-primary" id="btn-restart-quiz">
+                <i class="fa-solid fa-rotate-left" style="margin-right: 8px;"></i> Play Again
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- Gallery Section -->
     <section id="gallery" class="reveal">
       <div class="section-container">
@@ -1036,6 +1142,7 @@
           <a href="#welfare-wing">Welfare Wing</a>
           <a href="#activities">Activities</a>
           <a href="#testimonials">Testimonials</a>
+          <a href="#quiz">QA Game</a>
           <a href="#gallery">Gallery</a>
           <a href="#contact">Contact</a>
         </div>
@@ -1235,6 +1342,7 @@
   <script src="js/resources.js"></script>
   <script src="js/activities.js"></script>
   <script src="js/testimonials.js"></script>
+  <script src="js/quiz.js"></script>
   <script src="js/app.js"></script>
 </body>
 

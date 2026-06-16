@@ -1460,15 +1460,477 @@ document.addEventListener("DOMContentLoaded", () => {
       handleDragEnd(e.clientX);
     });
 
-    testiTrack.addEventListener("mouseleave", () => {
-      isDragging = false;
-    });
-
     // Initial render call
     updateCarousel();
     startAutoplay();
   }
+
+  // 15. SQA INTERACTIVE SKILL ASSESSMENT QUIZ GAME
+  const quizStartView = document.getElementById("quiz-start-view");
+  const quizPlayView = document.getElementById("quiz-play-view");
+  const quizResultView = document.getElementById("quiz-result-view");
+  const btnStartQuiz = document.getElementById("btn-start-quiz");
+  const btnRestartQuiz = document.getElementById("btn-restart-quiz");
+  const btnNextQuestion = document.getElementById("btn-next-question");
+  
+  const currentQNumSpan = document.getElementById("quiz-current-q-num");
+  const totalQNumSpan = document.getElementById("quiz-total-q-num");
+  const timerTextSpan = document.getElementById("quiz-timer-text");
+  const timerWrapper = document.getElementById("quiz-timer-wrapper");
+  const progressBarIndicator = document.getElementById("quiz-progress-indicator");
+  const questionTextH3 = document.getElementById("quiz-question-text");
+  const optionsWrapper = document.getElementById("quiz-options-wrapper");
+  
+  const feedbackContainer = document.getElementById("quiz-feedback-container");
+  const feedbackStatusStrong = document.getElementById("quiz-feedback-status");
+  const feedbackIconSpan = document.getElementById("quiz-feedback-icon-target");
+  const feedbackDescTarget = document.getElementById("quiz-feedback-desc-target");
+  
+  const scorePercentSpan = document.getElementById("quiz-score-percent");
+  const scoreRatioSpan = document.getElementById("quiz-score-ratio");
+  const resultMessageP = document.getElementById("quiz-result-message");
+  const resultBadgeIcon = document.getElementById("quiz-result-badge-icon");
+  const reviewListTarget = document.getElementById("quiz-review-list-target");
+
+  if (quizStartView && window.SQAT_QUIZ_QUESTIONS && window.SQAT_QUIZ_QUESTIONS.length > 0) {
+    const questions = window.SQAT_QUIZ_QUESTIONS;
+    let currentQuestionIndex = 0;
+    let score = 0;
+    let timeLeft = 15;
+    let timerInterval = null;
+    let selectedOption = null;
+    let userAnswers = []; // Records { correct: boolean, chosenOption: number, timeout: boolean }
+
+    // --- Native Web Audio Synthesis Module ---
+    let audioCtx = null;
+    const initAudio = () => {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+    };
+
+    const playQuizSound = (type) => {
+      try {
+        initAudio();
+        if (!audioCtx) return;
+        
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        const now = audioCtx.currentTime;
+
+        if (type === 'click') {
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(650, now);
+          gain.gain.setValueAtTime(0.06, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.08);
+          osc.start(now);
+          osc.stop(now + 0.08);
+        } else if (type === 'correct') {
+          // Play a C major chord C4 - E4 - G4
+          const playNote = (freq, delay, dur) => {
+            const o = audioCtx.createOscillator();
+            const g = audioCtx.createGain();
+            o.connect(g);
+            g.connect(audioCtx.destination);
+            o.type = 'triangle';
+            o.frequency.setValueAtTime(freq, now + delay);
+            g.gain.setValueAtTime(0.06, now + delay);
+            g.gain.exponentialRampToValueAtTime(0.001, now + delay + dur);
+            o.start(now + delay);
+            o.stop(now + delay + dur);
+          };
+          playNote(261.63, 0, 0.18); // C4
+          playNote(329.63, 0.04, 0.22); // E4
+          playNote(392.00, 0.08, 0.3); // G4
+        } else if (type === 'incorrect') {
+          // Play a low dissonant buzz
+          osc.type = 'sawtooth';
+          osc.frequency.setValueAtTime(160, now);
+          osc.frequency.linearRampToValueAtTime(140, now + 0.35);
+          gain.gain.setValueAtTime(0.05, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.35);
+          osc.start(now);
+          osc.stop(now + 0.35);
+        } else if (type === 'tick') {
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(1000, now);
+          gain.gain.setValueAtTime(0.015, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.04);
+          osc.start(now);
+          osc.stop(now + 0.04);
+        } else if (type === 'victory') {
+          // Melodic victory sequence
+          const playNote = (freq, delay, dur) => {
+            const o = audioCtx.createOscillator();
+            const g = audioCtx.createGain();
+            o.connect(g);
+            g.connect(audioCtx.destination);
+            o.type = 'sine';
+            o.frequency.setValueAtTime(freq, now + delay);
+            g.gain.setValueAtTime(0.06, now + delay);
+            g.gain.exponentialRampToValueAtTime(0.001, now + delay + dur);
+            o.start(now + delay);
+            o.stop(now + delay + dur);
+          };
+          playNote(261.63, 0, 0.12); // C4
+          playNote(329.63, 0.12, 0.12); // E4
+          playNote(392.00, 0.24, 0.12); // G4
+          playNote(523.25, 0.36, 0.45); // C5
+        } else if (type === 'defeat') {
+          // Descending sad minor chord
+          const playNote = (freq, delay, dur) => {
+            const o = audioCtx.createOscillator();
+            const g = audioCtx.createGain();
+            o.connect(g);
+            g.connect(audioCtx.destination);
+            o.type = 'sine';
+            o.frequency.setValueAtTime(freq, now + delay);
+            g.gain.setValueAtTime(0.05, now + delay);
+            g.gain.exponentialRampToValueAtTime(0.001, now + delay + dur);
+            o.start(now + delay);
+            o.stop(now + delay + dur);
+          };
+          playNote(220.00, 0, 0.22); // A3
+          playNote(196.00, 0.18, 0.22); // G3
+          playNote(174.61, 0.36, 0.45); // F3
+        }
+      } catch (err) {
+        console.warn("Web Audio API disabled or blocked: ", err);
+      }
+    };
+
+    // --- Dynamic Confetti Sprayer ---
+    const triggerQuizConfetti = () => {
+      let canvas = document.getElementById("quiz-confetti-canvas");
+      if (!canvas) {
+        canvas = document.createElement("canvas");
+        canvas.id = "quiz-confetti-canvas";
+        canvas.style.position = "absolute";
+        canvas.style.top = "0";
+        canvas.style.left = "0";
+        canvas.style.width = "100%";
+        canvas.style.height = "100%";
+        canvas.style.pointerEvents = "none";
+        canvas.style.zIndex = "5";
+        
+        const mainCard = document.getElementById("quiz-main-card");
+        if (mainCard) {
+          mainCard.style.position = "relative";
+          mainCard.appendChild(canvas);
+        }
+      }
+
+      const ctx = canvas.getContext("2d");
+      canvas.width = canvas.parentElement.clientWidth;
+      canvas.height = canvas.parentElement.clientHeight;
+
+      const colors = ["#0F5FFF", "#2ECC71", "#FFD700", "#FF4D4D", "#9B59B6", "#1ABC9C"];
+      const particles = [];
+      const particleCount = 90;
+
+      for (let i = 0; i < particleCount; i++) {
+        particles.push({
+          x: canvas.width / 2,
+          y: canvas.height / 2 - 20,
+          r: Math.random() * 5 + 3,
+          color: colors[Math.floor(Math.random() * colors.length)],
+          vx: (Math.random() - 0.5) * 12,
+          vy: (Math.random() - 0.8) * 14 - 3,
+          gravity: 0.28,
+          fade: Math.random() * 0.01 + 0.006,
+          alpha: 1
+        });
+      }
+
+      let animationId;
+      const animate = () => {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        let alive = false;
+
+        particles.forEach(p => {
+          p.x += p.vx;
+          p.y += p.vy;
+          p.vy += p.gravity;
+          p.alpha -= p.fade;
+
+          if (p.alpha > 0) {
+            alive = true;
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+            ctx.fillStyle = p.color;
+            ctx.globalAlpha = p.alpha;
+            ctx.fill();
+          }
+        });
+
+        ctx.globalAlpha = 1.0;
+        if (alive) {
+          animationId = requestAnimationFrame(animate);
+        } else {
+          canvas.remove();
+        }
+      };
+      animate();
+    };
+
+    // --- State Game Loop Functions ---
+    const startQuiz = () => {
+      initAudio();
+      playQuizSound('click');
+      
+      currentQuestionIndex = 0;
+      score = 0;
+      userAnswers = [];
+      
+      if (totalQNumSpan) totalQNumSpan.textContent = questions.length;
+      
+      quizStartView.style.display = "none";
+      if (quizResultView) quizResultView.style.display = "none";
+      quizPlayView.style.display = "block";
+      
+      loadQuestion();
+    };
+
+    const loadQuestion = () => {
+      // Clear active timers
+      if (timerInterval) clearInterval(timerInterval);
+      selectedOption = null;
+      
+      const q = questions[currentQuestionIndex];
+      
+      // Update trackers
+      if (currentQNumSpan) currentQNumSpan.textContent = currentQuestionIndex + 1;
+      if (progressBarIndicator) {
+        const percent = ((currentQuestionIndex + 1) / questions.length) * 100;
+        progressBarIndicator.style.width = percent + "%";
+      }
+      
+      // Load question text
+      if (questionTextH3) questionTextH3.textContent = q.question;
+      
+      // Load option buttons
+      if (optionsWrapper) {
+        optionsWrapper.innerHTML = "";
+        q.options.forEach((opt, index) => {
+          const button = document.createElement("button");
+          button.className = "option-btn";
+          button.type = "button";
+          button.innerHTML = `
+            <span>${opt}</span>
+            <span class="option-icon-indicator"></span>
+          `;
+          button.addEventListener("click", () => selectOption(index));
+          optionsWrapper.appendChild(button);
+        });
+      }
+      
+      // Reset layout details
+      if (feedbackContainer) feedbackContainer.style.display = "none";
+      if (btnNextQuestion) btnNextQuestion.style.display = "none";
+      if (timerWrapper) timerWrapper.classList.remove("warning");
+      
+      // Start Countdown Timer (15 seconds)
+      timeLeft = 15;
+      if (timerTextSpan) timerTextSpan.textContent = timeLeft + "s";
+      
+      timerInterval = setInterval(() => {
+        timeLeft--;
+        if (timerTextSpan) timerTextSpan.textContent = timeLeft + "s";
+        
+        if (timeLeft <= 5) {
+          if (timerWrapper) timerWrapper.classList.add("warning");
+          playQuizSound('tick');
+        }
+        
+        if (timeLeft <= 0) {
+          handleTimeout();
+        }
+      }, 1000);
+    };
+
+    const selectOption = (optIdx) => {
+      if (selectedOption !== null) return; // Ignore multiple click inputs
+      if (timerInterval) clearInterval(timerInterval);
+      
+      selectedOption = optIdx;
+      const q = questions[currentQuestionIndex];
+      const buttons = optionsWrapper.querySelectorAll(".option-btn");
+      
+      buttons.forEach(btn => btn.disabled = true);
+      
+      const isCorrect = (optIdx === q.correct);
+      
+      // Style picked button
+      const selectedBtn = buttons[optIdx];
+      if (isCorrect) {
+        score++;
+        selectedBtn.classList.add("correct");
+        selectedBtn.querySelector(".option-icon-indicator").innerHTML = `<i class="fa-solid fa-circle-check"></i>`;
+        playQuizSound('correct');
+      } else {
+        selectedBtn.classList.add("incorrect");
+        selectedBtn.querySelector(".option-icon-indicator").innerHTML = `<i class="fa-solid fa-circle-xmark"></i>`;
+        playQuizSound('incorrect');
+        
+        // Show correct button outline
+        const correctBtn = buttons[q.correct];
+        correctBtn.classList.add("correct");
+        correctBtn.querySelector(".option-icon-indicator").innerHTML = `<i class="fa-solid fa-circle-check"></i>`;
+      }
+      
+      // Record answer logs
+      userAnswers.push({
+        correct: isCorrect,
+        chosenOption: optIdx,
+        timeout: false
+      });
+      
+      // Show feedback box
+      showFeedback(isCorrect, q.explanation);
+    };
+
+    const handleTimeout = () => {
+      if (timerInterval) clearInterval(timerInterval);
+      selectedOption = -1; // Flag represents timeout
+      
+      const q = questions[currentQuestionIndex];
+      const buttons = optionsWrapper.querySelectorAll(".option-btn");
+      buttons.forEach(btn => btn.disabled = true);
+      
+      // Highlight the correct answer
+      const correctBtn = buttons[q.correct];
+      correctBtn.classList.add("correct");
+      correctBtn.querySelector(".option-icon-indicator").innerHTML = `<i class="fa-solid fa-circle-check"></i>`;
+      
+      playQuizSound('incorrect');
+      
+      userAnswers.push({
+        correct: false,
+        chosenOption: null,
+        timeout: true
+      });
+      
+      showFeedback(false, `Time ran out! ${q.explanation}`, true);
+    };
+
+    const showFeedback = (isCorrect, explanation, isTimeout = false) => {
+      if (!feedbackContainer) return;
+      
+      if (feedbackStatusStrong) {
+        if (isTimeout) {
+          feedbackStatusStrong.textContent = "Time Out!";
+          feedbackStatusStrong.className = "quiz-feedback-header incorrect";
+          if (feedbackIconSpan) feedbackIconSpan.innerHTML = `<i class="fa-regular fa-clock"></i>`;
+        } else if (isCorrect) {
+          feedbackStatusStrong.textContent = "Correct!";
+          feedbackStatusStrong.className = "quiz-feedback-header correct";
+          if (feedbackIconSpan) feedbackIconSpan.innerHTML = `<i class="fa-solid fa-circle-check"></i>`;
+        } else {
+          feedbackStatusStrong.textContent = "Incorrect!";
+          feedbackStatusStrong.className = "quiz-feedback-header incorrect";
+          if (feedbackIconSpan) feedbackIconSpan.innerHTML = `<i class="fa-solid fa-circle-xmark"></i>`;
+        }
+      }
+      
+      if (feedbackDescTarget) {
+        feedbackDescTarget.textContent = explanation;
+      }
+      
+      feedbackContainer.style.display = "block";
+      if (btnNextQuestion) {
+        if (currentQuestionIndex === questions.length - 1) {
+          btnNextQuestion.innerHTML = `Finish Challenge <i class="fa-solid fa-flag-checkered" style="margin-left: 8px;"></i>`;
+        } else {
+          btnNextQuestion.innerHTML = `Next Question <i class="fa-solid fa-chevron-right" style="margin-left: 8px;"></i>`;
+        }
+        btnNextQuestion.style.display = "flex";
+      }
+    };
+
+    const nextQuestion = () => {
+      playQuizSound('click');
+      currentQuestionIndex++;
+      
+      if (currentQuestionIndex < questions.length) {
+        loadQuestion();
+      } else {
+        showResults();
+      }
+    };
+
+    const showResults = () => {
+      quizPlayView.style.display = "none";
+      if (quizResultView) quizResultView.style.display = "block";
+      
+      const percentage = Math.round((score / questions.length) * 100);
+      
+      if (scorePercentSpan) scorePercentSpan.textContent = percentage + "%";
+      if (scoreRatioSpan) scoreRatioSpan.textContent = `${score} / ${questions.length}`;
+      
+      const passed = percentage >= 80;
+      
+      if (resultBadgeIcon) {
+        resultBadgeIcon.className = "result-badge-icon " + (passed ? "pass" : "fail");
+        resultBadgeIcon.innerHTML = passed ? `<i class="fa-solid fa-trophy"></i>` : `<i class="fa-solid fa-triangle-exclamation"></i>`;
+      }
+      
+      if (resultMessageP) {
+        if (passed) {
+          resultMessageP.innerHTML = `<strong>Congratulations!</strong> You successfully passed the challenge and demonstrated high SQA competence. You have unlocked the <strong>Certified SQA Candidate</strong> badge!`;
+          playQuizSound('victory');
+          triggerQuizConfetti();
+        } else {
+          resultMessageP.innerHTML = `You scored <strong>${percentage}%</strong>. A minimum score of <strong>80%</strong> is required to pass. Read guides in the Study Vault and try again!`;
+          playQuizSound('defeat');
+        }
+      }
+      
+      // Populate review checklist target
+      if (reviewListTarget) {
+        reviewListTarget.innerHTML = "";
+        
+        questions.forEach((q, index) => {
+          const ans = userAnswers[index];
+          const reviewItem = document.createElement("div");
+          reviewItem.className = "review-item";
+          
+          let headerClass = ans.correct ? "correct" : "incorrect";
+          let headerIcon = ans.correct ? `<i class="fa-solid fa-circle-check"></i>` : `<i class="fa-solid fa-circle-xmark"></i>`;
+          let userChoiceText = "";
+          
+          if (ans.timeout) {
+            userChoiceText = "(Time Out)";
+          } else {
+            userChoiceText = `(Your Answer: ${q.options[ans.chosenOption]})`;
+          }
+          
+          reviewItem.innerHTML = `
+            <div class="review-q-header ${headerClass}">
+              ${headerIcon}
+              <span>Question ${index + 1}: ${q.question} ${ans.correct ? "" : userChoiceText}</span>
+            </div>
+            <div class="review-q-explanation">
+              <strong>Answer:</strong> ${q.options[q.correct]}<br>
+              <strong>Explanation:</strong> ${q.explanation}
+            </div>
+          `;
+          reviewListTarget.appendChild(reviewItem);
+        });
+      }
+    };
+
+    // --- Bind Actions Events ---
+    if (btnStartQuiz) btnStartQuiz.addEventListener("click", startQuiz);
+    if (btnRestartQuiz) btnRestartQuiz.addEventListener("click", startQuiz);
+    if (btnNextQuestion) btnNextQuestion.addEventListener("click", nextQuestion);
+  }
 });
+
 
 
 
