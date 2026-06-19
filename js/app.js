@@ -1948,12 +1948,15 @@ document.addEventListener("DOMContentLoaded", () => {
         const card = document.createElement("div");
         card.className = "achievement-card glow-card reveal visible";
         card.innerHTML = `
+          <!-- Temporary removed image wrapper as requested -->
+          <!--
           <div class="achievement-image-wrapper">
             <img src="${ach.image}" alt="${ach.name}" class="achievement-img" loading="lazy">
             <div class="achievement-badge" title="${ach.tag}">
               <i class="${ach.icon}"></i>
             </div>
           </div>
+          -->
           <span class="achievement-tag">${ach.tag}</span>
           <h4 class="achievement-name">${ach.name}</h4>
           <div class="achievement-role">${ach.role}</div>
