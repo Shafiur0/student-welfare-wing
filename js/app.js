@@ -2204,6 +2204,273 @@ Department: ${dept || "[Your Department]"}`
   }
 
   updatePreview();
+
+  // 19. HERO SECTION TYPEWRITER/TYPING EFFECT
+  const typingTarget = document.getElementById("hero-typing-target");
+  if (typingTarget) {
+    const words = ["Empowering Students", "Supporting Academic Growth", "Fostering SQA Talents", "Connecting Welfare Resources"];
+    let wordIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+    
+    const type = () => {
+      const currentWord = words[wordIndex];
+      if (isDeleting) {
+        typingTarget.textContent = currentWord.substring(0, charIndex - 1);
+        charIndex--;
+      } else {
+        typingTarget.textContent = currentWord.substring(0, charIndex + 1);
+        charIndex++;
+      }
+      
+      let typeSpeed = isDeleting ? 40 : 80;
+      
+      if (!isDeleting && charIndex === currentWord.length) {
+        typeSpeed = 2000; // Wait at end
+        isDeleting = true;
+      } else if (isDeleting && charIndex === 0) {
+        isDeleting = false;
+        wordIndex = (wordIndex + 1) % words.length;
+        typeSpeed = 500; // Pause before typing next
+      }
+      
+      setTimeout(type, typeSpeed);
+    };
+    setTimeout(type, 1000);
+  }
+
+  // 20. WELFARE MOOD & STRESS CHECK-IN WIDGET
+  const moodBtns = document.querySelectorAll(".mood-btn");
+  const moodResponseText = document.getElementById("mood-response-text");
+
+  const moodResponses = {
+    good: "Fantastic! Keep spreading the positive energy. Share some good vibes on our Wall of Gratitude below!",
+    stressed: "Take a deep breath. You are not alone. Check out the Study Vault in the Resources section for cheatsheets to save you study time!",
+    tired: "Rest is just as important as studying. Hydrate, take a 10-minute break, or set a Pomodoro timer in the Study Vault to pace yourself.",
+    help: "We've got your back. Drop a message using the Contact Form at the bottom, and a welfare coordinator will reach out to you."
+  };
+
+  moodBtns.forEach(btn => {
+    btn.addEventListener("click", () => {
+      // Bounce animation on click
+      btn.style.transform = "scale(1.3)";
+      setTimeout(() => btn.style.transform = "", 200);
+
+      const mood = btn.getAttribute("data-mood");
+      if (moodResponseText && moodResponses[mood]) {
+        moodResponseText.style.opacity = "0";
+        setTimeout(() => {
+          moodResponseText.innerHTML = moodResponses[mood];
+          moodResponseText.style.opacity = "1";
+        }, 150);
+      }
+    });
+  });
+
+  if (moodResponseText) {
+    moodResponseText.style.transition = "opacity 0.2s ease-in-out";
+  }
+
+  // 21. SQA FOCUS POMODORO TIMER
+  const pomoDisplay = document.getElementById("pomo-timer-display");
+  const btnPomoStart = document.getElementById("btn-pomo-start");
+  const btnPomoReset = document.getElementById("btn-pomo-reset");
+
+  let pomoTimeLeft = 25 * 60; // 25 minutes
+  let pomoInterval = null;
+  let pomoRunning = false;
+
+  const updatePomoDisplay = () => {
+    if (!pomoDisplay) return;
+    const mins = Math.floor(pomoTimeLeft / 60);
+    const secs = pomoTimeLeft % 60;
+    pomoDisplay.textContent = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+  };
+
+  if (btnPomoStart) {
+    btnPomoStart.addEventListener("click", () => {
+      if (pomoRunning) {
+        // Pause
+        clearInterval(pomoInterval);
+        pomoRunning = false;
+        btnPomoStart.innerHTML = `<i class="fa-solid fa-play"></i> Start`;
+      } else {
+        // Start
+        pomoRunning = true;
+        btnPomoStart.innerHTML = `<i class="fa-solid fa-pause"></i> Pause`;
+        pomoInterval = setInterval(() => {
+          if (pomoTimeLeft > 0) {
+            pomoTimeLeft--;
+            updatePomoDisplay();
+          } else {
+            clearInterval(pomoInterval);
+            pomoRunning = false;
+            btnPomoStart.innerHTML = `<i class="fa-solid fa-play"></i> Start`;
+            alert("Focus session finished! Time for a short break.");
+            pomoTimeLeft = 5 * 60; // Set to 5 min break
+            updatePomoDisplay();
+          }
+        }, 1000);
+      }
+    });
+  }
+
+  if (btnPomoReset) {
+    btnPomoReset.addEventListener("click", () => {
+      clearInterval(pomoInterval);
+      pomoRunning = false;
+      pomoTimeLeft = 25 * 60;
+      if (btnPomoStart) btnPomoStart.innerHTML = `<i class="fa-solid fa-play"></i> Start`;
+      updatePomoDisplay();
+    });
+  }
+
+  // 22. WELFARE WALL OF GRATITUDE
+  const gratitudeInput = document.getElementById("gratitude-input");
+  const btnPostGratitude = document.getElementById("btn-post-gratitude");
+  const gratitudeNotesGrid = document.getElementById("gratitude-notes-grid");
+
+  let gratitudeNotes = JSON.parse(localStorage.getItem("gratitude_notes")) || [
+    { text: "Thanks to Liza for helping me with the waiver verification process!", color: "#FFF9A6" },
+    { text: "Shoutout to cortex crew for the IEEE project showcase runner-up win!", color: "#A6FFEA" },
+    { text: "Grateful for the exam prep circles organized by our welfare wing mentors.", color: "#FFA6C9" }
+  ];
+
+  const noteColors = ["#FFF9A6", "#A6FFEA", "#FFA6C9", "#A6C5FF", "#D7A6FF", "#FFA6A6"];
+
+  const renderGratitudeNotes = () => {
+    if (!gratitudeNotesGrid) return;
+    gratitudeNotesGrid.innerHTML = "";
+    gratitudeNotes.slice(-6).reverse().forEach(note => {
+      const noteEl = document.createElement("div");
+      noteEl.className = "glow-card reveal visible";
+      noteEl.style.padding = "18px";
+      noteEl.style.borderRadius = "var(--radius-md)";
+      noteEl.style.border = `1px solid var(--border-glass)`;
+      noteEl.style.color = "#111"; // Keep text dark for post-it note readability
+      noteEl.style.backgroundColor = note.color;
+      noteEl.style.fontSize = "0.85rem";
+      noteEl.style.lineHeight = "1.5";
+      noteEl.style.boxShadow = "var(--shadow-sm)";
+      noteEl.style.minHeight = "100px";
+      noteEl.style.display = "flex";
+      noteEl.style.alignItems = "center";
+      noteEl.style.justifyContent = "center";
+      noteEl.style.textAlign = "center";
+      noteEl.style.fontWeight = "500";
+      noteEl.textContent = `"${note.text}"`;
+      gratitudeNotesGrid.appendChild(noteEl);
+    });
+  };
+
+  if (btnPostGratitude && gratitudeInput) {
+    btnPostGratitude.addEventListener("click", () => {
+      const val = gratitudeInput.value.trim();
+      if (!val) return;
+      
+      const newNote = {
+        text: val,
+        color: noteColors[Math.floor(Math.random() * noteColors.length)]
+      };
+      
+      gratitudeNotes.push(newNote);
+      localStorage.setItem("gratitude_notes", JSON.stringify(gratitudeNotes));
+      gratitudeInput.value = "";
+      renderGratitudeNotes();
+    });
+  }
+
+  renderGratitudeNotes();
+
+  // 23. DIU CAMPUS ROOM & LAB FINDER
+  const roomSelect = document.getElementById("room-select");
+  const roomResultCard = document.getElementById("room-result-card");
+  const roomResultTitle = document.getElementById("room-result-title");
+  const roomResultBldg = document.getElementById("room-result-bldg");
+  const roomResultFloor = document.getElementById("room-result-floor");
+  const roomResultNum = document.getElementById("room-result-num");
+  const roomResultDir = document.getElementById("room-result-dir");
+
+  const roomDatabase = {
+    welfare: {
+      name: "Student Welfare Wing Office",
+      bldg: "Academic Building 4 (AB4)",
+      floor: "4th Floor",
+      room: "Room 402",
+      dir: "Take the main elevator in AB4 to the 4th floor. Turn left; Room 402 is located directly next to the SWE Department Head's office."
+    },
+    "swe-lab-1": {
+      name: "Software Engineering Lab 1",
+      bldg: "Academic Building 4 (AB4)",
+      floor: "3rd Floor",
+      room: "Room 302",
+      dir: "Take the main elevator to the 3rd floor. Turn right; Lab 1 is the second glass room on the left side."
+    },
+    "swe-lab-2": {
+      name: "Software Engineering Lab 2",
+      bldg: "Academic Building 4 (AB4)",
+      floor: "3rd Floor",
+      room: "Room 304",
+      dir: "Located on the 3rd floor of AB4, directly adjacent to SWE Lab 1."
+    },
+    "cse-lab-3": {
+      name: "Computer Science Lab 3",
+      bldg: "Academic Building 4 (AB4)",
+      floor: "2nd Floor",
+      room: "Room 201",
+      dir: "Take the elevator or stairs to the 2nd floor. Turn right; Lab 3 is on the far right end of the corridor."
+    },
+    library: {
+      name: "Main University Library",
+      bldg: "Academic Building 4 (AB4)",
+      floor: "Ground Floor",
+      room: "Main Library Hall",
+      dir: "Enter through the main lobby of AB4. The library entrance is on the left side next to the reception counter."
+    },
+    "exam-hall": {
+      name: "Exam Hall (AB4-401)",
+      bldg: "Academic Building 4 (AB4)",
+      floor: "4th Floor",
+      room: "Room 401 (Exam Hall)",
+      dir: "Take the lift to Floor 4. Turn left; the massive Exam Hall double doors are directly opposite the elevators."
+    },
+    sports: {
+      name: "Indoor Games Club Room",
+      bldg: "Student Lounge Building",
+      floor: "2nd Floor",
+      room: "Lounge Games Zone",
+      dir: "Walk to the student lounge building opposite AB4. Go up to the second floor; the game zone houses table tennis and carrom boards."
+    },
+    cafeteria: {
+      name: "Central Cafeteria / Food Court",
+      bldg: "University Food Complex",
+      floor: "Ground Floor",
+      room: "Central Cafeteria",
+      dir: "Located behind Academic Building 4, next to the campus lake. Features outdoor seating."
+    }
+  };
+
+  if (roomSelect) {
+    roomSelect.addEventListener("change", () => {
+      const val = roomSelect.value;
+      if (roomDatabase[val]) {
+        const info = roomDatabase[val];
+        if (roomResultTitle) roomResultTitle.textContent = info.name;
+        if (roomResultBldg) roomResultBldg.textContent = info.bldg;
+        if (roomResultFloor) roomResultFloor.textContent = info.floor;
+        if (roomResultNum) roomResultNum.textContent = info.room;
+        if (roomResultDir) roomResultDir.textContent = info.dir;
+        
+        if (roomResultCard) {
+          roomResultCard.style.display = "block";
+        }
+      } else {
+        if (roomResultCard) {
+          roomResultCard.style.display = "none";
+        }
+      }
+    });
+  }
 });
 
 

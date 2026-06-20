@@ -131,7 +131,7 @@
               stroke-linecap="round" stroke-linejoin="round" />
           </svg>
         </div>
-        <h1 class="hero-title reveal"><span class="gradient-text">Empowering Students</span><br>Shaping Quality Leaders
+        <h1 class="hero-title reveal"><span class="gradient-text" id="hero-typing-target">Empowering Students</span><span class="typed-cursor">|</span><br>Shaping Quality Leaders
         </h1>
         <p class="hero-tagline reveal">Welcome to the Student Welfare Wing of Daffodil International University's
           Software Quality Assurance & Testing Club. We stand for support, inclusion, and academic excellence.</p>
@@ -522,6 +522,18 @@
         <p class="section-desc">A highly focused department of the SQAT Club, dedicated entirely to supporting student
           well-being and resource coordination.</p>
 
+        <!-- Mood Check-in Widget -->
+        <div class="mood-check-card glow-card reveal" style="margin: 24px auto 32px; max-width: 500px; padding: 20px 24px; text-align: center; border-radius: var(--radius-lg); background: var(--bg-glass); border: 1px solid var(--border-glass);">
+          <h4 style="font-size: 1rem; font-weight: 700; color: var(--text-primary); margin-bottom: 12px;">How are you feeling today?</h4>
+          <div style="display: flex; justify-content: center; gap: 16px; margin-bottom: 14px;">
+            <button class="mood-btn" data-mood="good" style="font-size: 1.8rem; background: none; border: none; cursor: pointer; transition: transform 0.2s;" title="Good">😊</button>
+            <button class="mood-btn" data-mood="stressed" style="font-size: 1.8rem; background: none; border: none; cursor: pointer; transition: transform 0.2s;" title="Stressed">📚</button>
+            <button class="mood-btn" data-mood="tired" style="font-size: 1.8rem; background: none; border: none; cursor: pointer; transition: transform 0.2s;" title="Tired">😴</button>
+            <button class="mood-btn" data-mood="help" style="font-size: 1.8rem; background: none; border: none; cursor: pointer; transition: transform 0.2s;" title="Needs Help">🤝</button>
+          </div>
+          <p id="mood-response-text" style="font-size: 0.88rem; color: var(--text-secondary); line-height: 1.4; min-height: 38px; margin: 0; padding: 0 10px;"></p>
+        </div>
+
         <!-- Wing Leadership -->
         <h3 class="section-tag" style="display: table; margin: 32px auto 24px;">Wing Leadership</h3>
 
@@ -790,6 +802,28 @@
       </div>
     </section>
 
+    <!-- Gratitude Wall Section -->
+    <section id="gratitude-wall" class="reveal" style="padding: 80px 0; background: rgba(0,0,0,0.15);">
+      <div class="section-container">
+        <span class="section-tag">Kindness Board</span>
+        <h2 class="section-title">Welfare Wall of Gratitude</h2>
+        <p class="section-desc">Share a thank-you note or words of appreciation for fellow peers, mentors, or volunteers who helped you.</p>
+
+        <div style="max-width: 800px; margin: 40px auto 0;">
+          <!-- Post Form -->
+          <div class="glow-card" style="padding: 20px; border-radius: var(--radius-md); background: var(--bg-glass); border: 1px solid var(--border-glass); margin-bottom: 30px; display: flex; gap: 12px; align-items: flex-start;">
+            <input type="text" id="gratitude-input" placeholder="Type a short note of appreciation..." style="flex-grow: 1; padding: 10px 14px; border-radius: var(--radius-md); border: 1px solid var(--border-glass); background: rgba(255,255,255,0.03); color: var(--text-primary); font-size: 0.9rem;">
+            <button class="btn btn-accent" id="btn-post-gratitude" style="padding: 10px 24px; font-size: 0.88rem; font-weight: 600; border-radius: var(--radius-md);">Post Note</button>
+          </div>
+
+          <!-- Notes Grid -->
+          <div id="gratitude-notes-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- Testimonials Section -->
     <section id="testimonials" class="reveal testimonials-section">
       <div class="section-container">
@@ -829,18 +863,35 @@
         <h2 class="section-title">SQA & Testing Resource Library</h2>
         <p class="section-desc">Curated learning guides, cheatsheets for automation testing, QA templates, and interview prep sheets for Software Engineering students.</p>
 
-        <!-- SQA Tip of the Day Card -->
-        <div class="sqa-tip-card glow-card reveal" style="margin: 32px auto; max-width: 600px; padding: 24px; text-align: center; border-radius: var(--radius-lg); background: var(--bg-glass); border: 1px solid var(--border-glass);">
-          <div style="font-size: 1.8rem; color: var(--primary); margin-bottom: 12px;">
-            <i class="fa-solid fa-lightbulb"></i>
+        <!-- Study Tools (Tips & Pomodoro) -->
+        <div class="study-tools-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; max-width: 900px; margin: 32px auto; width: 100%;">
+          <!-- Card 1: Tip of the day -->
+          <div class="sqa-tip-card glow-card reveal" style="padding: 24px; text-align: center; border-radius: var(--radius-lg); background: var(--bg-glass); border: 1px solid var(--border-glass); display: flex; flex-direction: column; align-items: center; justify-content: center;">
+            <div style="font-size: 1.8rem; color: var(--primary); margin-bottom: 12px;">
+              <i class="fa-solid fa-lightbulb"></i>
+            </div>
+            <h4 style="font-size: 1.1rem; font-weight: 700; color: var(--text-primary); margin-bottom: 8px;">SQA Tip of the Day</h4>
+            <p id="sqa-tip-content" style="font-size: 0.92rem; color: var(--text-secondary); line-height: 1.5; min-height: 48px; margin-bottom: 16px; padding: 0 10px;">
+              Tip is loading...
+            </p>
+            <button class="btn btn-secondary" id="btn-shuffle-tip" style="padding: 8px 20px; font-size: 0.82rem; margin: 0 auto; display: flex; align-items: center; gap: 8px;">
+              <i class="fa-solid fa-shuffle"></i> Shuffle Tip
+            </button>
           </div>
-          <h4 style="font-size: 1.1rem; font-weight: 700; color: var(--text-primary); margin-bottom: 8px;">SQA Tip of the Day</h4>
-          <p id="sqa-tip-content" style="font-size: 0.92rem; color: var(--text-secondary); line-height: 1.5; min-height: 48px; margin-bottom: 16px; padding: 0 10px;">
-            Tip is loading...
-          </p>
-          <button class="btn btn-secondary" id="btn-shuffle-tip" style="padding: 8px 20px; font-size: 0.82rem; margin: 0 auto; display: flex; align-items: center; gap: 8px;">
-            <i class="fa-solid fa-shuffle"></i> Shuffle Tip
-          </button>
+
+          <!-- Card 2: Pomodoro Timer -->
+          <div class="pomodoro-card glow-card reveal" style="padding: 24px; text-align: center; border-radius: var(--radius-lg); background: var(--bg-glass); border: 1px solid var(--border-glass); display: flex; flex-direction: column; align-items: center; justify-content: center;">
+            <div style="font-size: 1.8rem; color: var(--accent); margin-bottom: 12px;">
+              <i class="fa-solid fa-clock"></i>
+            </div>
+            <h4 style="font-size: 1.1rem; font-weight: 700; color: var(--text-primary); margin-bottom: 8px;">SQA Focus Pomodoro</h4>
+            <div id="pomo-timer-display" style="font-family: monospace; font-size: 2.2rem; font-weight: 800; color: var(--text-primary); margin: 10px 0;">25:00</div>
+            
+            <div class="pomo-controls" style="display: flex; gap: 12px; margin-top: 10px;">
+              <button class="btn btn-primary" id="btn-pomo-start" style="padding: 8px 16px; font-size: 0.8rem; display: flex; align-items: center; gap: 4px;"><i class="fa-solid fa-play"></i> Start</button>
+              <button class="btn btn-secondary" id="btn-pomo-reset" style="padding: 8px 16px; font-size: 0.8rem; display: flex; align-items: center; gap: 4px;"><i class="fa-solid fa-rotate-left"></i> Reset</button>
+            </div>
+          </div>
         </div>
 
         <!-- Search & Category controls -->
@@ -1057,6 +1108,42 @@
       </div>
     </section>
 
+    <!-- DIU Campus Room & Lab Finder Section -->
+    <section id="room-finder" class="reveal" style="padding: 80px 0; background: rgba(255, 255, 255, 0.01); border-top: 1px solid var(--border-glass); border-bottom: 1px solid var(--border-glass);">
+      <div class="section-container">
+        <span class="section-tag">Campus Helper</span>
+        <h2 class="section-title">DIU Room & Lab Finder</h2>
+        <p class="section-desc">Quickly find classrooms, labs, administrative offices, and common spaces in Daffodil Smart City.</p>
+
+        <div class="room-finder-container glow-card" style="max-width: 600px; margin: 40px auto 0; padding: 32px; border-radius: var(--radius-xl); background: var(--bg-glass); border: 1px solid var(--border-glass); text-align: center;">
+          <div class="form-group" style="margin-bottom: 24px;">
+            <label for="room-select" style="font-size: 0.9rem; font-weight: 600; color: var(--text-secondary); margin-bottom: 10px; display: block; text-align: left;">Select Destination *</label>
+            <select id="room-select" style="width: 100%; padding: 12px 16px; border-radius: var(--radius-md); border: 1px solid var(--border-glass); background: rgba(0,0,0,0.25); color: var(--text-primary); font-size: 0.95rem; cursor: pointer; transition: border-color var(--transition-normal);">
+              <option value="" disabled selected>-- Select a Location --</option>
+              <option value="welfare">Student Welfare Wing Office</option>
+              <option value="swe-lab-1">Software Engineering Lab 1 (AB4-302)</option>
+              <option value="swe-lab-2">Software Engineering Lab 2 (AB4-304)</option>
+              <option value="cse-lab-3">Computer Science Lab 3 (AB4-201)</option>
+              <option value="library">Main University Library (AB4 Ground Floor)</option>
+              <option value="exam-hall">Exam Hall (AB4-401)</option>
+              <option value="sports">Indoor Games Club Room (Student Lounge)</option>
+              <option value="cafeteria">Central Cafeteria / Food Court</option>
+            </select>
+          </div>
+
+          <div id="room-result-card" style="display: none; padding: 20px; border-radius: var(--radius-lg); background: rgba(var(--primary-rgb), 0.05); border: 1px solid rgba(var(--primary-rgb), 0.15); margin-top: 20px; text-align: left; animation: quizFadeIn 0.3s ease-out;">
+            <h4 id="room-result-title" style="font-size: 1.1rem; font-weight: 700; color: var(--primary); margin-bottom: 8px;">Welfare Wing Office</h4>
+            <div style="font-size: 0.9rem; color: var(--text-secondary); display: flex; flex-direction: column; gap: 8px;">
+              <div><strong>Building:</strong> <span id="room-result-bldg">Academic Building 4 (AB4)</span></div>
+              <div><strong>Floor:</strong> <span id="room-result-floor">4th Floor</span></div>
+              <div><strong>Room:</strong> <span id="room-result-num">Room 402</span></div>
+              <div><strong>Directions:</strong> <span id="room-result-dir">Take the main lift to Floor 4. Turn left; Room 402 is next to the SWE Department Head's office.</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- Contact Section -->
     <section id="contact" class="reveal">
       <div class="section-container">
@@ -1244,6 +1331,8 @@
           <a href="#quiz">QA Game</a>
           <a href="#gallery">Gallery</a>
           <a href="#letter-builder">Letter Builder</a>
+          <a href="#gratitude-wall">Gratitude Board</a>
+          <a href="#room-finder">Room Finder</a>
           <a href="#contact">Contact</a>
         </div>
       </div>
