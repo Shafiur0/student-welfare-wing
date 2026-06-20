@@ -95,6 +95,7 @@
         <a href="#resources" class="nav-link">Resources</a>
         <a href="#quiz" class="nav-link">QA Game</a>
         <a href="#gallery" class="nav-link">Gallery</a>
+        <a href="#letter-builder" class="nav-link">Letter Builder</a>
         <a href="#contact" class="nav-link">Contact</a>
       </nav>
 
@@ -828,6 +829,20 @@
         <h2 class="section-title">SQA & Testing Resource Library</h2>
         <p class="section-desc">Curated learning guides, cheatsheets for automation testing, QA templates, and interview prep sheets for Software Engineering students.</p>
 
+        <!-- SQA Tip of the Day Card -->
+        <div class="sqa-tip-card glow-card reveal" style="margin: 32px auto; max-width: 600px; padding: 24px; text-align: center; border-radius: var(--radius-lg); background: var(--bg-glass); border: 1px solid var(--border-glass);">
+          <div style="font-size: 1.8rem; color: var(--primary); margin-bottom: 12px;">
+            <i class="fa-solid fa-lightbulb"></i>
+          </div>
+          <h4 style="font-size: 1.1rem; font-weight: 700; color: var(--text-primary); margin-bottom: 8px;">SQA Tip of the Day</h4>
+          <p id="sqa-tip-content" style="font-size: 0.92rem; color: var(--text-secondary); line-height: 1.5; min-height: 48px; margin-bottom: 16px; padding: 0 10px;">
+            Tip is loading...
+          </p>
+          <button class="btn btn-secondary" id="btn-shuffle-tip" style="padding: 8px 20px; font-size: 0.82rem; margin: 0 auto; display: flex; align-items: center; gap: 8px;">
+            <i class="fa-solid fa-shuffle"></i> Shuffle Tip
+          </button>
+        </div>
+
         <!-- Search & Category controls -->
         <div class="members-filter-controls">
           <div class="search-input-wrapper">
@@ -976,6 +991,68 @@
         <!-- Gallery Target Grid -->
         <div class="gallery-masonry" id="gallery-grid-target">
           <!-- Populated dynamically by gallery.js and app.js -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Welfare Request Template Builder Section -->
+    <section id="letter-builder" class="reveal" style="background: rgba(255, 255, 255, 0.02); padding: 80px 0; border-top: 1px solid var(--border-glass); border-bottom: 1px solid var(--border-glass);">
+      <div class="section-container">
+        <span class="section-tag">Utility Tool</span>
+        <h2 class="section-title">Welfare Letter & Email Builder</h2>
+        <p class="section-desc">Generate professional, formal letters or email drafts to submit to DIU authorities (such as requesting financial aid, waiver consideration, or retakes).</p>
+
+        <div class="template-builder-container glow-card" style="max-width: 900px; margin: 40px auto 0; padding: 32px; border-radius: var(--radius-xl); background: var(--bg-glass); border: 1px solid var(--border-glass);">
+          <div class="builder-grid" style="display: grid; grid-template-columns: 1fr 1.2fr; gap: 32px;">
+            
+            <!-- Inputs Panel -->
+            <div class="builder-inputs-panel" style="display: flex; flex-direction: column; gap: 16px;">
+              <h3 style="font-size: 1.15rem; font-weight: 700; color: var(--text-primary); border-bottom: 1px solid var(--border-glass); padding-bottom: 10px; margin-bottom: 8px;">1. Enter Details</h3>
+              
+              <div class="form-group">
+                <label for="builder-name" style="font-size: 0.85rem; font-weight: 600; color: var(--text-secondary); margin-bottom: 6px; display: block;">Your Full Name *</label>
+                <input type="text" id="builder-name" placeholder="e.g. Shafiur Rahman Shafim" style="width: 100%; padding: 10px 14px; border-radius: var(--radius-md); border: 1px solid var(--border-glass); background: rgba(255,255,255,0.03); color: var(--text-primary); font-size: 0.9rem;">
+              </div>
+              
+              <div class="form-group">
+                <label for="builder-id" style="font-size: 0.85rem; font-weight: 600; color: var(--text-secondary); margin-bottom: 6px; display: block;">Student ID *</label>
+                <input type="text" id="builder-id" placeholder="e.g. 231-35-000" style="width: 100%; padding: 10px 14px; border-radius: var(--radius-md); border: 1px solid var(--border-glass); background: rgba(255,255,255,0.03); color: var(--text-primary); font-size: 0.9rem;">
+              </div>
+
+              <div class="form-group">
+                <label for="builder-dept" style="font-size: 0.85rem; font-weight: 600; color: var(--text-secondary); margin-bottom: 6px; display: block;">Department *</label>
+                <input type="text" id="builder-dept" placeholder="e.g. Software Engineering" style="width: 100%; padding: 10px 14px; border-radius: var(--radius-md); border: 1px solid var(--border-glass); background: rgba(255,255,255,0.03); color: var(--text-primary); font-size: 0.9rem;">
+              </div>
+              
+              <div class="form-group">
+                <label for="builder-template" style="font-size: 0.85rem; font-weight: 600; color: var(--text-secondary); margin-bottom: 6px; display: block;">Select Request Template *</label>
+                <select id="builder-template" style="width: 100%; padding: 10px 14px; border-radius: var(--radius-md); border: 1px solid var(--border-glass); background: rgba(0,0,0,0.2); color: var(--text-primary); font-size: 0.9rem; cursor: pointer;">
+                  <option value="financial">Financial Aid Request</option>
+                  <option value="waiver">GPA Waiver Re-evaluation</option>
+                  <option value="retake">Special Mid/Final Exam Retake Request</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="builder-reason" style="font-size: 0.85rem; font-weight: 600; color: var(--text-secondary); margin-bottom: 6px; display: block;">Specific Context / Reason (Brief) *</label>
+                <textarea id="builder-reason" placeholder="e.g. Facing financial crisis due to family emergency / Missed exam due to illness" style="width: 100%; padding: 10px 14px; border-radius: var(--radius-md); border: 1px solid var(--border-glass); background: rgba(255,255,255,0.03); color: var(--text-primary); font-size: 0.9rem; height: 90px; resize: none;"></textarea>
+              </div>
+            </div>
+            
+            <!-- Output Preview Panel -->
+            <div class="builder-preview-panel" style="display: flex; flex-direction: column; gap: 16px;">
+              <h3 style="font-size: 1.15rem; font-weight: 700; color: var(--text-primary); border-bottom: 1px solid var(--border-glass); padding-bottom: 10px; margin-bottom: 8px;">2. Generated Document</h3>
+              
+              <div class="preview-box-wrapper" style="position: relative; flex-grow: 1;">
+                <textarea id="builder-preview-text" readonly style="width: 100%; height: 290px; padding: 16px; border-radius: var(--radius-md); border: 1px solid var(--border-glass); background: rgba(0,0,0,0.15); color: var(--text-primary); font-family: monospace; font-size: 0.85rem; line-height: 1.5; resize: none; overflow-y: auto;"></textarea>
+              </div>
+              
+              <button class="btn btn-accent" id="btn-copy-template" style="padding: 12px 24px; font-size: 0.9rem; font-weight: 600; border-radius: var(--radius-full); width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px;">
+                <i class="fa-regular fa-copy"></i> Copy Letter Text
+              </button>
+            </div>
+            
+          </div>
         </div>
       </div>
     </section>
@@ -1166,6 +1243,7 @@
           <a href="#testimonials">Testimonials</a>
           <a href="#quiz">QA Game</a>
           <a href="#gallery">Gallery</a>
+          <a href="#letter-builder">Letter Builder</a>
           <a href="#contact">Contact</a>
         </div>
       </div>

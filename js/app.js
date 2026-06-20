@@ -31,7 +31,17 @@ document.addEventListener("DOMContentLoaded", () => {
   document.documentElement.setAttribute("data-theme", currentTheme);
 
   if (themeToggleBtn) {
-    themeToggleBtn.addEventListener("click", () => {
+    themeToggleBtn.addEventListener("click", (e) => {
+      // Trigger canvas sparkle effect
+      let x = e.clientX;
+      let y = e.clientY;
+      if (!x || !y) {
+        const rect = themeToggleBtn.getBoundingClientRect();
+        x = rect.left + rect.width / 2;
+        y = rect.top + rect.height / 2;
+      }
+      triggerSparkles(x, y);
+
       const activeTheme = document.documentElement.getAttribute("data-theme");
       const newTheme = activeTheme === "dark" ? "light" : "dark";
       
@@ -1970,6 +1980,230 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Trigger achievements rendering
   renderAchievements();
+
+  // Sparkle particle emitter effect for theme toggle
+  const triggerSparkles = (x, y) => {
+    const canvas = document.createElement("canvas");
+    canvas.style.position = "fixed";
+    canvas.style.top = "0";
+    canvas.style.left = "0";
+    canvas.style.width = "100%";
+    canvas.style.height = "100%";
+    canvas.style.pointerEvents = "none";
+    canvas.style.zIndex = "99999";
+    document.body.appendChild(canvas);
+
+    const ctx = canvas.getContext("2d");
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const particles = [];
+    const colors = ["#FFD700", "#FFFFFF", "#0F5FFF", "#2ECC71", "#FF8C00", "#FFC0CB"];
+
+    for (let i = 0; i < 40; i++) {
+      particles.push({
+        x: x,
+        y: y,
+        r: Math.random() * 4 + 2,
+        color: colors[Math.floor(Math.random() * colors.length)],
+        vx: (Math.random() - 0.5) * 8,
+        vy: (Math.random() - 0.5) * 8 - 2,
+        gravity: 0.15,
+        alpha: 1,
+        decay: Math.random() * 0.02 + 0.015
+      });
+    }
+
+    const animate = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      let active = false;
+
+      particles.forEach(p => {
+        p.x += p.vx;
+        p.y += p.vy;
+        p.vy += p.gravity;
+        p.alpha -= p.decay;
+
+        if (p.alpha > 0) {
+          active = true;
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+          ctx.fillStyle = p.color;
+          ctx.globalAlpha = p.alpha;
+          ctx.fill();
+        }
+      });
+
+      if (active) {
+        requestAnimationFrame(animate);
+      } else {
+        canvas.remove();
+      }
+    };
+    animate();
+  };
+
+  // 17. SQA "TIP OF THE DAY" SHUFFLE CARD
+  const sqaTips = [
+    "Equivalence partitioning helps you reduce the number of test cases while maintaining high test coverage.",
+    "Always document 'steps to reproduce' clearly in bug reports to help developers debug and fix the issue faster.",
+    "Automated tests should be independent, repeatable, and run without requiring manual intervention.",
+    "Boundary Value Analysis (BVA) is critical because software errors occur most frequently at the boundaries of input ranges.",
+    "A bug found during the requirements design phase is 100 times cheaper to fix than a bug found in production.",
+    "Regression testing ensures that code modifications do not introduce new bugs into existing functional areas.",
+    "Write clear expected results for every test case. Undefined expectations lead to false test passes.",
+    "Performance testing is not just about load; always monitor server CPU, memory, and database responsiveness.",
+    "Exploratory testing relies on the tester's intuition, experience, and creativity to find hidden defects.",
+    "Code reviews are a form of static testing that help catch bugs before the code is ever compiled or run."
+  ];
+
+  const sqaTipContent = document.getElementById("sqa-tip-content");
+  const btnShuffleTip = document.getElementById("btn-shuffle-tip");
+
+  const displayRandomTip = () => {
+    if (!sqaTipContent) return;
+    const currentTip = sqaTipContent.textContent.trim();
+    let randomTip = currentTip;
+    
+    while (randomTip === currentTip && sqaTips.length > 1) {
+      randomTip = sqaTips[Math.floor(Math.random() * sqaTips.length)];
+    }
+    
+    sqaTipContent.style.opacity = "0";
+    setTimeout(() => {
+      sqaTipContent.textContent = randomTip;
+      sqaTipContent.style.opacity = "1";
+    }, 200);
+  };
+
+  if (sqaTipContent) {
+    sqaTipContent.style.transition = "opacity 0.2s ease-in-out";
+    displayRandomTip();
+  }
+
+  if (btnShuffleTip) {
+    btnShuffleTip.addEventListener("click", displayRandomTip);
+  }
+
+  // 18. WELFARE EMAIL/LETTER TEMPLATE BUILDER
+  const builderName = document.getElementById("builder-name");
+  const builderId = document.getElementById("builder-id");
+  const builderDept = document.getElementById("builder-dept");
+  const builderTemplate = document.getElementById("builder-template");
+  const builderReason = document.getElementById("builder-reason");
+  const builderPreviewText = document.getElementById("builder-preview-text");
+  const btnCopyTemplate = document.getElementById("btn-copy-template");
+
+  const letterTemplates = {
+    financial: (name, id, dept, reason, date) => `Date: ${date}
+
+To,
+The Convener,
+Student Welfare Wing, SQAT Club,
+Daffodil International University
+
+Subject: Application for Financial Aid Support
+
+Respected Sir/Madam,
+
+I am writing to formally request financial aid support from the Student Welfare Wing. I am ${name || "[Your Name]"}, a student in the Department of ${dept || "[Your Department]"}, with Student ID ${id || "[Your Student ID]"}.
+
+Recently, I have been facing a challenging situation: ${reason || "[Briefly explain your financial situation or family emergency]"}. Because of this, it has become difficult for me to cover my current semester expenses. I have always tried to maintain a good academic standing and am eager to continue my studies without interruption.
+
+Therefore, I kindly request you to review my application for financial assistance or any student welfare fund support. I would be highly grateful for your help during this difficult time.
+
+Sincerely,
+${name || "[Your Name]"}
+ID: ${id || "[Your Student ID]"}
+Department: ${dept || "[Your Department]"}`,
+
+    waiver: (name, id, dept, reason, date) => `Date: ${date}
+
+To,
+The Head of the Department,
+Department of ${dept || "[Your Department]"},
+Daffodil International University
+
+Subject: Request for Waiver Consideration / Re-evaluation
+
+Respected Sir/Madam,
+
+I am writing to formally request a re-evaluation of my eligibility for a tuition fee waiver. My name is ${name || "[Your Name]"}, a student in the Department of ${dept || "[Your Department]"}, holding Student ID ${id || "[Your Student ID]"}.
+
+Due to ${reason || "[Briefly explain the reason, e.g., illness or personal difficulties during the semester]"}, my GPA/academic performance was affected this semester. Under DIU policy, I would be extremely grateful if you could review my circumstances and academic history to consider a waiver extension or special academic recommendation. I am highly committed to working hard in the upcoming semesters to restore my academic standing.
+
+Thank you for your time and consideration.
+
+Sincerely,
+${name || "[Your Name]"}
+ID: ${id || "[Your Student ID]"}
+Department: ${dept || "[Your Department]"}`,
+
+    retake: (name, id, dept, reason, date) => `Date: ${date}
+
+To,
+The Head of the Department,
+Department of ${dept || "[Your Department]"},
+Daffodil International University
+
+Subject: Request for Special Mid/Final Exam Retake
+
+Respected Sir/Madam,
+
+I am writing to request permission to retake my exam which I missed due to unforeseen circumstances. My name is ${name || "[Your Name]"}, Student ID ${id || "[Your Student ID]"}, currently studying in the Department of ${dept || "[Your Department]"}.
+
+I was unable to attend the scheduled exam because ${reason || "[Briefly explain the reason for missing the exam, e.g., illness or family emergency]"}. I understand the importance of exams and regret missing it, but it was completely out of my control. I have attached the supporting documents for your verification.
+
+I request you to kindly grant me permission to sit for a retake exam so that I do not fall behind in my academic progress.
+
+Sincerely,
+${name || "[Your Name]"}
+ID: ${id || "[Your Student ID]"}
+Department: ${dept || "[Your Department]"}`
+  };
+
+  const updatePreview = () => {
+    if (!builderPreviewText) return;
+    const name = builderName ? builderName.value.trim() : "";
+    const id = builderId ? builderId.value.trim() : "";
+    const dept = builderDept ? builderDept.value.trim() : "";
+    const reason = builderReason ? builderReason.value.trim() : "";
+    const selected = builderTemplate ? builderTemplate.value : "financial";
+    
+    const today = new Date();
+    const formattedDate = today.toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric"
+    });
+    
+    if (letterTemplates[selected]) {
+      builderPreviewText.value = letterTemplates[selected](name, id, dept, reason, formattedDate);
+    }
+  };
+
+  [builderName, builderId, builderDept, builderReason].forEach(input => {
+    if (input) input.addEventListener("input", updatePreview);
+  });
+  if (builderTemplate) {
+    builderTemplate.addEventListener("change", updatePreview);
+  }
+
+  if (btnCopyTemplate && builderPreviewText) {
+    btnCopyTemplate.addEventListener("click", () => {
+      const text = builderPreviewText.value;
+      navigator.clipboard.writeText(text).then(() => {
+        btnCopyTemplate.innerHTML = `<i class="fa-solid fa-check" style="color: var(--accent);"></i> Letter Copied!`;
+        setTimeout(() => {
+          btnCopyTemplate.innerHTML = `<i class="fa-regular fa-copy"></i> Copy Letter Text`;
+        }, 2000);
+      }).catch(err => {
+        console.error("Clipboard copy failed: ", err);
+      });
+    });
+  }
+
+  updatePreview();
 });
 
 

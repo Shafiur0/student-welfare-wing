@@ -3348,6 +3348,24 @@ footer {
   z-index: 1;
 }
 
+/* Welfare Request Template Builder Section */
+#letter-builder select:focus, #letter-builder input:focus, #letter-builder textarea:focus {
+  outline: none;
+  border-color: var(--primary) !important;
+  box-shadow: 0 0 10px rgba(var(--primary-rgb), 0.25);
+}
+
+@media (max-width: 768px) {
+  .template-builder-container .builder-grid {
+    grid-template-columns: 1fr !important;
+    gap: 24px !important;
+  }
+  
+  #builder-preview-text {
+    height: 240px !important;
+  }
+}
+
 
 
 
