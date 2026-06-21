@@ -363,6 +363,19 @@ header {
   box-shadow: var(--shadow-sm);
 }
 
+.logo-img {
+  height: 42px;
+  width: auto;
+  object-fit: contain;
+  border-radius: var(--radius-sm);
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.15));
+  transition: filter var(--transition-normal);
+}
+
+[data-theme="dark"] .logo-img {
+  filter: drop-shadow(0 0 8px rgba(56, 189, 248, 0.45)) brightness(1.25);
+}
+
 .logo-text {
   display: flex;
   flex-direction: column;
@@ -387,7 +400,7 @@ header {
 .nav-menu {
   display: flex;
   align-items: center;
-  gap: 32px;
+  gap: 20px;
 }
 
 .nav-link {

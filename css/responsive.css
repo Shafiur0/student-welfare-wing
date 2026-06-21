@@ -2,6 +2,14 @@
 
 /* Breakpoint for Tablets (max-width: 1024px) */
 @media (max-width: 1024px) {
+  .nav-menu {
+    gap: 12px;
+  }
+
+  .nav-link {
+    font-size: 0.88rem;
+  }
+
   .hero-title {
     font-size: 3.25rem;
   }
@@ -297,6 +305,10 @@
     width: 34px;
     height: 34px;
     font-size: 1rem;
+  }
+
+  .logo-img {
+    height: 34px;
   }
 
   .section-title {
