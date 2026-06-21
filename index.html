@@ -70,6 +70,9 @@
     <div class="floating-blob blob-3"></div>
   </div>
   <div class="bg-grid"></div>
+  <canvas id="mesh-canvas"></canvas>
+  <div id="custom-cursor"></div>
+  <div id="custom-cursor-dot"></div>
 
   <!-- Scroll Progress Bar -->
   <div class="scroll-progress" id="scroll-progress-bar"></div>
@@ -1144,6 +1147,64 @@
       </div>
     </section>
 
+    <!-- DIU Waiver Speedometer Section -->
+    <section id="waiver-calculator" class="reveal" style="padding: 80px 0; background: rgba(0,0,0,0.15); border-top: 1px solid var(--border-glass); border-bottom: 1px solid var(--border-glass);">
+      <div class="section-container">
+        <span class="section-tag">Waiver Calculator</span>
+        <h2 class="section-title">Waiver Speedometer & Forecast</h2>
+        <p class="section-desc">Drag the slider to your SGPA / CGPA to see your estimated Daffodil tuition fee waiver and tips to upgrade it.</p>
+
+        <div class="calculator-container glow-card" style="max-width: 700px; margin: 40px auto 0; padding: 32px; border-radius: var(--radius-xl); background: var(--bg-glass); border: 1px solid var(--border-glass);">
+          <div class="calculator-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: center;">
+            
+            <!-- Slider Panel -->
+            <div style="display: flex; flex-direction: column; gap: 20px; text-align: left;">
+              <div class="form-group">
+                <label for="gpa-slider" style="font-size: 0.9rem; font-weight: 600; color: var(--text-secondary); margin-bottom: 8px; display: block;">Your CGPA / SGPA</label>
+                <div style="display: flex; align-items: center; gap: 16px;">
+                  <input type="range" id="gpa-slider" min="2.00" max="4.00" step="0.01" value="3.00" style="flex-grow: 1; accent-color: var(--primary); cursor: pointer; height: 6px; border-radius: 4px;">
+                  <span id="gpa-display" style="font-size: 1.5rem; font-weight: 800; color: var(--primary); font-family: monospace; min-width: 60px;">3.00</span>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="credits-select" style="font-size: 0.9rem; font-weight: 600; color: var(--text-secondary); margin-bottom: 8px; display: block;">Registered Credits (Current Semester)</label>
+                <select id="credits-select" style="width: 100%; padding: 10px 14px; border-radius: var(--radius-md); border: 1px solid var(--border-glass); background: rgba(0,0,0,0.25); color: var(--text-primary); font-size: 0.9rem; cursor: pointer;">
+                  <option value="12" selected>12 Credits or More</option>
+                  <option value="9">9 Credits</option>
+                  <option value="6">Less than 9 Credits</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Gauge Panel -->
+            <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;">
+              <div style="position: relative; width: 180px; height: 180px; display: flex; align-items: center; justify-content: center;">
+                <!-- Circle Progress SVG -->
+                <svg width="180" height="180" viewBox="0 0 180 180" style="transform: rotate(-90deg);">
+                  <circle cx="90" cy="90" r="75" stroke="rgba(255, 255, 255, 0.05)" stroke-width="12" fill="transparent"></circle>
+                  <circle id="gauge-progress" cx="90" cy="90" r="75" stroke="url(#gauge-gradient)" stroke-width="12" fill="transparent" stroke-dasharray="471" stroke-dashoffset="471" stroke-linecap="round" style="transition: stroke-dashoffset 0.4s ease;"></circle>
+                  <defs>
+                    <linearGradient id="gauge-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stop-color="var(--primary)"></stop>
+                      <stop offset="100%" stop-color="var(--accent)"></stop>
+                    </linearGradient>
+                  </defs>
+                </svg>
+                <div style="position: absolute; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                  <span id="waiver-percentage" style="font-size: 2.2rem; font-weight: 800; color: var(--text-primary);">50%</span>
+                  <span style="font-size: 0.72rem; font-weight: 600; text-transform: uppercase; color: var(--text-light); letter-spacing: 0.5px;">Waiver</span>
+                </div>
+              </div>
+              
+              <p id="waiver-forecast-text" style="font-size: 0.88rem; color: var(--text-secondary); line-height: 1.5; margin-top: 16px; min-height: 48px; padding: 0 10px;"></p>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- Contact Section -->
     <section id="contact" class="reveal">
       <div class="section-container">
@@ -1333,6 +1394,7 @@
           <a href="#letter-builder">Letter Builder</a>
           <a href="#gratitude-wall">Gratitude Board</a>
           <a href="#room-finder">Room Finder</a>
+          <a href="#waiver-calculator">Waiver Speedometer</a>
           <a href="#contact">Contact</a>
         </div>
       </div>

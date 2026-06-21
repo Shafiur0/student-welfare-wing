@@ -453,9 +453,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     filteredResources.forEach(res => {
       const card = document.createElement("div");
-      card.className = "board-card glow-card reveal visible"; // Force visible
+      card.className = "folder-card glow-card reveal visible"; // Render as digital folders
       card.innerHTML = `
-        <div class="contact-icon" style="margin-bottom: 16px; width: 56px; height: 56px; border-radius: var(--radius-md); font-size: 1.5rem; background-color: var(--border-subtle); color: var(--primary); display: flex; align-items: center; justify-content: center;"><i class="${res.icon}"></i></div>
+        <div class="contact-icon" style="margin-bottom: 16px; width: 56px; height: 56px; border-radius: var(--radius-md); font-size: 1.5rem; background-color: var(--border-subtle); color: var(--primary); display: flex; align-items: center; justify-content: center; transition: transform 0.3s ease;"><i class="${res.icon}"></i></div>
         <div class="board-info" style="flex-grow: 1; display: flex; flex-direction: column; width: 100%;">
           <h4 style="margin-bottom: 8px;">${res.title}</h4>
           <div class="board-pos" style="font-size: 0.8rem; margin: 0 0 8px; text-transform: uppercase;">${res.category}</div>
@@ -468,7 +468,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const viewBtn = card.querySelector(".btn-view-resource");
       viewBtn.addEventListener("click", () => {
-        openResourceModal(res);
+        // Play smooth folder opening animation
+        card.style.transform = "scale(1.06) translateY(-6px)";
+        card.style.transition = "transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)";
+        const icon = card.querySelector(".contact-icon");
+        if (icon) {
+          icon.style.transform = "rotate(-10deg) scale(1.12)";
+        }
+        
+        setTimeout(() => {
+          openResourceModal(res);
+          // Reset styles
+          card.style.transform = "";
+          if (icon) icon.style.transform = "";
+        }, 300);
       });
 
       resourcesGridTarget.appendChild(card);
@@ -700,10 +713,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const renderSuggestions = () => {
       if (!chatSuggestions) return;
       chatSuggestions.innerHTML = "";
-      CHAT_KNOWLEDGE.forEach(item => {
+      CHAT_KNOWLEDGE.forEach((item, index) => {
         const chip = document.createElement("button");
         chip.className = "chat-chip";
         chip.textContent = item.suggestion;
+        // Stagger chip animations
+        chip.style.animationDelay = `${index * 0.08}s`;
         chip.addEventListener("click", () => {
           // Send user request visual bubble
           addMessage("user", item.suggestion);
@@ -717,9 +732,26 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const triggerBotResponse = (responseText) => {
       const indicator = showTypingIndicator();
+      
+      // Animate bot avatar with fast-bobbing micro-expression
+      const botAvatar = document.querySelector(".chat-bot-avatar i");
+      if (botAvatar) {
+        botAvatar.style.animation = "avatarBob 0.6s ease-in-out infinite alternate";
+      }
+      
       setTimeout(() => {
         hideTypingIndicator(indicator);
         addMessage("bot", responseText);
+        
+        // Reset avatar animation
+        if (botAvatar) {
+          botAvatar.style.animation = "avatarBob 2s ease-in-out infinite alternate";
+          // Quick happy expression
+          botAvatar.style.transform = "scale(1.2) rotate(5deg)";
+          setTimeout(() => {
+            botAvatar.style.transform = "";
+          }, 300);
+        }
       }, 1000 + Math.random() * 500);
     };
 
@@ -2470,6 +2502,270 @@ Department: ${dept || "[Your Department]"}`
         }
       }
     });
+  }
+
+  // 24. CUSTOM INTERACTIVE CURSOR AURA & GLOW TRAIL
+  const cursorAura = document.getElementById("custom-cursor");
+  const cursorDot = document.getElementById("custom-cursor-dot");
+  
+  if (cursorAura && cursorDot) {
+    const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0 || window.matchMedia("(pointer: coarse)").matches;
+    
+    if (!isTouchDevice && window.innerWidth > 768) {
+      cursorAura.style.display = "block";
+      cursorDot.style.display = "block";
+      
+      let mouseX = 0, mouseY = 0;
+      let auraX = 0, auraY = 0;
+      let dotX = 0, dotY = 0;
+      let hoverTarget = null;
+      
+      document.addEventListener("mousemove", (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+      });
+      
+      document.addEventListener("mouseover", (e) => {
+        const target = e.target.closest("a, button, .btn, .mood-btn, .chat-chip, .social-btn, #theme-toggle-btn, .timeline-node");
+        if (target) {
+          hoverTarget = target;
+        }
+      });
+      
+      document.addEventListener("mouseout", (e) => {
+        const target = e.target.closest("a, button, .btn, .mood-btn, .chat-chip, .social-btn, #theme-toggle-btn, .timeline-node");
+        if (target && target === hoverTarget) {
+          hoverTarget = null;
+        }
+      });
+      
+      // Cursor aura update loop
+      const updateCursor = () => {
+        let targetX = mouseX;
+        let targetY = mouseY;
+        
+        if (hoverTarget) {
+          const rect = hoverTarget.getBoundingClientRect();
+          const elemX = rect.left + rect.width / 2;
+          const elemY = rect.top + rect.height / 2;
+          // Magnet pull (35% snap towards center of the hovered element)
+          targetX = mouseX + (elemX - mouseX) * 0.35;
+          targetY = mouseY + (elemY - mouseY) * 0.35;
+        }
+        
+        // Easing interpolation (lerp)
+        auraX += (targetX - auraX) * 0.15;
+        auraY += (targetY - auraY) * 0.15;
+        cursorAura.style.left = `${auraX}px`;
+        cursorAura.style.top = `${auraY}px`;
+        
+        dotX += (mouseX - dotX) * 0.35;
+        dotY += (mouseY - dotY) * 0.35;
+        cursorDot.style.left = `${dotX}px`;
+        cursorDot.style.top = `${dotY}px`;
+        
+        requestAnimationFrame(updateCursor);
+      };
+      
+      updateCursor();
+      
+      // Expansion hover listener
+      const addCursorHover = () => cursorAura.classList.add("cursor-hover");
+      const removeCursorHover = () => cursorAura.classList.remove("cursor-hover");
+      
+      const updateHoverListeners = () => {
+        const targets = document.querySelectorAll("a, button, input[type='button'], input[type='submit'], input[type='range'], select, textarea, .btn, .glow-card, .board-card, .folder-card, .gallery-item, .mood-btn, .timeline-node, .timeline-card, .stat-card, .chat-chip, .gallery-tab");
+        targets.forEach(t => {
+          t.removeEventListener("mouseenter", addCursorHover);
+          t.removeEventListener("mouseleave", removeCursorHover);
+          t.addEventListener("mouseenter", addCursorHover);
+          t.addEventListener("mouseleave", removeCursorHover);
+        });
+      };
+      
+      updateHoverListeners();
+      // Periodically refresh list of hover elements to support dynamic elements
+      setInterval(updateHoverListeners, 1500);
+    }
+  }
+
+  // 25. INTERACTIVE PARALLAX MESH CANVAS BACKGROUND
+  const meshCanvas = document.getElementById("mesh-canvas");
+  if (meshCanvas) {
+    const ctx = meshCanvas.getContext("2d");
+    let particles = [];
+    const particleCount = 65;
+    const connectionDistance = 120;
+    
+    let windowMouseX = window.innerWidth / 2;
+    let windowMouseY = window.innerHeight / 2;
+    let targetMouseX = window.innerWidth / 2;
+    let targetMouseY = window.innerHeight / 2;
+    
+    window.addEventListener("mousemove", (e) => {
+      targetMouseX = e.clientX;
+      targetMouseY = e.clientY;
+    });
+    
+    const resizeCanvas = () => {
+      meshCanvas.width = window.innerWidth;
+      meshCanvas.height = window.innerHeight;
+      initParticles();
+    };
+    
+    const initParticles = () => {
+      particles = [];
+      for (let i = 0; i < particleCount; i++) {
+        particles.push({
+          x: Math.random() * meshCanvas.width,
+          y: Math.random() * meshCanvas.height,
+          vx: (Math.random() - 0.5) * 0.4,
+          vy: (Math.random() - 0.5) * 0.4,
+          r: Math.random() * 2 + 1.2,
+          depth: Math.random() * 0.08 + 0.02, // Depth layers for parallax shifting
+          opacity: Math.random() * 0.35 + 0.15
+        });
+      }
+    };
+    
+    window.addEventListener("resize", resizeCanvas);
+    resizeCanvas();
+    
+    const animateMesh = () => {
+      // Ease mouse updates
+      windowMouseX += (targetMouseX - windowMouseX) * 0.05;
+      windowMouseY += (targetMouseY - windowMouseY) * 0.05;
+      
+      ctx.clearRect(0, 0, meshCanvas.width, meshCanvas.height);
+      
+      // Determine theme colors dynamically
+      const theme = document.documentElement.getAttribute("data-theme") || "light";
+      let particleColor;
+      if (theme === "dark") {
+        particleColor = "rgba(56, 189, 248, 0.4)";
+      } else {
+        particleColor = "rgba(15, 95, 255, 0.25)";
+      }
+      
+      const offsetX = (windowMouseX - meshCanvas.width / 2);
+      const offsetY = (windowMouseY - meshCanvas.height / 2);
+      
+      // Compute positions
+      const coords = particles.map(p => {
+        p.x += p.vx;
+        p.y += p.vy;
+        
+        // Wrap edges
+        if (p.x < 0) p.x = meshCanvas.width;
+        if (p.x > meshCanvas.width) p.x = 0;
+        if (p.y < 0) p.y = meshCanvas.height;
+        if (p.y > meshCanvas.height) p.y = 0;
+        
+        // Multi-layered parallax shifting
+        const drawX = p.x + offsetX * p.depth;
+        const drawY = p.y + offsetY * p.depth;
+        
+        return { p, drawX, drawY };
+      });
+      
+      // Draw connection lines
+      ctx.lineWidth = 1;
+      for (let i = 0; i < coords.length; i++) {
+        for (let j = i + 1; j < coords.length; j++) {
+          const c1 = coords[i];
+          const c2 = coords[j];
+          
+          const dx = c1.drawX - c2.drawX;
+          const dy = c1.drawY - c2.drawY;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          
+          if (dist < connectionDistance) {
+            const alpha = (1 - dist / connectionDistance) * 0.55;
+            ctx.strokeStyle = theme === "dark"
+              ? `rgba(56, 189, 248, ${alpha * 0.15})`
+              : `rgba(15, 95, 255, ${alpha * 0.08})`;
+            ctx.beginPath();
+            ctx.moveTo(c1.drawX, c1.drawY);
+            ctx.lineTo(c2.drawX, c2.drawY);
+            ctx.stroke();
+          }
+        }
+      }
+      
+      // Draw node particles
+      coords.forEach(c => {
+        ctx.fillStyle = particleColor;
+        ctx.globalAlpha = c.p.opacity;
+        ctx.beginPath();
+        ctx.arc(c.drawX, c.drawY, c.p.r, 0, Math.PI * 2);
+        ctx.fill();
+      });
+      ctx.globalAlpha = 1.0;
+      
+      requestAnimationFrame(animateMesh);
+    };
+    
+    animateMesh();
+  }
+
+  // 26. DIU TUITION WAIVER SPEEDOMETER & FORECAST CALCULATOR
+  const gpaSlider = document.getElementById("gpa-slider");
+  const gpaDisplay = document.getElementById("gpa-display");
+  const creditsSelect = document.getElementById("credits-select");
+  const gaugeProgress = document.getElementById("gauge-progress");
+  const waiverPercentage = document.getElementById("waiver-percentage");
+  const waiverForecastText = document.getElementById("waiver-forecast-text");
+
+  if (gpaSlider && gpaDisplay && creditsSelect && gaugeProgress && waiverPercentage && waiverForecastText) {
+    const calculateWaiver = () => {
+      const gpa = parseFloat(gpaSlider.value);
+      const credits = parseInt(creditsSelect.value);
+      
+      gpaDisplay.textContent = gpa.toFixed(2);
+      
+      let waiver = 0;
+      let forecast = "";
+      
+      if (credits < 12) {
+        waiver = 0;
+        forecast = "Note: You must register for at least 12 credits in the current semester to be eligible for academic tuition waivers. Currently selected credits do not qualify.";
+      } else {
+        if (gpa === 4.00) {
+          waiver = 100;
+          forecast = "Incredible! You qualify for a <strong>100% tuition waiver</strong>. Keep maintaining this perfect score!";
+        } else if (gpa >= 3.90) {
+          waiver = 75;
+          const diff = (4.00 - gpa).toFixed(2);
+          forecast = `Outstanding! You qualify for a <strong>75% waiver</strong>. You are only <strong>${diff} GPA</strong> away from a 100% waiver!`;
+        } else if (gpa >= 3.80) {
+          waiver = 50;
+          const diff = (3.90 - gpa).toFixed(2);
+          forecast = `Excellent work! You qualify for a <strong>50% waiver</strong>. You are only <strong>${diff} GPA</strong> away from a 75% waiver!`;
+        } else if (gpa >= 3.50) {
+          waiver = 25;
+          const diff = (3.80 - gpa).toFixed(2);
+          forecast = `Great job! You qualify for a <strong>25% waiver</strong>. You are only <strong>${diff} GPA</strong> away from a 50% waiver!`;
+        } else {
+          waiver = 0;
+          const diff = (3.50 - gpa).toFixed(2);
+          forecast = `No waiver. You are only <strong>${diff} GPA</strong> away from a 25% waiver! Keep pushin' and check out resources in the Study Vault!`;
+        }
+      }
+      
+      waiverPercentage.textContent = `${waiver}%`;
+      waiverForecastText.innerHTML = forecast;
+      
+      // Update speedometer circular progress dial
+      const maxStroke = 471;
+      const offset = maxStroke - (maxStroke * waiver) / 100;
+      gaugeProgress.style.strokeDashoffset = offset;
+    };
+    
+    gpaSlider.addEventListener("input", calculateWaiver);
+    creditsSelect.addEventListener("change", calculateWaiver);
+    
+    // Perform initial calculation
+    calculateWaiver();
   }
 });
 
