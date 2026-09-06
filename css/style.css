@@ -576,7 +576,8 @@ section {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 10px 36px;
+  gap: 16px;
+  padding: 10px 36px 10px 24px;
   background: var(--bg-glass);
   border: 1px solid var(--border-glass);
   border-radius: var(--radius-xl);
@@ -589,8 +590,58 @@ section {
 
 .sqat-stylized-logo:hover {
   transform: translateY(-4px) scale(1.03);
-  box-shadow: 0 16px 40px rgba(15, 95, 255, 0.25), 0 0 20px rgba(56, 189, 248, 0.2);
+  box-shadow: 0 16px 40px rgba(15, 95, 255, 0.25), 0 0 24px rgba(56, 189, 248, 0.25);
   border-color: var(--primary);
+}
+
+.sqat-bug-icon-wrapper {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, rgba(15, 95, 255, 0.12), rgba(56, 189, 248, 0.22));
+  border: 1px solid rgba(15, 95, 255, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 14px rgba(15, 95, 255, 0.15);
+  transition: var(--transition-normal);
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.sqat-bug-icon-wrapper::before {
+  content: '';
+  position: absolute;
+  inset: -50%;
+  background: conic-gradient(from 0deg, transparent, rgba(56, 189, 248, 0.5), transparent 60%);
+  animation: bug-spin 4s linear infinite;
+  opacity: 0.7;
+}
+
+@keyframes bug-spin {
+  100% { transform: rotate(360deg); }
+}
+
+.sqat-bug-icon {
+  font-size: 1.55rem;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 2px 4px rgba(15, 95, 255, 0.3));
+  transition: transform var(--transition-normal);
+  position: relative;
+  z-index: 2;
+}
+
+.sqat-stylized-logo:hover .sqat-bug-icon-wrapper {
+  background: linear-gradient(135deg, rgba(15, 95, 255, 0.25), rgba(56, 189, 248, 0.4));
+  border-color: var(--primary);
+  box-shadow: 0 6px 18px rgba(15, 95, 255, 0.3);
+}
+
+.sqat-stylized-logo:hover .sqat-bug-icon {
+  transform: scale(1.18) rotate(-12deg);
 }
 
 .sqat-logo-text {
@@ -610,6 +661,19 @@ section {
   box-shadow: 0 10px 32px rgba(0, 0, 0, 0.4), 0 0 24px rgba(56, 189, 248, 0.15);
 }
 
+[data-theme="dark"] .sqat-bug-icon-wrapper {
+  background: linear-gradient(135deg, rgba(15, 95, 255, 0.25), rgba(56, 189, 248, 0.3));
+  border-color: rgba(56, 189, 248, 0.35);
+  box-shadow: 0 0 15px rgba(56, 189, 248, 0.25);
+}
+
+[data-theme="dark"] .sqat-bug-icon {
+  background: linear-gradient(135deg, #60A5FA, #38BDF8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 10px rgba(56, 189, 248, 0.6));
+}
+
 [data-theme="dark"] .sqat-logo-text {
   background: linear-gradient(135deg, #60A5FA 0%, #38BDF8 50%, #818CF8 100%);
   -webkit-background-clip: text;
@@ -619,7 +683,16 @@ section {
 
 @media (max-width: 768px) {
   .sqat-stylized-logo {
-    padding: 8px 24px;
+    gap: 10px;
+    padding: 8px 20px 8px 14px;
+  }
+  .sqat-bug-icon-wrapper {
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+  }
+  .sqat-bug-icon {
+    font-size: 1.2rem;
   }
   .sqat-logo-text {
     font-size: 2rem;
