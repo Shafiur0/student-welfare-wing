@@ -36,6 +36,7 @@ window.SQAT_ACHIEVEMENTS = [
     title: "Champions at Cyber Security Awareness Showcase",
     desc: "Our team Darktrace3 emerged as champions in the Cyber Security Awareness Project Showcase Contest. We were honored to receive the champion prize money from our honorable Vice Chancellor, Sir.",
     image: "assets/members/darktrace3_champion.jpg",
+    link: "https://www.facebook.com/share/19FiSL7CLw/",
     icon: "fa-solid fa-trophy",
     tag: "Cyber Security"
   },
@@ -47,6 +48,7 @@ window.SQAT_ACHIEVEMENTS = [
     title: "Champions at Cyber Security Awareness Showcase",
     desc: "Our team Darktrace3 emerged as champions in the Cyber Security Awareness Project Showcase Contest. We were honored to receive the champion prize money from our honorable Vice Chancellor, Sir.",
     image: "assets/members/darktrace3_champion.jpg",
+    link: "https://www.facebook.com/share/19FiSL7CLw/",
     icon: "fa-solid fa-trophy",
     tag: "Cyber Security"
   }
