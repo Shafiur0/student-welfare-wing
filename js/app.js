@@ -551,7 +551,7 @@ document.addEventListener("DOMContentLoaded", () => {
         id: "location",
         suggestion: "Office Location",
         keywords: ["location", "office", "room", "floor", "where", "campus", "address"],
-        response: "The SQAT Club Office and Welfare Wing desk is located at:<br>• <strong>DIU Main Campus, Dhaka</strong><br>• <strong>Academic Building 4, Floor 4, Room 402</strong><br>Office hours: 9:00 AM - 5:00 PM (Sunday to Thursday)."
+        response: "The SQAT Club Office and Welfare Wing desk is located at:<br>• <strong>DIU Main Campus, Dhaka</strong><br>• <strong>Room Number: Will Be Announced Soon (TBA)</strong><br>Office hours: 9:00 AM - 5:00 PM (Sunday to Thursday)."
       }
     ];
 
