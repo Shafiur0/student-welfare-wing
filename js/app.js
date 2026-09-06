@@ -1974,13 +1974,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // 16. DYNAMIC ACHIEVEMENTS RENDERING & LIGHTBOX INTEGRATION
   const achievementsClubTarget = document.getElementById("achievements-club-target");
-  const achievementsWingTarget = document.getElementById("achievements-wing-target");
 
   const renderAchievements = () => {
     if (!window.SQAT_ACHIEVEMENTS) return;
 
     const clubAchievements = window.SQAT_ACHIEVEMENTS.filter(ach => ach.type === "club");
-    const wingAchievements = window.SQAT_ACHIEVEMENTS.filter(ach => ach.type === "wing");
 
     const renderGrid = (items, targetEl) => {
       if (!targetEl) return;
@@ -2002,7 +2000,6 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     renderGrid(clubAchievements, achievementsClubTarget);
-    renderGrid(wingAchievements, achievementsWingTarget);
     
     // Reinitialize coordinate tracking for cards
     if (typeof initCardGlowEvents === "function") {

@@ -47,29 +47,5 @@ window.SQAT_ACHIEVEMENTS = [
     image: "assets/members/darktrace3_champion.jpg",
     icon: "fa-solid fa-trophy",
     tag: "Cyber Security"
-  },
-
-  // Student Welfare Wing Member Achievements (Separated Contests)
-  {
-    id: "ach-wing-1",
-    type: "wing",
-    name: "Shafiur Rahman Shafim",
-    role: "Deputy Secretary",
-    title: "Champions at Cyber Security Awareness Showcase",
-    desc: "Our team Darktrace3 emerged as champions in the Cyber Security Awareness Project Showcase Contest. We were honored to receive the champion prize money from our honorable Vice Chancellor, Sir.",
-    image: "assets/members/darktrace3_champion.jpg",
-    icon: "fa-solid fa-trophy",
-    tag: "Cyber Security"
-  },
-  {
-    id: "ach-wing-2",
-    type: "wing",
-    name: "Shafiur Rahman Shafim",
-    role: "Deputy Secretary",
-    title: "1st Runner-Up at ICADHI IEEE Congress (Project Showcase)",
-    desc: "Our Team Cortex Crew became the 1st Runner-up in the Project Showcase Contest at the ICADHI IEEE International Congress on AI & Digital Health Innovations.",
-    image: "assets/members/shafim_cortex.jpg",
-    icon: "fa-solid fa-medal",
-    tag: "IEEE Congress"
   }
 ];
