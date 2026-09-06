@@ -1516,12 +1516,47 @@ document.addEventListener("DOMContentLoaded", () => {
       items.forEach(ach => {
         const card = document.createElement("div");
         card.className = "achievement-card glow-card reveal visible";
+        
+        let imgHtml = "";
+        if (ach.image) {
+          if (ach.link) {
+            imgHtml = `
+              <a href="${ach.link}" target="_blank" rel="noopener noreferrer" class="achievement-img-link" title="Click to view post on Facebook">
+                <div class="achievement-img-container">
+                  <img src="${ach.image}" alt="${ach.title}" class="achievement-img" />
+                  <div class="achievement-img-overlay">
+                    <i class="fa-brands fa-facebook"></i>
+                    <span>View Post</span>
+                  </div>
+                </div>
+              </a>
+            `;
+          } else {
+            imgHtml = `
+              <div class="achievement-img-container achievement-lightbox-trigger" data-src="${ach.image}" data-title="${ach.title}">
+                <img src="${ach.image}" alt="${ach.title}" class="achievement-img" />
+              </div>
+            `;
+          }
+        }
+
+        let linkBtnHtml = "";
+        if (ach.link) {
+          linkBtnHtml = `
+            <a href="${ach.link}" target="_blank" rel="noopener noreferrer" class="achievement-post-link">
+              <i class="fa-brands fa-facebook"></i> View Official Post
+            </a>
+          `;
+        }
+
         card.innerHTML = `
           <span class="achievement-tag">${ach.tag}</span>
           <h4 class="achievement-name">${ach.name}</h4>
           <div class="achievement-role">${ach.role}</div>
           <div class="achievement-title-award">${ach.title}</div>
+          ${imgHtml}
           <p class="achievement-desc">${ach.desc}</p>
+          ${linkBtnHtml}
         `;
 
         targetEl.appendChild(card);

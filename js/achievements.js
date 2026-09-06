@@ -11,7 +11,8 @@ window.SQAT_ACHIEVEMENTS = [
     role: "Deputy Secretary",
     title: "1st Runner-Up at ICADHI IEEE Congress (Project Showcase)",
     desc: "Our Team Cortex Crew became the 1st Runner-up in the Project Showcase Contest at the ICADHI IEEE International Congress on AI & Digital Health Innovations.",
-    image: "assets/members/shafim_cortex.jpg",
+    image: "assets/members/icadhi_runnerup.jpg",
+    link: "https://www.facebook.com/share/1FK7MEtTG1/",
     icon: "fa-solid fa-medal",
     tag: "IEEE Congress"
   },
@@ -22,7 +23,8 @@ window.SQAT_ACHIEVEMENTS = [
     role: "Club Volunteer / Core Developer",
     title: "1st Runner-Up at ICADHI IEEE Congress (Project Showcase)",
     desc: "Our Team Cortex Crew became the 1st Runner-up in the Project Showcase Contest at the ICADHI IEEE International Congress on AI & Digital Health Innovations.",
-    image: "assets/members/kawsher_cortex.jpg",
+    image: "assets/members/icadhi_runnerup.jpg",
+    link: "https://www.facebook.com/share/1FK7MEtTG1/",
     icon: "fa-solid fa-medal",
     tag: "IEEE Congress"
   },
