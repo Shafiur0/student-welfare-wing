@@ -6,21 +6,20 @@ document.addEventListener("DOMContentLoaded", () => {
   // 1. LOADING SCREEN
   const loadingScreen = document.getElementById("loading-screen");
   if (loadingScreen) {
-    window.addEventListener("load", () => {
+    const hideLoader = () => {
+      if (loadingScreen.style.display === "none") return;
       loadingScreen.classList.add("fade-out");
       setTimeout(() => {
         loadingScreen.style.display = "none";
       }, 500);
-    });
-    // Fallback: hide loader after 3 seconds in case window load is delayed
-    setTimeout(() => {
-      if (loadingScreen.style.display !== "none") {
-        loadingScreen.classList.add("fade-out");
-        setTimeout(() => {
-          loadingScreen.style.display = "none";
-        }, 500);
-      }
-    }, 3000);
+    };
+
+    if (document.readyState === "complete") {
+      setTimeout(hideLoader, 200);
+    } else {
+      window.addEventListener("load", hideLoader);
+      setTimeout(hideLoader, 1000); // Max 1s fallback
+    }
   }
 
   // 2. THEME SWITCHER (DARK/LIGHT MODE)
