@@ -539,7 +539,7 @@ document.addEventListener("DOMContentLoaded", () => {
         id: "join",
         suggestion: "Join SQAT Club",
         keywords: ["join", "membership", "apply", "recruit", "registration", "member", "sqat", "form", "google form"],
-        response: "SQAT Club membership recruitment opens at the start of each semester! Keep an eye on campus announcements or fill out the pre-registration inquiry on our <a href='https://forms.gle/sqatClubRecruitment' target='_blank' rel='noopener'>Official Recruitment Google Form</a>."
+        response: "SQAT Club membership recruitment opens at the start of each semester! Keep an eye on campus announcements or fill out the pre-registration inquiry on our <a href='https://docs.google.com/forms/d/e/1FAIpQLSckMkn-Mt01Ovx6mvMt8rRukzB8Krgmhcir-xcykRxw2ZspuA/viewform' target='_blank' rel='noopener'>Official Recruitment Google Form</a>."
       },
       {
         id: "resources",
