@@ -1,6 +1,6 @@
-# Student Welfare Wing | SQAT Club, Daffodil International University
+# SQAT Club | Software Quality Assurance & Testing Club - Daffodil International University
 
-Welcome to the official web repository for the **Student Welfare Wing** of the Software Quality Assurance & Testing Club (SQAT), Daffodil International University (DIU). This website serves as a central hub for student support, academic peer-mentorship, volunteer drives, and community welfare initiatives.
+Welcome to the official web repository for the **Software Quality Assurance & Testing Club (SQAT Club)** at Daffodil International University (DIU). This website serves as the primary hub for SQAT Club leadership, SQA technical workshops, QA games, resources, and the Student Welfare Wing initiatives.
 
 🔗 **Live Website URL**: **[https://student-welfare-wing.vercel.app/](https://student-welfare-wing.vercel.app/)**
 

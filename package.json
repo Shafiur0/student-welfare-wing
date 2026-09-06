@@ -1,13 +1,15 @@
 {
-  "name": "student-welfare-wing",
+  "name": "sqat-club-diu",
   "version": "1.0.0",
-  "description": "Premium Student Welfare Wing website for SQAT Club, Daffodil International University",
+  "description": "Official Website of Software Quality Assurance & Testing Club (SQAT Club), Daffodil International University",
   "scripts": {
     "dev": "npx -y http-server -p 3000 -c-1"
   },
   "keywords": [
-    "sqat",
-    "diu",
+    "diu-sqat-club",
+    "sqat-club",
+    "daffodil-international-university",
+    "software-quality-assurance",
     "welfare-wing"
   ],
   "author": "Shafiur Rahman Shafim",

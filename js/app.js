@@ -799,7 +799,7 @@ document.addEventListener("DOMContentLoaded", () => {
           const welcomeIndicator = showTypingIndicator();
           setTimeout(() => {
             hideTypingIndicator(welcomeIndicator);
-            addMessage("bot", "Hello! 👋 I am your SQAT Student Welfare Assistant. How can I help you today?");
+            addMessage("bot", "Hello! 👋 I am your SQAT Club AI Assistant. How can I help you today?");
             renderSuggestions();
           }, 600);
         }
@@ -2240,7 +2240,7 @@ Department: ${dept || "[Your Department]"}`
   // 19. HERO SECTION TYPEWRITER/TYPING EFFECT
   const typingTarget = document.getElementById("hero-typing-target");
   if (typingTarget) {
-    const words = ["Empowering Students", "Supporting Academic Growth", "Fostering SQA Talents", "Connecting Welfare Resources"];
+    const words = ["SQAT Club DIU", "Software Testing & SQA", "Empowering Students", "Technical Excellence", "Student Welfare & Support"];
     let wordIndex = 0;
     let charIndex = 0;
     let isDeleting = false;
