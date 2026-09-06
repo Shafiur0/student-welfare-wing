@@ -1008,41 +1008,7 @@
 
 
 
-    <!-- DIU Campus Room & Lab Finder Section -->
-    <section id="room-finder" class="reveal" style="padding: 80px 0; background: rgba(255, 255, 255, 0.01); border-top: 1px solid var(--border-glass); border-bottom: 1px solid var(--border-glass);">
-      <div class="section-container">
-        <span class="section-tag">Campus Helper</span>
-        <h2 class="section-title">DIU Room & Lab Finder</h2>
-        <p class="section-desc">Quickly find classrooms, labs, administrative offices, and common spaces in Daffodil Smart City.</p>
 
-        <div class="room-finder-container glow-card" style="max-width: 600px; margin: 40px auto 0; padding: 32px; border-radius: var(--radius-xl); background: var(--bg-glass); border: 1px solid var(--border-glass); text-align: center;">
-          <div class="form-group" style="margin-bottom: 24px;">
-            <label for="room-select" style="font-size: 0.9rem; font-weight: 600; color: var(--text-secondary); margin-bottom: 10px; display: block; text-align: left;">Select Destination *</label>
-            <select id="room-select" style="width: 100%; padding: 12px 16px; border-radius: var(--radius-md); border: 1px solid var(--border-glass); background: rgba(0,0,0,0.25); color: var(--text-primary); font-size: 0.95rem; cursor: pointer; transition: border-color var(--transition-normal);">
-              <option value="" disabled selected>-- Select a Location --</option>
-              <option value="welfare">Student Welfare Wing Office</option>
-              <option value="swe-lab-1">Software Engineering Lab 1 (AB4-302)</option>
-              <option value="swe-lab-2">Software Engineering Lab 2 (AB4-304)</option>
-              <option value="cse-lab-3">Computer Science Lab 3 (AB4-201)</option>
-              <option value="library">Main University Library (AB4 Ground Floor)</option>
-              <option value="exam-hall">Exam Hall (AB4-401)</option>
-              <option value="sports">Indoor Games Club Room (Student Lounge)</option>
-              <option value="cafeteria">Central Cafeteria / Food Court</option>
-            </select>
-          </div>
-
-          <div id="room-result-card" style="display: none; padding: 20px; border-radius: var(--radius-lg); background: rgba(var(--primary-rgb), 0.05); border: 1px solid rgba(var(--primary-rgb), 0.15); margin-top: 20px; text-align: left; animation: quizFadeIn 0.3s ease-out;">
-            <h4 id="room-result-title" style="font-size: 1.1rem; font-weight: 700; color: var(--primary); margin-bottom: 8px;">Welfare Wing Office</h4>
-            <div style="font-size: 0.9rem; color: var(--text-secondary); display: flex; flex-direction: column; gap: 8px;">
-              <div><strong>Building:</strong> <span id="room-result-bldg">Academic Building 4 (AB4)</span></div>
-              <div><strong>Floor:</strong> <span id="room-result-floor">4th Floor</span></div>
-              <div><strong>Room:</strong> <span id="room-result-num">Room 402</span></div>
-              <div><strong>Directions:</strong> <span id="room-result-dir">Take the main lift to Floor 4. Turn left; Room 402 is next to the SWE Department Head's office.</span></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
 
     <!-- Contact Section -->
     <section id="contact" class="reveal">
@@ -1079,6 +1045,16 @@
                 <p>Software Quality Assurance & Testing Club (SQAT),</p>
                 <p>SWE Department, Daffodil Smart City,</p>
                 <p>Birulia, Savar, Dhaka, Bangladesh</p>
+              </div>
+            </div>
+
+            <div class="contact-card glow-card contact-item">
+              <div class="contact-icon"><i class="fa-solid fa-building-user"></i></div>
+              <div class="contact-details">
+                <h5>SQAT Office & Welfare Desk</h5>
+                <p><strong>Campus:</strong> DIU Main Campus, Dhaka</p>
+                <p><strong>Location:</strong> Academic Building 4, Floor 4, Room 402</p>
+                <p style="margin-top: 4px; color: var(--primary); font-weight: 600;"><i class="fa-regular fa-clock" style="margin-right: 4px;"></i> Office hours: 9:00 AM - 5:00 PM (Sun - Thu)</p>
               </div>
             </div>
           </div>
@@ -1230,7 +1206,6 @@
           <a href="#testimonials">Testimonials</a>
           <a href="#quiz">QA Game</a>
           <a href="#gallery">Gallery</a>
-          <a href="#room-finder">Room Finder</a>
           <a href="#contact">Contact</a>
         </div>
       </div>
