@@ -724,36 +724,7 @@
           </div>
         </div>
 
-        <!-- Dynamic Wing Members Directory -->
-        <h3 class="section-tag" style="display: table; margin: 0 auto 24px;">Wing Members Directory</h3>
 
-        <!-- Search & Dynamic Filtering controls -->
-        <div class="members-filter-controls">
-          <div class="search-input-wrapper">
-            <i class="fa-solid fa-magnifying-glass search-icon"></i>
-            <input type="text" id="member-search" class="search-input" placeholder="Search members by name...">
-          </div>
-          <div class="filters-wrapper">
-            <select id="filter-dept" class="filter-select">
-              <option value="all">All Departments</option>
-              <option value="Software Engineering">Software Engineering</option>
-              <option value="Computer Science & Engineering">CSE</option>
-              <option value="Information Technology">Information Technology</option>
-            </select>
-            <select id="filter-session" class="filter-select">
-              <option value="all">All Sessions</option>
-              <option value="Spring 2023">Spring 2023</option>
-              <option value="Summer 2023">Summer 2023</option>
-              <option value="Fall 2023">Fall 2023</option>
-              <option value="Spring 2024">Spring 2024</option>
-            </select>
-          </div>
-        </div>
-
-        <!-- Render Target for Dynamic Cards -->
-        <div class="dynamic-members-grid" id="members-grid-target">
-          <!-- Populated by JS -->
-        </div>
 
       </div>
     </section>
@@ -1304,37 +1275,7 @@
     </div>
   </footer>
 
-  <!-- View Profile Modal (For Wing Members) -->
-  <div class="modal-overlay" id="profile-modal">
-    <div class="modal-card">
-      <button class="modal-close" id="modal-close-btn" aria-label="Close Modal"><i
-          class="fa-solid fa-xmark"></i></button>
-      <div class="modal-header">
-        <div class="modal-img-wrapper">
-          <img src="" alt="" id="modal-user-img" class="modal-img">
-        </div>
-        <h3 id="modal-user-name">Member Name</h3>
-        <div class="modal-pos" id="modal-user-pos">Welfare Volunteer</div>
-      </div>
-      <div class="modal-body-list">
-        <div class="modal-info-item">
-          <span class="modal-info-label">Department</span>
-          <span class="modal-info-val" id="modal-user-dept">Software Engineering</span>
-        </div>
-        <div class="modal-info-item">
-          <span class="modal-info-label">Session</span>
-          <span class="modal-info-val" id="modal-user-session">Spring 2023</span>
-        </div>
-        <div class="modal-info-item">
-          <span class="modal-info-label">Organization</span>
-          <span class="modal-info-val">SQAT Club, DIU</span>
-        </div>
-      </div>
-      <div class="modal-actions" id="modal-socials-wrapper">
-        <!-- Social buttons dynamically inserted -->
-      </div>
-    </div>
-  </div>
+
 
   <!-- Resource Viewer Modal -->
   <div class="modal-overlay" id="resource-modal">
@@ -1452,8 +1393,7 @@
     </div>
   </div>
 
-  <!-- Load Scripts -->
-  <script src="js/members.js"></script>
+
   <script src="js/gallery.js"></script>
   <script src="js/resources.js"></script>
   <script src="js/activities.js"></script>
