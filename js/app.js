@@ -649,22 +649,16 @@ document.addEventListener("DOMContentLoaded", () => {
   if (chatbotLauncher && chatbotWindow) {
     const CHAT_KNOWLEDGE = [
       {
-        id: "waiver",
-        suggestion: "Waiver Requirements",
-        keywords: ["waiver", "scholarship", "financial", "discount", "fees", "gpa", "cgpa"],
-        response: "To apply for waiver support:<br>• Maintain a minimum <strong>CGPA of 3.00</strong>.<br>• Submit the online Waiver Form through your student portal.<br>• For validation or queries, visit the Welfare Desk or message <strong>Liza Akter</strong> (Student Welfare Secretary)."
-      },
-      {
         id: "secretary",
         suggestion: "Contact Secretaries",
-        keywords: ["secretary", "liza", "contact", "facebook", "linkedin", "officers", "board"],
-        response: "Here are details for our key secretaries:<br>• <strong>Student Welfare:</strong> Liza Akter (<a href='https://www.facebook.com/Lizaaaaaa85' target='_blank' rel='noopener'>Facebook Profile</a>)<br>• <strong>Women Welfare:</strong> Tasfia Jahan Nisha<br>• <strong>Office & Org:</strong> Rukaiya Akter Trisha<br>Click 'View Profile' under their cards in the Secretarial section for details."
+        keywords: ["secretary", "secretaries", "president", "vp", "vice president", "general secretary", "joint secretary", "liza", "shafim", "biva", "seam", "contact", "facebook", "whatsapp", "linkedin", "officers", "board", "executive"],
+        response: "<strong>SQAT Club Executive Leadership & Secretaries Contact Info:</strong><br><br>👑 <strong>President:</strong> Biva Mohosina<br><a href='https://www.facebook.com/biva.mohosina/' target='_blank' rel='noopener'><i class='fa-brands fa-facebook'></i> Facebook</a><br><br>⭐ <strong>Vice Presidents:</strong><br>• Muhammad Tanvir Ahmed<br>• S. M. Hasib Hasnain<br><br>📝 <strong>General Secretary:</strong> Seam Ahmed<br><a href='https://www.facebook.com/seam.ahmed.928298' target='_blank' rel='noopener'><i class='fa-brands fa-facebook'></i> Facebook</a><br><br>🤝 <strong>Joint Secretaries:</strong><br>• B. M. Abir Hassan (<a href='https://www.facebook.com/bmabir02z' target='_blank' rel='noopener'><i class='fa-brands fa-facebook'></i> Facebook</a>)<br>• Imrul Kayes Riaz<br><br>💙 <strong>Student Welfare Secretary:</strong> Liza Akter<br><a href='https://www.facebook.com/Lizaaaaaa85' target='_blank' rel='noopener'><i class='fa-brands fa-facebook'></i> Facebook</a><br><br>🚀 <strong>Deputy Secretary:</strong> Shafiur Rahman Shafim<br><a href='https://www.facebook.com/shafiurrahaman.shafim' target='_blank' rel='noopener'><i class='fa-brands fa-facebook'></i> Facebook</a> | <a href='https://www.linkedin.com/in/shafiur-rahman-shafim/' target='_blank' rel='noopener'><i class='fa-brands fa-linkedin'></i> LinkedIn</a><br><br><em>Explore the Executive Leadership & Secretarial sections on this page for complete profile cards!</em>"
       },
       {
         id: "join",
         suggestion: "Join SQAT Club",
-        keywords: ["join", "membership", "apply", "recruit", "registration", "member", "sqat"],
-        response: "SQAT Club membership recruitment opens at the start of each semester! Keep an eye on campus announcements or fill out the pre-registration inquiry on our <a href='#contact'>Contact Form</a>."
+        keywords: ["join", "membership", "apply", "recruit", "registration", "member", "sqat", "form", "google form"],
+        response: "SQAT Club membership recruitment opens at the start of each semester! Keep an eye on campus announcements or fill out the pre-registration inquiry on our <a href='https://forms.gle/sqatClubRecruitment' target='_blank' rel='noopener'>Official Recruitment Google Form</a>."
       },
       {
         id: "resources",
@@ -776,7 +770,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (matchedIntent) {
         triggerBotResponse(matchedIntent.response);
       } else {
-        const fallbackText = "I am not sure I understand that. Please try choosing one of the popular topics below, or rephrase your question about waivers, secretaries, joining, or resources.";
+        const fallbackText = "I am not sure I understand that. Please try choosing one of the popular topics below, or rephrase your question about leadership/secretaries, joining SQAT Club, or study resources.";
         triggerBotResponse(fallbackText);
       }
     };
