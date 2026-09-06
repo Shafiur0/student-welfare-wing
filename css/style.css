@@ -75,10 +75,16 @@ html {
   color: var(--text-primary);
   background-color: var(--bg-primary);
   transition: background-color var(--transition-normal), color var(--transition-normal);
+  overflow-x: hidden;
+  max-width: 100%;
+  width: 100%;
 }
 
 body {
   overflow-x: hidden;
+  max-width: 100%;
+  width: 100%;
+  position: relative;
 }
 
 img {
