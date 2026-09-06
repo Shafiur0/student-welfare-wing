@@ -2051,6 +2051,200 @@ document.addEventListener("DOMContentLoaded", () => {
         ctx.globalAlpha = c.p.opacity;
         ctx.beginPath();
         ctx.arc(c.drawX, c.drawY, c.p.r, 0, Math.PI * 2);
+  // 24. CUSTOM INTERACTIVE CURSOR AURA & GLOW TRAIL
+  const cursorAura = document.getElementById("custom-cursor");
+  const cursorDot = document.getElementById("custom-cursor-dot");
+  
+  if (cursorAura && cursorDot) {
+    const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0 || window.matchMedia("(pointer: coarse)").matches;
+    
+    if (!isTouchDevice && window.innerWidth > 768) {
+      cursorAura.style.display = "block";
+      cursorDot.style.display = "block";
+      
+      let mouseX = 0, mouseY = 0;
+      let auraX = 0, auraY = 0;
+      let dotX = 0, dotY = 0;
+      let hoverTarget = null;
+      
+      document.addEventListener("mousemove", (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+      });
+      
+      document.addEventListener("mouseover", (e) => {
+        const target = e.target.closest("a, button, .btn, .mood-btn, .chat-chip, .social-btn, #theme-toggle-btn, .timeline-node");
+        if (target) {
+          hoverTarget = target;
+        }
+      });
+      
+      document.addEventListener("mouseout", (e) => {
+        const target = e.target.closest("a, button, .btn, .mood-btn, .chat-chip, .social-btn, #theme-toggle-btn, .timeline-node");
+        if (target && target === hoverTarget) {
+          hoverTarget = null;
+        }
+      });
+      
+      // Cursor aura update loop
+      const updateCursor = () => {
+        let targetX = mouseX;
+        let targetY = mouseY;
+        
+        if (hoverTarget) {
+          const rect = hoverTarget.getBoundingClientRect();
+          const elemX = rect.left + rect.width / 2;
+          const elemY = rect.top + rect.height / 2;
+          // Magnet pull (35% snap towards center of the hovered element)
+          targetX = mouseX + (elemX - mouseX) * 0.35;
+          targetY = mouseY + (elemY - mouseY) * 0.35;
+        }
+        
+        // Easing interpolation (lerp)
+        auraX += (targetX - auraX) * 0.15;
+        auraY += (targetY - auraY) * 0.15;
+        cursorAura.style.left = `${auraX}px`;
+        cursorAura.style.top = `${auraY}px`;
+        
+        dotX += (mouseX - dotX) * 0.35;
+        dotY += (mouseY - dotY) * 0.35;
+        cursorDot.style.left = `${dotX}px`;
+        cursorDot.style.top = `${dotY}px`;
+        
+        requestAnimationFrame(updateCursor);
+      };
+      
+      updateCursor();
+      
+      // Expansion hover listener
+      const addCursorHover = () => cursorAura.classList.add("cursor-hover");
+      const removeCursorHover = () => cursorAura.classList.remove("cursor-hover");
+      
+      const updateHoverListeners = () => {
+        const targets = document.querySelectorAll("a, button, input[type='button'], input[type='submit'], input[type='range'], select, textarea, .btn, .glow-card, .board-card, .folder-card, .gallery-item, .mood-btn, .timeline-node, .timeline-card, .stat-card, .chat-chip, .gallery-tab");
+        targets.forEach(t => {
+          t.removeEventListener("mouseenter", addCursorHover);
+          t.removeEventListener("mouseleave", removeCursorHover);
+          t.addEventListener("mouseenter", addCursorHover);
+          t.addEventListener("mouseleave", removeCursorHover);
+        });
+      };
+      
+      updateHoverListeners();
+      // Periodically refresh list of hover elements to support dynamic elements
+      setInterval(updateHoverListeners, 1500);
+    }
+  }
+
+  // 25. INTERACTIVE PARALLAX MESH CANVAS BACKGROUND
+  const meshCanvas = document.getElementById("mesh-canvas");
+  if (meshCanvas) {
+    const ctx = meshCanvas.getContext("2d");
+    let particles = [];
+    const particleCount = 65;
+    const connectionDistance = 120;
+    
+    let windowMouseX = window.innerWidth / 2;
+    let windowMouseY = window.innerHeight / 2;
+    let targetMouseX = window.innerWidth / 2;
+    let targetMouseY = window.innerHeight / 2;
+    
+    window.addEventListener("mousemove", (e) => {
+      targetMouseX = e.clientX;
+      targetMouseY = e.clientY;
+    });
+    
+    const resizeCanvas = () => {
+      meshCanvas.width = window.innerWidth;
+      meshCanvas.height = window.innerHeight;
+      initParticles();
+    };
+    
+    const initParticles = () => {
+      particles = [];
+      for (let i = 0; i < particleCount; i++) {
+        particles.push({
+          x: Math.random() * meshCanvas.width,
+          y: Math.random() * meshCanvas.height,
+          vx: (Math.random() - 0.5) * 0.4,
+          vy: (Math.random() - 0.5) * 0.4,
+          r: Math.random() * 2 + 1.2,
+          depth: Math.random() * 0.08 + 0.02, // Depth layers for parallax shifting
+          opacity: Math.random() * 0.35 + 0.15
+        });
+      }
+    };
+    
+    window.addEventListener("resize", resizeCanvas);
+    resizeCanvas();
+    
+    const animateMesh = () => {
+      // Ease mouse updates
+      windowMouseX += (targetMouseX - windowMouseX) * 0.05;
+      windowMouseY += (targetMouseY - windowMouseY) * 0.05;
+      
+      ctx.clearRect(0, 0, meshCanvas.width, meshCanvas.height);
+      
+      // Determine theme colors dynamically
+      const theme = document.documentElement.getAttribute("data-theme") || "light";
+      let particleColor;
+      if (theme === "dark") {
+        particleColor = "rgba(56, 189, 248, 0.4)";
+      } else {
+        particleColor = "rgba(15, 95, 255, 0.25)";
+      }
+      
+      const offsetX = (windowMouseX - meshCanvas.width / 2);
+      const offsetY = (windowMouseY - meshCanvas.height / 2);
+      
+      // Compute positions
+      const coords = particles.map(p => {
+        p.x += p.vx;
+        p.y += p.vy;
+        
+        // Wrap edges
+        if (p.x < 0) p.x = meshCanvas.width;
+        if (p.x > meshCanvas.width) p.x = 0;
+        if (p.y < 0) p.y = meshCanvas.height;
+        if (p.y > meshCanvas.height) p.y = 0;
+        
+        // Multi-layered parallax shifting
+        const drawX = p.x + offsetX * p.depth;
+        const drawY = p.y + offsetY * p.depth;
+        
+        return { p, drawX, drawY };
+      });
+      
+      // Draw connection lines
+      ctx.lineWidth = 1;
+      for (let i = 0; i < coords.length; i++) {
+        for (let j = i + 1; j < coords.length; j++) {
+          const c1 = coords[i];
+          const c2 = coords[j];
+          
+          const dx = c1.drawX - c2.drawX;
+          const dy = c1.drawY - c2.drawY;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          
+          if (dist < connectionDistance) {
+            const alpha = (1 - dist / connectionDistance) * 0.55;
+            ctx.strokeStyle = theme === "dark"
+              ? `rgba(56, 189, 248, ${alpha * 0.15})`
+              : `rgba(15, 95, 255, ${alpha * 0.08})`;
+            ctx.beginPath();
+            ctx.moveTo(c1.drawX, c1.drawY);
+            ctx.lineTo(c2.drawX, c2.drawY);
+            ctx.stroke();
+          }
+        }
+      }
+      
+      // Draw node particles
+      coords.forEach(c => {
+        ctx.fillStyle = particleColor;
+        ctx.globalAlpha = c.p.opacity;
+        ctx.beginPath();
+        ctx.arc(c.drawX, c.drawY, c.p.r, 0, Math.PI * 2);
         ctx.fill();
       });
       ctx.globalAlpha = 1.0;
@@ -2070,8 +2264,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (!daysEl || !hoursEl || !minsEl || !secsEl) return;
 
-    // Target date: September 8, 2026 09:00:00 AM (+06:00)
-    const targetDate = new Date("2026-09-08T09:00:00+06:00").getTime();
+    // Target date: September 8, 2026 (End of day so 6th Sept shows 2 days remaining)
+    const targetDate = new Date("2026-09-08T23:59:59+06:00").getTime();
 
     const updateCountdown = () => {
       const now = new Date().getTime();
