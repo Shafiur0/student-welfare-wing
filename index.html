@@ -104,6 +104,7 @@
 
       <nav class="nav-menu" id="nav-menu">
         <a href="#home" class="nav-link active">Home</a>
+        <a href="#notice-panel" class="nav-link nav-notice-link"><i class="fa-solid fa-bell nav-icon-badge"></i> Notice Board</a>
         <a href="#leadership" class="nav-link">Leadership</a>
         <a href="#welfare-wing" class="nav-link">Welfare Wing</a>
         <a href="#activities" class="nav-link">Activities</a>
@@ -133,6 +134,14 @@
     <!-- Hero Section -->
     <section id="home" class="hero">
       <div class="section-container">
+        <!-- Hero Notice Alert Banner -->
+        <div class="hero-notice-banner reveal">
+          <span class="notice-pulse"></span>
+          <span class="notice-badge"><i class="fa-solid fa-bullhorn"></i> UPCOMING EVENT</span>
+          <span class="notice-text">Batch 263 Freshers' Orientation Program — <strong>8th September 2026</strong></span>
+          <a href="#notice-panel" class="notice-link-btn">Read Notice & Speech <i class="fa-solid fa-arrow-down"></i></a>
+        </div>
+
         <div class="hero-brand-container reveal">
           <div class="sqat-stylized-logo">
             <div class="sqat-bug-icon-wrapper" title="Software Quality Assurance & Testing Bug Emblem">
@@ -145,7 +154,7 @@
         </h1>
         <p class="hero-tagline reveal">Official website of Daffodil International University's Software Quality Assurance & Testing Club (SQAT Club). Driving SQA excellence, technical workshops, leadership, and student welfare.</p>
         <div class="hero-actions reveal">
-          <a href="#leadership" class="btn btn-primary">Explore SQAT Club <i class="fa-solid fa-arrow-right"></i></a>
+          <a href="#notice-panel" class="btn btn-primary"><i class="fa-solid fa-bell"></i> Batch 263 Notice & Speech</a>
           <a href="#welfare-wing" class="btn btn-secondary">Student Welfare Wing</a>
         </div>
 
@@ -166,6 +175,128 @@
           <div class="stat-card glow-card">
             <div class="stat-num" data-target="150">0</div>
             <div class="stat-label">Welfare Initiatives</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Notice Panel & Upcoming Events Section -->
+    <section id="notice-panel" class="reveal notice-section">
+      <div class="section-container">
+        <span class="section-tag"><i class="fa-solid fa-bell"></i> Official Announcement & Notice Board</span>
+        <h2 class="section-title">Upcoming Event & Freshers' Orientation Notice</h2>
+        <p class="section-desc">Warmest welcome to Batch 263 Freshers entering Daffodil International University!</p>
+
+        <!-- Main Notice Container -->
+        <div class="notice-card glow-card reveal">
+          <div class="notice-top-bar">
+            <div class="notice-status-badge">
+              <i class="fa-solid fa-calendar-star"></i> MAJOR UPCOMING EVENT
+            </div>
+            <div class="notice-date-badge">
+              <i class="fa-solid fa-calendar-day"></i> 8th September 2026
+            </div>
+          </div>
+
+          <div class="notice-content-grid">
+            <!-- Event Summary & Countdown Box -->
+            <div class="notice-event-info">
+              <div class="notice-icon-box">
+                <i class="fa-solid fa-graduation-cap"></i>
+              </div>
+              <h3 class="notice-event-title">Freshers' Orientation Program — Batch 263</h3>
+              <p class="notice-organizer">
+                <i class="fa-solid fa-building-columns"></i> Organized by Daffodil International University<br>
+                <span class="notice-contribution"><i class="fa-solid fa-hand-holding-heart"></i> Actively Contributed & Supported by SQAT Club & Student Welfare Wing</span>
+              </p>
+
+              <div class="notice-event-details">
+                <div class="detail-item">
+                  <i class="fa-solid fa-calendar-days"></i>
+                  <div>
+                    <strong>Date & Schedule</strong>
+                    <span>September 08, 2026</span>
+                  </div>
+                </div>
+                <div class="detail-item">
+                  <i class="fa-solid fa-location-dot"></i>
+                  <div>
+                    <strong>Campus Venue</strong>
+                    <span>DIU Main Auditorium & Campus Grounds</span>
+                  </div>
+                </div>
+                <div class="detail-item">
+                  <i class="fa-solid fa-users"></i>
+                  <div>
+                    <strong>Target Audience</strong>
+                    <span>Newly Admitted Freshers of Batch 263</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Event Live Countdown -->
+              <div class="notice-countdown-wrapper">
+                <div class="countdown-title"><i class="fa-solid fa-hourglass-half"></i> Orientation Live Countdown</div>
+                <div class="countdown-timer">
+                  <div class="count-box"><span id="cd-days">00</span><label>Days</label></div>
+                  <div class="count-box"><span id="cd-hours">00</span><label>Hours</label></div>
+                  <div class="count-box"><span id="cd-mins">00</span><label>Mins</label></div>
+                  <div class="count-box"><span id="cd-secs">00</span><label>Secs</label></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Motivational Speech & Guidance Box -->
+            <div class="notice-speech-box">
+              <div class="speech-header">
+                <div class="speech-avatar-group">
+                  <img src="assets/members/shafim.jpg" alt="Shafiur Rahman Shafim" class="speech-avatar" title="Shafiur Rahman Shafim (Deputy Secretary)">
+                  <img src="assets/members/biva.jpg" alt="Biva Mohosina" class="speech-avatar" title="Biva Mohosina (President)">
+                </div>
+                <div>
+                  <h4 class="speech-author-title">Motivational Guidance for Batch 263</h4>
+                  <p class="speech-author-sub">From SQAT Club Executive Board & Student Welfare Wing</p>
+                </div>
+              </div>
+
+              <div class="speech-quote-container">
+                <i class="fa-solid fa-quote-left quote-icon"></i>
+                <h4 class="speech-headline">"Stepping into Tomorrow: Overcoming Academic Challenges & Mastering Practical Skills"</h4>
+                
+                <div class="speech-body">
+                  <p class="speech-intro">Dear Freshers of <strong>Batch 263</strong> — Welcome to Daffodil International University!</p>
+                  <p>Stepping onto our university campus marks the beginning of one of the most exciting, transformative chapters of your life. As you start your academic journey, remember that higher education is far more than attending lectures or passing exams—it is about discovering your true potential, conquering academic challenges, and converting raw curiosity into real-world technical expertise.</p>
+
+                  <div class="speech-highlight-grid">
+                    <div class="highlight-card">
+                      <div class="highlight-icon"><i class="fa-solid fa-book-journal-whills"></i></div>
+                      <h5>1. Overcoming Academic Challenges</h5>
+                      <p>Technical coursework in Software Engineering can feel demanding. Don't fear initial hurdles! Practice daily consistency, stay organized with coursework, and lean on peer mentorship whenever you encounter difficulty.</p>
+                    </div>
+                    <div class="highlight-card">
+                      <div class="highlight-icon"><i class="fa-solid fa-laptop-code"></i></div>
+                      <h5>2. Mastering Practical & SQA Skills</h5>
+                      <p>Theory builds your foundation, but hands-on project experience builds your career! Start coding early, dive into Software Quality Assurance & Testing, and build real-world software applications to stand out in the industry.</p>
+                    </div>
+                    <div class="highlight-card">
+                      <div class="highlight-icon"><i class="fa-solid fa-hands-holding-circle"></i></div>
+                      <h5>3. Welfare & Community Support</h5>
+                      <p>You are never alone on this journey. The SQAT Club and Student Welfare Wing provide continuous support—from technical bootcamps and study groups to mental health guidance and emergency assistance.</p>
+                    </div>
+                  </div>
+
+                  <div class="speech-conclusion">
+                    <i class="fa-solid fa-heart-pulse wish-icon"></i>
+                    <p><strong>We wish every fresher of Batch 263 the absolute best of luck!</strong> Dream big, work hard, stay curious, and make your campus life extraordinary!</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="speech-actions">
+                <a href="#activities" class="btn btn-primary btn-sm"><i class="fa-solid fa-calendar-check"></i> Explore Club Events</a>
+                <a href="#welfare-wing" class="btn btn-secondary btn-sm"><i class="fa-solid fa-shield-halved"></i> Welfare Support Wing</a>
+              </div>
+            </div>
           </div>
         </div>
       </div>
