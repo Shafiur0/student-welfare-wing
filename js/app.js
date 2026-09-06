@@ -2588,65 +2588,7 @@ document.addEventListener("DOMContentLoaded", () => {
     animateMesh();
   }
 
-  // 26. DIU TUITION WAIVER SPEEDOMETER & FORECAST CALCULATOR
-  const gpaSlider = document.getElementById("gpa-slider");
-  const gpaDisplay = document.getElementById("gpa-display");
-  const creditsSelect = document.getElementById("credits-select");
-  const gaugeProgress = document.getElementById("gauge-progress");
-  const waiverPercentage = document.getElementById("waiver-percentage");
-  const waiverForecastText = document.getElementById("waiver-forecast-text");
 
-  if (gpaSlider && gpaDisplay && creditsSelect && gaugeProgress && waiverPercentage && waiverForecastText) {
-    const calculateWaiver = () => {
-      const gpa = parseFloat(gpaSlider.value);
-      const credits = parseInt(creditsSelect.value);
-      
-      gpaDisplay.textContent = gpa.toFixed(2);
-      
-      let waiver = 0;
-      let forecast = "";
-      
-      if (credits < 12) {
-        waiver = 0;
-        forecast = "Note: You must register for at least 12 credits in the current semester to be eligible for academic tuition waivers. Currently selected credits do not qualify.";
-      } else {
-        if (gpa === 4.00) {
-          waiver = 100;
-          forecast = "Incredible! You qualify for a <strong>100% tuition waiver</strong>. Keep maintaining this perfect score!";
-        } else if (gpa >= 3.90) {
-          waiver = 75;
-          const diff = (4.00 - gpa).toFixed(2);
-          forecast = `Outstanding! You qualify for a <strong>75% waiver</strong>. You are only <strong>${diff} GPA</strong> away from a 100% waiver!`;
-        } else if (gpa >= 3.80) {
-          waiver = 50;
-          const diff = (3.90 - gpa).toFixed(2);
-          forecast = `Excellent work! You qualify for a <strong>50% waiver</strong>. You are only <strong>${diff} GPA</strong> away from a 75% waiver!`;
-        } else if (gpa >= 3.50) {
-          waiver = 25;
-          const diff = (3.80 - gpa).toFixed(2);
-          forecast = `Great job! You qualify for a <strong>25% waiver</strong>. You are only <strong>${diff} GPA</strong> away from a 50% waiver!`;
-        } else {
-          waiver = 0;
-          const diff = (3.50 - gpa).toFixed(2);
-          forecast = `No waiver. You are only <strong>${diff} GPA</strong> away from a 25% waiver! Keep pushin' and check out resources in the Study Vault!`;
-        }
-      }
-      
-      waiverPercentage.textContent = `${waiver}%`;
-      waiverForecastText.innerHTML = forecast;
-      
-      // Update speedometer circular progress dial
-      const maxStroke = 471;
-      const offset = maxStroke - (maxStroke * waiver) / 100;
-      gaugeProgress.style.strokeDashoffset = offset;
-    };
-    
-    gpaSlider.addEventListener("input", calculateWaiver);
-    creditsSelect.addEventListener("change", calculateWaiver);
-    
-    // Perform initial calculation
-    calculateWaiver();
-  }
 });
 
 

@@ -3508,10 +3508,6 @@ footer {
 }
 
 @media (max-width: 768px) {
-  .calculator-grid {
-    grid-template-columns: 1fr !important;
-    gap: 24px !important;
-  }
   .study-tools-grid {
     grid-template-columns: 1fr !important;
     gap: 20px !important;
