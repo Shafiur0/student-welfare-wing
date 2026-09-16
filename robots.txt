@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://student-welfare-wing.vercel.app/sitemap.xml
+Sitemap: https://sqatclub.vercel.app/sitemap.xml
