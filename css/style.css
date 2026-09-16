@@ -1418,65 +1418,174 @@ footer {
 }
 
 /* --- DEVELOPER CREDIT (SIMPLE & MODERN) --- */
+/* ─── FOOTER DEVELOPER CREDIT – PREMIUM PROFILE CARD ─── */
 .footer-developer-credit {
   display: flex;
   align-items: center;
-  gap: 12px;
-  background-color: var(--bg-primary);
-  border: 1px solid var(--border-glass);
-  padding: 8px 16px;
-  border-radius: var(--radius-md);
-  box-shadow: var(--shadow-sm);
+  gap: 16px;
+  background: linear-gradient(135deg, var(--bg-primary) 0%, rgba(var(--primary-rgb), 0.04) 100%);
+  border: 1px solid rgba(var(--primary-rgb), 0.18);
+  padding: 14px 20px 14px 14px;
+  border-radius: 20px;
+  box-shadow: 0 4px 24px rgba(var(--primary-rgb), 0.08), var(--shadow-sm);
   transition: var(--transition-normal);
+  position: relative;
+  overflow: visible;
+}
+
+.footer-developer-credit::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  background: linear-gradient(135deg, rgba(var(--primary-rgb), 0.06), transparent);
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  pointer-events: none;
 }
 
 .footer-developer-credit:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
-  border-color: rgba(var(--primary-rgb), 0.2);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 32px rgba(var(--primary-rgb), 0.18), var(--shadow-md);
+  border-color: rgba(var(--primary-rgb), 0.38);
 }
 
-.footer-developer-credit span {
+.footer-developer-credit:hover::before {
+  opacity: 1;
+}
+
+/* Avatar wrapper */
+.dev-avatar-wrap {
+  position: relative;
+  flex-shrink: 0;
+  width: 58px;
+  height: 58px;
+}
+
+/* Animated spinning ring */
+.dev-avatar-ring {
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 0deg,
+    var(--primary) 0%,
+    rgba(var(--primary-rgb), 0.2) 40%,
+    var(--primary) 100%
+  );
+  animation: ring-spin 3.5s linear infinite;
+  z-index: 0;
+}
+
+@keyframes ring-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Profile image */
+.dev-avatar-img {
+  position: relative;
+  z-index: 1;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: top center;
+  border: 2.5px solid var(--bg-primary);
+  margin: 3px;
+  display: block;
+  transition: transform 0.4s ease;
+}
+
+.footer-developer-credit:hover .dev-avatar-img {
+  transform: scale(1.06);
+}
+
+/* Code badge */
+.dev-avatar-badge {
+  position: absolute;
+  bottom: -2px;
+  right: -2px;
+  z-index: 2;
+  width: 20px;
+  height: 20px;
+  background: var(--primary);
+  border-radius: 50%;
+  border: 2px solid var(--bg-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.52rem;
+  color: #fff;
+}
+
+/* Card text body */
+.dev-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.dev-card-label {
+  font-size: 0.72rem;
   font-weight: 500;
   color: var(--text-light);
-  font-size: 0.8rem;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  line-height: 1;
 }
 
 .footer-developer-credit .dev-name {
-  font-weight: 600;
+  font-weight: 700;
+  font-size: 0.95rem;
   color: var(--primary);
   transition: var(--transition-fast);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
 }
 
 .footer-developer-credit .dev-name:hover {
   color: var(--primary-hover);
   text-decoration: underline;
+  text-underline-offset: 3px;
 }
 
+.dev-card-role {
+  font-size: 0.7rem;
+  color: var(--text-light);
+  font-weight: 400;
+  line-height: 1;
+  opacity: 0.8;
+}
+
+/* Social links row */
 .dev-credit-socials {
   display: flex;
   gap: 6px;
-  border-left: 1px solid var(--border-glass);
-  padding-left: 12px;
+  margin-top: 6px;
+  border-left: none;
+  padding-left: 0;
 }
 
 .dev-credit-socials a {
-  width: 28px;
-  height: 28px;
+  width: 26px;
+  height: 26px;
   border-radius: var(--radius-full);
-  background-color: var(--border-subtle);
-  color: var(--text-secondary);
+  background-color: rgba(var(--primary-rgb), 0.08);
+  color: var(--primary);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.8rem;
+  font-size: 0.72rem;
   transition: var(--transition-fast);
+  border: 1px solid rgba(var(--primary-rgb), 0.15);
 }
 
 .dev-credit-socials a:hover {
   background-color: var(--primary);
   color: #FFFFFF;
   transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(var(--primary-rgb), 0.35);
+  border-color: transparent;
 }
 
 /* --- LIGHTBOX OVERLAY --- */
