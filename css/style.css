@@ -434,6 +434,25 @@ header {
   width: 100%;
 }
 
+/* SQAT Certificate Portal – special external nav link */
+.nav-cert-link {
+  color: hsl(38, 92%, 50%) !important;
+  font-weight: 600 !important;
+}
+
+.nav-cert-link i {
+  margin-right: 4px;
+  font-size: 0.85em;
+}
+
+.nav-cert-link:hover {
+  color: hsl(38, 100%, 60%) !important;
+}
+
+.nav-cert-link::after {
+  background-color: hsl(38, 92%, 50%) !important;
+}
+
 .nav-actions {
   display: flex;
   align-items: center;
