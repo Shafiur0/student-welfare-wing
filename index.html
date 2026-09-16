@@ -58,8 +58,8 @@
   </script>
 
   <!-- Stylesheets -->
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/responsive.css">
+  <link rel="stylesheet" href="css/style.css?v=1.0.3">
+  <link rel="stylesheet" href="css/responsive.css?v=1.0.3">
 
   <!-- FontAwesome CDN for Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -1158,18 +1158,17 @@
 
       <!-- Compact Pill Developer Card -->
       <div class="footer-developer-credit">
-        <div class="dev-avatar-wrap">
+        <div class="dev-avatar-wrap" id="dev-avatar-wrap" onclick="window.openDevAvatarLightbox && window.openDevAvatarLightbox(event)" title="Click to view full photo" role="button" tabindex="0" aria-label="View Shafiur Rahman Shafim's full photo">
           <div class="dev-avatar-ring"></div>
           <img
             src="assets/dev-shafim-full.jpg"
             alt="Shafiur Rahman Shafim"
             class="dev-avatar-img"
             id="dev-avatar-photo"
-            title="Click to view full photo"
             data-full-src="assets/dev-shafim-full.jpg"
             data-caption="Shafiur Rahman Shafim — Deputy Secretary, Student Welfare Wing · SQAT Club"
           />
-          <span class="dev-avatar-badge"><i class="fa-solid fa-code"></i></span>
+          <span class="dev-avatar-zoom-icon"><i class="fa-solid fa-magnifying-glass-plus"></i></span>
         </div>
         <div class="dev-card-body">
           <p class="dev-card-label">Designed &amp; Developed by</p>
@@ -1311,7 +1310,7 @@
   <script src="js/testimonials.js"></script>
   <script src="js/quiz.js"></script>
   <script src="js/achievements.js"></script>
-  <script src="js/app.js?v=1.0.1"></script>
+  <script src="js/app.js?v=1.0.3"></script>
 </body>
 
 </html>

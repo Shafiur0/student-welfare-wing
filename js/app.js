@@ -241,6 +241,15 @@ document.addEventListener("DOMContentLoaded", () => {
     document.body.style.overflow = "hidden";
   };
 
+  window.openImageLightbox = openImageLightbox;
+  window.openDevAvatarLightbox = (e) => {
+    if (e && e.stopPropagation) e.stopPropagation();
+    const devImg = document.getElementById("dev-avatar-photo");
+    const fullSrc = (devImg && devImg.getAttribute("data-full-src")) || "assets/dev-shafim-full.jpg";
+    const caption = (devImg && devImg.getAttribute("data-caption")) || "Shafiur Rahman Shafim — Deputy Secretary, Student Welfare Wing · SQAT Club";
+    openImageLightbox(fullSrc, "Shafiur Rahman Shafim", caption);
+  };
+
   const openLightbox = (item) => {
     openImageLightbox(item.image, item.title, `${item.title} - ${item.date} (${item.description})`);
   };
@@ -263,8 +272,14 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Handle click on Convener, Co-Convener, Executive, Secretarial, or Wing Leadership member images
+  // Handle click on Convener, Co-Convener, Executive, Secretarial, Wing Leadership, and Developer Avatar
   document.addEventListener("click", (e) => {
+    // Developer Avatar Click
+    if (e.target.id === "dev-avatar-photo" || e.target.closest("#dev-avatar-wrap") || e.target.classList.contains("dev-avatar-img")) {
+      window.openDevAvatarLightbox(e);
+      return;
+    }
+
     if (e.target.classList.contains("spotlight-img") || e.target.classList.contains("board-img")) {
       const card = e.target.closest(".spotlight-card, .board-card, .secretary-card");
       let name = e.target.alt || "";
@@ -306,7 +321,9 @@ document.addEventListener("DOMContentLoaded", () => {
   // Close modals on Escape key
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape") {
-      closeProfileModal();
+      if (typeof closeProfileModal === "function") {
+        closeProfileModal();
+      }
       closeLightbox();
     }
   });
@@ -2108,15 +2125,22 @@ document.addEventListener("DOMContentLoaded", () => {
   initOrientationCountdown();
 
   // ── FOOTER DEVELOPER AVATAR → LIGHTBOX ──────────────────────────────
+  const devWrap = document.getElementById("dev-avatar-wrap");
   const devAvatarPhoto = document.getElementById("dev-avatar-photo");
-  if (devAvatarPhoto) {
-    devAvatarPhoto.addEventListener("click", () => {
-      const fullSrc  = devAvatarPhoto.getAttribute("data-full-src");
-      const caption  = devAvatarPhoto.getAttribute("data-caption") || "Shafiur Rahman Shafim";
-      const imgEl    = new Image();
-      imgEl.src      = fullSrc;
-      imgEl.onload   = () => openImageLightbox(fullSrc, "Shafiur Rahman Shafim", caption);
-      imgEl.onerror  = () => openImageLightbox(devAvatarPhoto.src, "Shafiur Rahman Shafim", caption);
+  
+  if (devWrap) {
+    devWrap.addEventListener("click", (e) => {
+      window.openDevAvatarLightbox(e);
+    });
+    devWrap.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        window.openDevAvatarLightbox(e);
+      }
+    });
+  } else if (devAvatarPhoto) {
+    devAvatarPhoto.addEventListener("click", (e) => {
+      window.openDevAvatarLightbox(e);
     });
   }
 

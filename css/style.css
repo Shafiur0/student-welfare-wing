@@ -1442,6 +1442,7 @@ footer {
   flex-shrink: 0;
   width: 38px;
   height: 38px;
+  cursor: pointer;
 }
 
 /* No spinning ring – just a clean border */
@@ -1462,12 +1463,38 @@ footer {
   cursor: pointer;
 }
 
+.dev-avatar-wrap:hover .dev-avatar-img,
 .footer-developer-credit:hover .dev-avatar-img {
   transform: scale(1.08);
-  box-shadow: 0 0 0 3px rgba(var(--primary-rgb), 0.28);
+  box-shadow: 0 0 0 3px rgba(var(--primary-rgb), 0.35);
 }
 
-/* Hide badge */
+/* Zoom hint badge on avatar */
+.dev-avatar-zoom-icon {
+  position: absolute;
+  bottom: -2px;
+  right: -2px;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: var(--primary);
+  color: #FFFFFF;
+  font-size: 7px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1.5px solid var(--bg-primary);
+  opacity: 0.85;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+  pointer-events: none;
+}
+
+.dev-avatar-wrap:hover .dev-avatar-zoom-icon {
+  transform: scale(1.2);
+  opacity: 1;
+}
+
+/* Hide old badge */
 .dev-avatar-badge {
   display: none;
 }
@@ -1540,7 +1567,7 @@ footer {
   position: fixed;
   inset: 0;
   background-color: rgba(9, 13, 26, 0.95);
-  z-index: 1000;
+  z-index: 100000;
   display: flex;
   align-items: center;
   justify-content: center;
