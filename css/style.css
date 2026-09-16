@@ -1458,11 +1458,13 @@ footer {
   object-position: top center;
   border: 2px solid rgba(var(--primary-rgb), 0.3);
   display: block;
-  transition: transform 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
 }
 
 .footer-developer-credit:hover .dev-avatar-img {
-  transform: scale(1.05);
+  transform: scale(1.08);
+  box-shadow: 0 0 0 3px rgba(var(--primary-rgb), 0.28);
 }
 
 /* Hide badge */

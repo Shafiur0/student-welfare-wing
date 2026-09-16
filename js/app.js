@@ -2101,10 +2101,23 @@ document.addEventListener("DOMContentLoaded", () => {
       secsEl.textContent = String(seconds).padStart(2, "0");
     };
 
-    updateCountdown();
+  updateCountdown();
     setInterval(updateCountdown, 1000);
   };
 
   initOrientationCountdown();
+
+  // ── FOOTER DEVELOPER AVATAR → LIGHTBOX ──────────────────────────────
+  const devAvatarPhoto = document.getElementById("dev-avatar-photo");
+  if (devAvatarPhoto) {
+    devAvatarPhoto.addEventListener("click", () => {
+      const fullSrc  = devAvatarPhoto.getAttribute("data-full-src");
+      const caption  = devAvatarPhoto.getAttribute("data-caption") || "Shafiur Rahman Shafim";
+      const imgEl    = new Image();
+      imgEl.src      = fullSrc;
+      imgEl.onload   = () => openImageLightbox(fullSrc, "Shafiur Rahman Shafim", caption);
+      imgEl.onerror  = () => openImageLightbox(devAvatarPhoto.src, "Shafiur Rahman Shafim", caption);
+    });
+  }
 
 });
