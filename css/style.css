@@ -370,12 +370,20 @@ header {
 }
 
 .logo-img {
-  height: 42px;
+  height: 48px;
   width: auto;
   object-fit: contain;
   border-radius: var(--radius-sm);
   filter: drop-shadow(0 2px 4px rgba(0,0,0,0.15));
-  transition: filter var(--transition-normal);
+  transition: filter var(--transition-normal), transform var(--transition-fast);
+}
+
+.logo-block:hover .logo-img {
+  transform: scale(1.05);
+}
+
+.footer-brand .logo-img {
+  height: 52px;
 }
 
 [data-theme="dark"] .logo-img {
